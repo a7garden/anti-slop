@@ -19,12 +19,10 @@ AI-assisted text drifts toward a recognizable median: stacked praise, uniform se
 One command installs (or updates) into every detected agent harness — omp (`~/.agents/skills`) and codex (`~/.codex/skills`); if neither exists, omp's is created:
 
 ```sh
-npx @a7garden/anti-slop
+npx github:a7garden/anti-slop
 ```
 
-Also works straight from GitHub without the npm registry: `npx github:a7garden/anti-slop`.
-
-Options: `-- --omp`, `-- --codex`, `-- --all`, `-- --dir <path>` (extra target), `-- --list`, `-- --uninstall`. **Update** by re-running the same command; the copy is replaced with the latest version.
+Options: `-- --omp`, `-- --codex`, `-- --all`, `-- --dir <path>` (extra target), `-- --list`, `-- --uninstall`. **Update** by re-running the same command; the copy is replaced with the latest `main`.
 
 Manual alternative — the skill folder is self-contained, so plain copying works everywhere:
 
