@@ -1,6 +1,6 @@
 ---
 name: anti-slop
-description: "Audit or revise writing in any language (Korean and English profiles included) and product UI for generic, inflated, repetitive, fabricated, inaccessible, or nonfunctional patterns while preserving meaning and context."
+description: "Audit, revise, or draft writing in any language (Korean and English profiles included) and product UI free of AI slop — generic, inflated, repetitive, fabricated, inaccessible, or nonfunctional patterns while preserving meaning, facts, and voice. Covers requests like 'AI 티 나는 표현 제거', '슬롭 감사', '자연스럽게 다듬어 줘', 'this reads like AI', 'this UI looks AI-generated', 'make this copy less generic'."
 metadata:
   short-description: "Careful writing and UI review"
 ---

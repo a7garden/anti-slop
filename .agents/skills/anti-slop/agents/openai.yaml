@@ -1,4 +1,4 @@
 interface:
   display_name: "Anti-slop"
   short_description: "Review writing and UI carefully"
-  default_prompt: "Use $anti-slop audit on the selected target. Preserve facts, intent, and meaningful style; separate proven defects from heuristic warnings and taste."
+  default_prompt: "Use $anti-slop on the selected target (audit, revise, or apply while drafting). Preserve facts, intent, and meaningful style; remove AI-flavored generic patterns; separate proven defects from heuristic warnings and taste."
