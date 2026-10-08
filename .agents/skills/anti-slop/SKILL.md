@@ -1,5 +1,6 @@
 ---
 name: anti-slop
+version: 1.0.1
 description: "Audit, revise, or draft writing in any language (Korean and English profiles included) and product UI free of AI slop — generic, inflated, repetitive, fabricated, inaccessible, or nonfunctional patterns while preserving meaning, facts, and voice. Covers requests like 'AI 티 나는 표현 제거', '슬롭 감사', '자연스럽게 다듬어 줘', 'this reads like AI', 'this UI looks AI-generated', 'make this copy less generic'."
 metadata:
   short-description: "Careful writing and UI review"
@@ -30,6 +31,12 @@ Choose references by target:
 Before editing, identify the user’s purpose, audience, claims, entities, quantities, units, dates, conditions, source attributions, uncertainty, and intended voice. Keep those facts and relationships intact. Never invent a metric, feature, source, quotation, user outcome, testimonial, benchmark, personal experience, or completed verification to make copy sound stronger. If evidence is missing, keep the uncertainty visible or ask a concise question; do not silently fill the gap.
 
 Preserve code, quoted source text, mathematics, units, URLs, identifiers, proper names, and meaningful sequence markers unless the user asks to change them. When revising, compare the result against the source for dropped or strengthened claims, changed subjects/timing/conditions, arithmetic changes, and unsupported details. If the edit would change meaning, restore the source meaning or mark the unresolved point instead of guessing.
+
+## Output format
+
+- **audit** — a ranked punch list, one line per finding: rule ID, class (확실한 오류 / 휴리스틱 경고 / 취향 제안), a short verbatim excerpt or concrete UI location, why it harms the reader or user, and one minimal repair. Close with anything that could not be verified. Do not edit the target.
+- **revise** — the bounded edits, then a change summary: what changed, which rule justified it (or "per the user's brief"), and any unresolved findings. The summary states exactly what changed — no more, no less.
+- **draft** — the deliverable only, with profiles applied silently; mention a rule only when you declined to add something the user asked for.
 
 ## Review discipline
 

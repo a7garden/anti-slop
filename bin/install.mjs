@@ -99,6 +99,15 @@ if (has("--list")) {
   process.exit(0);
 }
 
+const skillVersion = (dir) => {
+  try {
+    const text = require("node:fs").readFileSync(join(dir, "SKILL.md"), "utf8");
+    return text.match(/^version:\s*(\S+)/m)?.[1] ?? "unknown";
+  } catch {
+    return null;
+  }
+};
+
 for (const dir of targets) {
   const dest = installDirOf(dir);
   if (has("--uninstall")) {
@@ -110,13 +119,15 @@ for (const dir of targets) {
     }
     continue;
   }
+  const previous = skillVersion(dest);
   cpSync(SOURCE, dest, { recursive: true });
   const info = statSync(join(dest, "SKILL.md"));
   if (!info.isFile()) {
     console.error(`FAIL: ${dest} did not receive SKILL.md`);
     process.exit(1);
   }
-  console.log(`installed ${pkg.version} -> ${dest}`);
+  const current = skillVersion(dest);
+  console.log(`installed ${current}${previous && previous !== current ? ` (was ${previous})` : ""}${previous ? "" : " (new install)"} -> ${dest}`);
 }
 
 if (!has("--uninstall")) {

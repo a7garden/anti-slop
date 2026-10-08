@@ -110,6 +110,16 @@ def main() -> None:
         if safeguard.lower() not in skill_text.lower():
             fail(f"SKILL.md is missing safeguard or command: {safeguard}")
 
+    frontmatter = skill_text.split("---", 2)[1] if skill_text.startswith("---") else ""
+    skill_version = re.search(r"^version:\s*(\S+)", frontmatter, flags=re.MULTILINE)
+    if not skill_version:
+        fail("SKILL.md frontmatter lacks a version field")
+    package_json = ROOT.parent.parent.parent / "package.json"
+    if package_json.exists():
+        package = json.loads(package_json.read_text(encoding="utf-8"))
+        if skill_version.group(1) != package.get("version"):
+            fail(f"SKILL.md version {skill_version.group(1)} != package.json version {package.get('version')}")
+
     if examples_text.count("## ") < 8:
         fail("expected at least 8 before/after or no-change examples")
     for phrase in ("32%", "no latency measurement", "overflow-x: clip", "No finding."):
