@@ -1,0 +1,21 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Package validation
+        run: python3 .agents/skills/anti-slop/tests/validate_package.py
+      - name: Node installer smoke test
+        run: |
+          node bin/install.mjs --dir "$RUNNER_TEMP/skill-target"
+          test -f "$RUNNER_TEMP/skill-target/anti-slop/SKILL.md"
