@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ko">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>브라우저 감사 테스트 — 작업 목록</title>
+<style>
+  * { box-sizing: border-box; }
+  body { max-width: 800px; margin: 24px auto; padding: 16px; font: 16px/1.6 system-ui,sans-serif; }
+  nav, .controls { display: flex; gap: 12px; flex-wrap: wrap; margin: 16px 0; }
+  button, input, select { font: inherit; padding: 8px; max-width: 100%; }
+  input[type=text] { width: 100%; }
+  label { display: block; margin: 12px 0; }
+  article { border-top: 1px solid #aaa; padding: 12px 0; overflow-wrap: anywhere; }
+  a[aria-current=page] { font-weight: bold; }
+  :focus-visible { outline: 3px solid #155cc7; outline-offset: 3px; }
+  dialog { max-width: min(90vw,600px); overflow-wrap: anywhere; }
+  [hidden] { display: none !important; }
+  #form-status { min-height: 2em; }
+</style>
+<header>
+  <h1>작업 목록</h1>
+  <p>격리된 감사 테스트입니다. 데이터는 이 탭의 메모리에만 저장되며 새로고침하면 초기화됩니다. 외부 요청이나 실제 계정은 사용하지 않습니다.</p>
+  <nav aria-label="화면">
+    <a href="#list">목록</a><a href="#new">작업 추가</a><a href="#settings">설정</a>
+  </nav>
+</header>
+<main>
+  <section id="list" aria-labelledby="list-title">
+    <h2 id="list-title">작업 목록</h2>
+    <label for="search">작업 검색</label><input id="search" type="text">
+    <div class="controls">
+      <label>상태 <select id="filter"><option value="all">전체</option><option value="open">진행 중</option><option value="done">완료</option></select></label>
+      <button id="clear" type="button">검색 및 필터 초기화</button>
+    </div>
+    <p id="count" role="status"></p><div id="rows"></div>
+  </section>
+  <section id="new" aria-labelledby="new-title" hidden>
+    <h2 id="new-title">작업 추가</h2>
+    <form id="create" novalidate>
+      <label for="name">작업 이름 (필수, 공백 제외 2자 이상)</label><input id="name" type="text" aria-describedby="form-status">
+      <label><input id="simulate" type="checkbox">다음 요청 실패 재현 (테스트 전용)</label>
+      <button id="submit" type="submit">추가</button>
+      <p id="form-status" role="status"></p>
+    </form>
+  </section>
+  <section id="settings" aria-labelledby="settings-title" hidden>
+    <h2 id="settings-title">설정</h2>
+    <p>저장 버튼을 누르면 이 탭의 테스트 환경 설정에 저장됩니다.</p>
+    <button id="save" type="button">설정 저장</button>
+    <p id="settings-status" role="status">아직 저장하지 않았습니다.</p>
+  </section>
+</main>
+<dialog aria-labelledby="detail-title">
+  <h2 id="detail-title"></h2><p id="detail-status"></p>
+  <button id="close" type="button">닫기</button>
+</dialog>
+<script>
+  const tasks = [
+    { name: '메일 초안 검토', status: 'open' },
+    { name: '한국어 화면 긴 문구 확인', status: 'open' },
+    { name: '배포 기록 확인', status: 'done' }
+  ];
+  const byId = id => document.getElementById(id);
+  const dialog = document.querySelector('dialog');
+  function render() {
+    const query = byId('search').value.toLowerCase();
+    const status = byId('filter').value;
+    const shown = tasks.filter(task => task.name.toLowerCase().includes(query) && (status === 'all' || task.status === status));
+    byId('count').textContent = shown.length ? `${shown.length}개 작업` : '검색 결과가 없습니다. 검색이나 필터를 초기화해 주세요.';
+    byId('rows').replaceChildren();
+    for (const task of shown) {
+      const row = document.createElement('article');
+      const title = document.createElement('h3');
+      title.textContent = task.name;
+      const button = document.createElement('button');
+      button.type = 'button'; button.textContent = `${task.name} 상세 보기`;
+      button.addEventListener('click', () => {
+        byId('detail-title').textContent = task.name;
+        byId('detail-status').textContent = task.status === 'open' ? '진행 중' : '완료';
+        dialog.showModal();
+      });
+      row.append(title,button); byId('rows').append(row);
+    }
+  }
+  function route() {
+    const route = ['list','new','settings'].includes(location.hash.slice(1)) ? location.hash.slice(1) : 'list';
+    for (const section of document.querySelectorAll('main > section')) section.hidden = section.id !== route;
+    for (const link of document.querySelectorAll('nav a')) {
+      if (link.hash === `#${route}`) link.setAttribute('aria-current','page');
+      else link.removeAttribute('aria-current');
+    }
+    document.title = `브라우저 감사 테스트 — ${byId(`${route}-title`).textContent}`;
+    render();
+  }
+  byId('search').addEventListener('input',render);
+  byId('filter').addEventListener('change',render);
+  byId('clear').addEventListener('click',() => { byId('search').value=''; byId('filter').value='all'; render(); });
+  byId('close').addEventListener('click',() => dialog.close());
+  byId('create').addEventListener('submit',async event => {
+    event.preventDefault();
+    const name = byId('name').value.trim();
+    if (name.length < 2) {
+      byId('name').setAttribute('aria-invalid','true');
+      byId('form-status').textContent='작업 이름을 공백 제외 2자 이상 입력해 주세요.';
+      byId('name').focus(); return;
+    }
+    byId('name').removeAttribute('aria-invalid');
+    const fail = byId('simulate').checked;
+    byId('submit').disabled=true; byId('form-status').textContent='추가 중…';
+    await new Promise(resolve => setTimeout(resolve,1200));
+    if (fail) byId('form-status').textContent='테스트 요청이 실패했습니다. 실패 재현을 해제하고 다시 추가해 주세요.';
+    else { tasks.push({name,status:'open'}); byId('form-status').textContent=`${name} 작업을 추가했습니다.`; }
+    byId('submit').disabled=false; render();
+  });
+  // Intentionally missing settings-save handler: a known defect for evaluation.
+  window.addEventListener('hashchange',route); route();
+</script>
+</html>

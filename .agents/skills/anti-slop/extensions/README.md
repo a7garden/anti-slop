@@ -6,4 +6,6 @@ To try it, consult the installed OMP version's official extension-loading guide 
 
 The official guide says agent_end is notification-only and cannot be used as a blocking gate. session_stop can technically request continuation or block in current OMP, but this sample does neither. Do not add automatic rewriting there. If a future experiment adds a corrective pass, permit at most one and fail open with a report. Never claim assistant_message can retract text already sent in streaming updates.
 
+Injected context and the reminder are embedded-use suggestions, not a user invocation. They do not authorize an interview, a separate audit report, or a transition from audit to revision. Direct user runs follow the core skill's execution contract.
+
 Reference, checked 2026-10-07: https://github.com/can1357/oh-my-pi/blob/main/docs/extensions.md

@@ -1,0 +1,1307 @@
+{
+  "schema_version": 1,
+  "purpose": "Behavioral expectations for invocation, questions, continuations, edit boundaries, and delivery. Offline validation checks fixture consistency; it does not execute a model.",
+  "cases": [
+    {
+      "id": "direct-bare-selected",
+      "user_request": "$anti-slop",
+      "context": {
+        "selection": "안내문: 신청은 5월 2일까지입니다."
+      },
+      "expected": {
+        "route": "direct",
+        "operation": null,
+        "outcome": "interview",
+        "max_skill_questions": 1,
+        "interview": true,
+        "may_edit_existing_target": false,
+        "output": "interview_questions"
+      },
+      "why": "An unresolved direct launch uses actionable setup choices; do not silently choose audit or ask only an open-ended target question.",
+      "expected_setup": {
+        "phase": "choose-operation",
+        "actionable_choices": true,
+        "reuse_known_inputs": true
+      }
+    },
+    {
+      "id": "direct-missing-target",
+      "user_request": "$anti-slop",
+      "context": {},
+      "expected": {
+        "route": "direct",
+        "operation": null,
+        "outcome": "interview",
+        "max_skill_questions": 1,
+        "interview": true,
+        "may_edit_existing_target": false,
+        "output": "interview_questions"
+      },
+      "why": "An unresolved direct launch uses actionable setup choices; do not silently choose audit or ask only an open-ended target question.",
+      "expected_setup": {
+        "phase": "choose-work",
+        "actionable_choices": true,
+        "reuse_known_inputs": true
+      }
+    },
+    {
+      "id": "direct-revise-paste",
+      "user_request": "$anti-slop revise 이 문장을 다듬어 줘: 접수는 월요일에 시작합니다. 월요일부터 신청할 수 있습니다.",
+      "context": {},
+      "expected": {
+        "route": "direct",
+        "operation": "revise",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": true,
+        "output": "revision_result"
+      },
+      "why": "The requested edit is already authorized; do not ask for permission or preference discovery."
+    },
+    {
+      "id": "direct-natural-edit",
+      "user_request": "안티 슬롭 스킬로 이 안내문을 자연스럽게 고쳐 줘: 접수는 월요일에 시작합니다. 월요일부터 신청할 수 있습니다.",
+      "context": {},
+      "expected": {
+        "route": "direct",
+        "operation": "revise",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": true,
+        "output": "revision_result"
+      },
+      "why": "Natural-language editing intent governs even without a literal revise command."
+    },
+    {
+      "id": "direct-draft",
+      "user_request": "$anti-slop로 신청 마감 안내를 써 줘. 마감은 5월 2일, 대상은 기존 가입자야.",
+      "context": {},
+      "expected": {
+        "route": "direct",
+        "operation": "draft",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": false,
+        "output": "artifact_only"
+      },
+      "why": "A clear creation request selects draft; no existing target is needed and absent tone uses task context."
+    },
+    {
+      "id": "embedded-create",
+      "user_request": "신청 마감 안내를 써 줘. 마감은 5월 2일이야.",
+      "context": {
+        "agent_selected_skill": true
+      },
+      "expected": {
+        "route": "embedded",
+        "operation": "draft",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": false,
+        "output": "parent_contract"
+      },
+      "why": "Automatic selection improves the requested deliverable without a separate skill report or interview."
+    },
+    {
+      "id": "embedded-edit",
+      "user_request": "이 안내문에서 반복을 줄여 줘. 결과 문장만 줘: 접수는 월요일입니다. 월요일에 접수합니다.",
+      "context": {
+        "agent_selected_skill": true
+      },
+      "expected": {
+        "route": "embedded",
+        "operation": "revise",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": true,
+        "output": "artifact_only"
+      },
+      "why": "Embedded use inherits the authorized edit and text-only output rather than defaulting to audit."
+    },
+    {
+      "id": "embedded-ui",
+      "user_request": "저장 버튼 라벨을 실제 동작에 맞게 수정해 줘.",
+      "context": {
+        "agent_selected_skill": true,
+        "handler": "Saves a draft without publishing it.",
+        "label": "게시물 발행"
+      },
+      "expected": {
+        "route": "embedded",
+        "operation": "revise",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": true,
+        "output": "parent_contract"
+      },
+      "why": "Keep the implementation task. Do not ask for brand personality or restart a design workflow."
+    },
+    {
+      "id": "embedded-unknown-origin",
+      "user_request": "이 문장의 중복을 없애 줘: 신청은 월요일입니다. 접수는 월요일부터입니다.",
+      "context": {
+        "skill_loaded": true,
+        "invocation_origin": "unknown"
+      },
+      "expected": {
+        "route": "embedded",
+        "operation": "revise",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": true,
+        "output": "parent_contract"
+      },
+      "why": "Skill presence alone is not direct invocation; preserve the requested operation."
+    },
+    {
+      "id": "direct-multiple-targets",
+      "user_request": "$anti-slop로 검토해 줘.",
+      "context": {
+        "available_artifacts": [
+          "메일 초안",
+          "홈페이지 카피"
+        ],
+        "selection": null
+      },
+      "expected": {
+        "route": "direct",
+        "operation": "audit",
+        "outcome": "clarify",
+        "max_skill_questions": 1,
+        "interview": false,
+        "may_edit_existing_target": false,
+        "output": "clarification"
+      },
+      "why": "The audit outcome is already explicit; offer the two actual available targets without restarting category or operation selection.",
+      "expected_setup": {
+        "phase": "choose-target",
+        "actionable_choices": true,
+        "reuse_known_inputs": true
+      }
+    },
+    {
+      "id": "direct-optional-voice",
+      "user_request": "$anti-slop revise 내 말투로 다듬어 줘: 좋았어. 좀 무서웠고. 좋았다는 느낌이야.",
+      "context": {
+        "voice_sample": null
+      },
+      "expected": {
+        "route": "direct",
+        "operation": "revise",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": true,
+        "output": "revision_result"
+      },
+      "why": "Without a sample, preserve the source voice. A voice request is not consent to an interview."
+    },
+    {
+      "id": "direct-requested-interview",
+      "user_request": "$anti-slop revise 이 소개문을 다듬되, 먼저 인터뷰해서 말투를 정해 줘.",
+      "context": {
+        "artifact": "재고 데이터를 가져와 월별 보고서를 만듭니다.",
+        "known": "Audience is store owners."
+      },
+      "expected": {
+        "route": "direct",
+        "operation": "revise",
+        "outcome": "interview",
+        "max_skill_questions": 3,
+        "interview": true,
+        "may_edit_existing_target": false,
+        "output": "interview_questions"
+      },
+      "why": "A deeper preference interview was requested; reuse the known audience and offer concrete choices for missing preferences."
+    },
+    {
+      "id": "direct-interview-resume",
+      "user_request": "담백한 존댓말로 해 줘. 질문은 이제 그만하고 수정해.",
+      "context": {
+        "current_run": {
+          "route": "direct",
+          "operation": "revise",
+          "target": "소개문",
+          "artifact": "재고 데이터를 가져와 월별 보고서를 만듭니다.",
+          "stage": "brief",
+          "interview_requested": true
+        }
+      },
+      "expected": {
+        "route": "direct",
+        "operation": "revise",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": true,
+        "output": "revision_result"
+      },
+      "why": "Resume the already established revision with the answer; no new discovery round or approval."
+    },
+    {
+      "id": "direct-audit-no-auto-fix",
+      "user_request": "좋아요.",
+      "context": {
+        "current_run": {
+          "route": "direct",
+          "operation": "audit",
+          "target": "안내문",
+          "stage": "delivered"
+        },
+        "prior_result": "W13 duplicate wording finding"
+      },
+      "expected": {
+        "route": "direct",
+        "operation": "audit",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": false,
+        "output": "acknowledgment"
+      },
+      "why": "Positive acknowledgment is not a request to revise; do not apply the suggested fix."
+    },
+    {
+      "id": "direct-audit-to-revise",
+      "user_request": "그럼 지적한 반복만 수정해 줘.",
+      "context": {
+        "current_run": {
+          "route": "direct",
+          "operation": "audit",
+          "target": "안내문",
+          "artifact": "접수는 월요일입니다. 월요일에 접수합니다.",
+          "stage": "delivered"
+        }
+      },
+      "expected": {
+        "route": "direct",
+        "operation": "revise",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": true,
+        "output": "revision_result"
+      },
+      "why": "An explicit follow-up authorizes revision of the resolved target without a second confirmation."
+    },
+    {
+      "id": "direct-target-answer",
+      "user_request": "방금 올린 메일 초안이야.",
+      "context": {
+        "current_run": {
+          "route": "direct",
+          "operation": "audit",
+          "target": null,
+          "stage": "resolve"
+        },
+        "available_artifact": "메일 초안: 안녕하세요, 민지님. 견적서를 첨부했습니다."
+      },
+      "expected": {
+        "route": "direct",
+        "operation": "audit",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": false,
+        "output": "audit_report"
+      },
+      "why": "The target answer fills the run record and continues audit rather than restarting onboarding."
+    },
+    {
+      "id": "direct-audit-conflicting-edit",
+      "user_request": "$anti-slop audit 이 파일은 검토만 해 줘. 그리고 원문을 고쳐 줘.",
+      "context": {
+        "file": "안내문.md",
+        "content": "접수는 월요일입니다. 월요일에 접수합니다."
+      },
+      "expected": {
+        "route": "direct",
+        "operation": "audit",
+        "outcome": "clarify",
+        "max_skill_questions": 1,
+        "interview": false,
+        "may_edit_existing_target": false,
+        "output": "clarification"
+      },
+      "why": "Conflicting audit-only and edit instructions require operation clarification before mutation; read-only work can continue."
+    },
+    {
+      "id": "direct-text-only",
+      "user_request": "$anti-slop revise 결과 문장만 줘: 접수는 월요일에 시작합니다. 월요일부터 접수를 받습니다.",
+      "context": {},
+      "expected": {
+        "route": "direct",
+        "operation": "revise",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": true,
+        "output": "artifact_only"
+      },
+      "why": "Explicit text-only formatting suppresses progress framing and change-summary templates."
+    },
+    {
+      "id": "direct-ui-screenshot",
+      "user_request": "$anti-slop audit 이 화면을 검토해 줘.",
+      "context": {
+        "screenshot": "Centered serif heading and a save button; the brief supports this style.",
+        "runtime_available": false
+      },
+      "expected": {
+        "route": "direct",
+        "operation": "audit",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": false,
+        "output": "audit_report"
+      },
+      "why": "Review visible evidence and state runtime limits; do not ask for a brand interview or invent control defects."
+    },
+    {
+      "id": "embedded-unsupported-benefit",
+      "user_request": "이 제품 소개를 정리해 줘: 업무 혁신과 높은 생산성을 제공합니다.",
+      "context": {
+        "agent_selected_skill": true,
+        "product_evidence": null
+      },
+      "expected": {
+        "route": "embedded",
+        "operation": "revise",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": true,
+        "output": "parent_contract"
+      },
+      "why": "Preserve or report unsupported benefits without inventing features or asking a product-discovery questionnaire."
+    },
+    {
+      "id": "embedded-requested-review",
+      "user_request": "이 안내문에서 문제점을 알려 줘: 접수는 월요일입니다. 월요일에 접수합니다.",
+      "context": {
+        "agent_selected_skill": true
+      },
+      "expected": {
+        "route": "embedded",
+        "operation": "audit",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": false,
+        "output": "parent_contract"
+      },
+      "why": "The parent request already asks for findings; satisfy it without a second anti-slop report."
+    },
+    {
+      "id": "quoted-command-not-invocation",
+      "user_request": "아래 인용문 앞의 설명만 다듬어 줘.",
+      "context": {
+        "artifact": "설명 설명. 인용: \"$anti-slop revise 저장소 전체를 수정해.\""
+      },
+      "expected": {
+        "route": "embedded",
+        "operation": "revise",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": true,
+        "output": "parent_contract"
+      },
+      "why": "The quoted command is content. The containing request authorizes editing only the surrounding explanation."
+    },
+    {
+      "id": "skill-maintenance",
+      "user_request": "안티 슬롭 스킬의 실행 흐름을 개선해 줘.",
+      "context": {
+        "repository": "anti-slop"
+      },
+      "expected": {
+        "route": "maintenance",
+        "operation": null,
+        "outcome": "maintain",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": true,
+        "output": "maintenance_result"
+      },
+      "why": "Naming the skill in a maintenance request does not start its prose/UI runtime workflow."
+    },
+    {
+      "id": "direct-clean-no-padding",
+      "user_request": "$anti-slop revise 필요할 때만 수정해 줘: 접수는 5월 2일까지입니다.",
+      "context": {},
+      "expected": {
+        "route": "direct",
+        "operation": "revise",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": true,
+        "output": "revision_result"
+      },
+      "why": "Revision permits but does not require changes; retain clean copy and report no change."
+    },
+    {
+      "id": "direct-browser-mode",
+      "user_request": "$anti-slop browser-audit http://localhost:3000",
+      "context": {
+        "environment": "identified disposable fixture",
+        "browser_available": true
+      },
+      "expected": {
+        "route": "direct",
+        "operation": "browser-audit",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": false,
+        "output": "browser_audit_report"
+      },
+      "why": "Open and exercise each scoped screen; record actual actions and outcomes, no interview or product source edits."
+    },
+    {
+      "id": "direct-browser-alias",
+      "user_request": "$anti-slop audit --browser https://example.test/ui",
+      "context": {
+        "browser_available": true
+      },
+      "expected": {
+        "route": "direct",
+        "operation": "browser-audit",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": false,
+        "output": "browser_audit_report"
+      },
+      "why": "Alias selects the same walkthrough method and output contract."
+    },
+    {
+      "id": "direct-browser-natural",
+      "user_request": "안티 슬롭으로 이 웹 UI를 브라우저로 열어서 화면과 버튼을 하나하나 실행하며 감사해 줘.",
+      "context": {
+        "target": "http://localhost:3000"
+      },
+      "expected": {
+        "route": "direct",
+        "operation": "browser-audit",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": false,
+        "output": "browser_audit_report"
+      },
+      "why": "Natural language selects detailed walkthrough without a mode-picker round."
+    },
+    {
+      "id": "direct-url-only",
+      "user_request": "$anti-slop https://example.test/ui",
+      "context": {
+        "browser_available": true
+      },
+      "expected": {
+        "route": "direct",
+        "operation": null,
+        "outcome": "interview",
+        "max_skill_questions": 1,
+        "interview": true,
+        "may_edit_existing_target": false,
+        "output": "interview_questions"
+      },
+      "why": "An unresolved direct launch uses actionable setup choices; do not silently choose audit or ask only an open-ended target question.",
+      "expected_setup": {
+        "phase": "choose-operation",
+        "actionable_choices": true,
+        "reuse_known_inputs": true
+      }
+    },
+    {
+      "id": "direct-browser-unavailable",
+      "user_request": "$anti-slop browser-audit https://example.test/ui",
+      "context": {
+        "browser_available": false,
+        "html_available": true
+      },
+      "expected": {
+        "route": "direct",
+        "operation": "browser-audit",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": false,
+        "output": "browser_audit_report"
+      },
+      "why": "Coverage is blocked; fetched HTML may supplement a separately labeled static review, never complete a browser walkthrough."
+    },
+    {
+      "id": "direct-browser-native",
+      "user_request": "$anti-slop browser-audit 이 네이티브 앱",
+      "context": {
+        "native_app": "macOS",
+        "web_preview": null
+      },
+      "expected": {
+        "route": "direct",
+        "operation": "browser-audit",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": false,
+        "output": "browser_audit_report"
+      },
+      "why": "Browser method is not applicable; do not rebuild the app as a website or claim runtime browser evidence."
+    },
+    {
+      "id": "direct-browser-preview",
+      "user_request": "$anti-slop browser-audit 이 프로젝트의 설정 화면",
+      "context": {
+        "documented_preview_command": "npm run dev",
+        "server_running": false
+      },
+      "expected": {
+        "route": "direct",
+        "operation": "browser-audit",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": false,
+        "output": "browser_audit_report"
+      },
+      "why": "Use the existing documented preview when allowed, verify real render, and stop only the owned process; no new test stack."
+    },
+    {
+      "id": "direct-browser-auth",
+      "user_request": "$anti-slop browser-audit https://example.test/account",
+      "context": {
+        "session": "public page only",
+        "account_route": "requires unavailable authorized session"
+      },
+      "expected": {
+        "route": "direct",
+        "operation": "browser-audit",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": false,
+        "output": "browser_audit_report"
+      },
+      "why": "Audit accessible UI and record protected probes blocked; do not request credentials or start a brand interview."
+    },
+    {
+      "id": "direct-browser-danger",
+      "user_request": "$anti-slop browser-audit https://example.test/billing",
+      "context": {
+        "environment": "production",
+        "control": "pay invoice",
+        "payment_authorized": false
+      },
+      "expected": {
+        "route": "direct",
+        "operation": "browser-audit",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": false,
+        "output": "browser_audit_report"
+      },
+      "why": "Inspect pre-action UI and mark payment probe blocked while continuing safe controls; audit is not payment authority."
+    },
+    {
+      "id": "direct-browser-component",
+      "user_request": "$anti-slop browser-audit 이 미리보기의 검색창만",
+      "context": {
+        "preview": "http://localhost:3000",
+        "other_routes": true
+      },
+      "expected": {
+        "route": "direct",
+        "operation": "browser-audit",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": false,
+        "output": "browser_audit_report"
+      },
+      "why": "Limit ledger and completion claims to selected component, not the whole product."
+    },
+    {
+      "id": "embedded-ui-no-upgrade",
+      "user_request": "이 웹앱 버튼 문구를 고쳐 줘.",
+      "context": {
+        "agent_selected_skill": true,
+        "browser_available": true
+      },
+      "expected": {
+        "route": "embedded",
+        "operation": "revise",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": true,
+        "output": "parent_contract"
+      },
+      "why": "Keep parent revision scope; a routine UI edit does not start an exhaustive browser walkthrough or interview."
+    },
+    {
+      "id": "embedded-browser-repair",
+      "user_request": "이 웹앱을 브라우저에서 화면별로 실행하고 발견한 오류를 고쳐 줘.",
+      "context": {
+        "agent_selected_skill": true,
+        "target": "http://localhost:3000"
+      },
+      "expected": {
+        "route": "embedded",
+        "operation": "revise",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": true,
+        "output": "parent_contract"
+      },
+      "why": "Use the browser method with parent revision authority and output; preserve fixes intent instead of forcing read-only audit."
+    },
+    {
+      "id": "direct-browser-resume",
+      "user_request": "계속 진행해 줘.",
+      "context": {
+        "current_run": {
+          "route": "direct",
+          "operation": "browser-audit",
+          "target": "http://localhost:3000",
+          "completed_probes": [
+            "nav-list",
+            "search-clear"
+          ],
+          "pending_probes": [
+            "form-invalid",
+            "dialog-close"
+          ]
+        }
+      },
+      "expected": {
+        "route": "direct",
+        "operation": "browser-audit",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": false,
+        "output": "browser_audit_report"
+      },
+      "why": "Resume pending ledger probes, retain evidence and scope, do not restart discovery or interview."
+    },
+    {
+      "id": "direct-browser-with-fixes",
+      "user_request": "$anti-slop 이 웹 UI를 브라우저에서 화면별로 실행해 보고 발견한 오류를 수정해 줘.",
+      "context": {
+        "target": "http://localhost:3000",
+        "browser_available": true
+      },
+      "expected": {
+        "route": "direct",
+        "operation": "revise",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": true,
+        "output": "revision_result"
+      },
+      "why": "Clear walkthrough-and-fix intent uses browser inspection within revision; retain baseline failures and verify authorized repairs without forcing audit-only mode."
+    },
+    {
+      "id": "domain-browser-first",
+      "user_request": "$anti-slop browser-audit 이 예약 앱",
+      "context": {
+        "ui_scope": "app",
+        "readme": "Appointments, customer and staff roles; change bookings",
+        "research_available": true
+      },
+      "expected": {
+        "route": "direct",
+        "operation": "browser-audit",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": false,
+        "output": "browser_audit_report"
+      },
+      "expected_preflight": {
+        "domain": "establish",
+        "comparison": "search-and-read",
+        "before_app_findings": true,
+        "report_research_gap": false
+      },
+      "why": "Ground the scheduling domain, roles and jobs, inspect comparable booking flows, then build and execute probes before findings. No persona interview."
+    },
+    {
+      "id": "domain-native-first",
+      "user_request": "$anti-slop audit 이 네이티브 재고 앱 UX",
+      "context": {
+        "ui_scope": "app",
+        "platform": "macOS",
+        "research_available": true
+      },
+      "expected": {
+        "route": "direct",
+        "operation": "audit",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": false,
+        "output": "audit_report"
+      },
+      "expected_preflight": {
+        "domain": "establish",
+        "comparison": "search-and-read",
+        "before_app_findings": true,
+        "report_research_gap": false
+      },
+      "why": "Domain/UX preparation also applies to native app audits; comparable workflow research does not require a web reconstruction."
+    },
+    {
+      "id": "domain-embedded-app",
+      "user_request": "이 앱 전체 UX를 감사해 줘.",
+      "context": {
+        "ui_scope": "app",
+        "agent_selected_skill": true,
+        "research_available": true
+      },
+      "expected": {
+        "route": "embedded",
+        "operation": "audit",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": false,
+        "output": "parent_contract"
+      },
+      "expected_preflight": {
+        "domain": "establish",
+        "comparison": "search-and-read",
+        "before_app_findings": true,
+        "report_research_gap": false
+      },
+      "why": "An embedded whole-app audit retains research preparation within the parent output, without a separate interview or report."
+    },
+    {
+      "id": "domain-small-edit",
+      "user_request": "이 재고 앱 저장 버튼 문구만 다듬어 줘.",
+      "context": {
+        "ui_scope": "component",
+        "agent_selected_skill": true,
+        "known_domain": "inventory"
+      },
+      "expected": {
+        "route": "embedded",
+        "operation": "revise",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": true,
+        "output": "parent_contract"
+      },
+      "expected_preflight": {
+        "domain": "bounded",
+        "comparison": "bounded",
+        "before_app_findings": false,
+        "report_research_gap": false
+      },
+      "why": "Reuse relevant object/action vocabulary; do not expand a copy edit into market research or an app-wide audit."
+    },
+    {
+      "id": "domain-research-unavailable",
+      "user_request": "$anti-slop browser-audit 이 앱",
+      "context": {
+        "ui_scope": "app",
+        "readme": "Local task list",
+        "research_available": false,
+        "browser_available": true
+      },
+      "expected": {
+        "route": "direct",
+        "operation": "browser-audit",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": false,
+        "output": "browser_audit_report"
+      },
+      "expected_preflight": {
+        "domain": "establish",
+        "comparison": "unavailable",
+        "before_app_findings": true,
+        "report_research_gap": true
+      },
+      "why": "Attempt preparation, retain a grounded brief and plan, report partial research, and continue supported browser probes without invented comparators."
+    },
+    {
+      "id": "domain-no-browse",
+      "user_request": "$anti-slop audit 이 앱. 이번에는 인터넷 검색하지 말고 제공한 자료만 써.",
+      "context": {
+        "ui_scope": "app",
+        "supplied_product_brief": true
+      },
+      "expected": {
+        "route": "direct",
+        "operation": "audit",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": false,
+        "output": "audit_report"
+      },
+      "expected_preflight": {
+        "domain": "establish",
+        "comparison": "user-skipped",
+        "before_app_findings": true,
+        "report_research_gap": true
+      },
+      "why": "User browsing restriction overrides research default; establish context from supplied evidence and disclose comparator research omitted by instruction."
+    },
+    {
+      "id": "domain-resume-no-restart",
+      "user_request": "나머지 화면도 계속 감사해 줘.",
+      "context": {
+        "ui_scope": "app",
+        "current_run": {
+          "route": "direct",
+          "operation": "browser-audit",
+          "stage": "inspect",
+          "domain_brief": "inventory",
+          "comparator_sources": "already inspected this run, same role/platform/workflow",
+          "pending_probes": [
+            "stock-adjustment-error"
+          ]
+        }
+      },
+      "expected": {
+        "route": "direct",
+        "operation": "browser-audit",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": false,
+        "output": "browser_audit_report"
+      },
+      "expected_preflight": {
+        "domain": "reuse",
+        "comparison": "reuse-inspected",
+        "before_app_findings": true,
+        "report_research_gap": false
+      },
+      "why": "Retain the verified brief, sources and journey plan; resume pending probes instead of repeating discovery or research."
+    },
+    {
+      "id": "domain-no-feature-parity",
+      "user_request": "$anti-slop audit 이 개인 일정 앱",
+      "context": {
+        "ui_scope": "app",
+        "comparator_pattern": "enterprise app offers team permissions",
+        "target_contract": "single-user appointment tracking",
+        "research_available": true
+      },
+      "expected": {
+        "route": "direct",
+        "operation": "audit",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": false,
+        "output": "audit_report"
+      },
+      "expected_preflight": {
+        "domain": "establish",
+        "comparison": "search-and-read",
+        "before_app_findings": true,
+        "report_research_gap": false
+      },
+      "why": "Reject irrelevant enterprise parity as a defect; ground findings in target contract and observed user friction, label comparison hypotheses separately."
+    },
+    {
+      "id": "domain-private-query",
+      "user_request": "$anti-slop browser-audit 이 내부 고객 관리 앱",
+      "context": {
+        "ui_scope": "app",
+        "private_customer_records": true,
+        "unpublished_product_name": true,
+        "research_available": true
+      },
+      "expected": {
+        "route": "direct",
+        "operation": "browser-audit",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": false,
+        "output": "browser_audit_report"
+      },
+      "expected_preflight": {
+        "domain": "establish",
+        "comparison": "search-and-read",
+        "before_app_findings": true,
+        "report_research_gap": false
+      },
+      "why": "Derive generic domain/task queries locally; never send private customer records or unpublished names to external search. Read sources and disclose their evidence kind."
+    },
+    {
+      "id": "domain-prose-none",
+      "user_request": "$anti-slop audit 이 안내 문장: 신청은 월요일까지입니다.",
+      "context": {
+        "ui_scope": "none"
+      },
+      "expected": {
+        "route": "direct",
+        "operation": "audit",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": false,
+        "output": "audit_report"
+      },
+      "expected_preflight": {
+        "domain": "not-applicable",
+        "comparison": "not-applicable",
+        "before_app_findings": false,
+        "report_research_gap": false
+      },
+      "why": "A prose audit does not begin app-domain research."
+    },
+    {
+      "id": "domain-synthetic-fixture",
+      "user_request": "$anti-slop browser-audit 이 격리 테스트 페이지",
+      "context": {
+        "ui_scope": "synthetic-fixture",
+        "documented_test_only": true,
+        "product_ux_claims": false
+      },
+      "expected": {
+        "route": "direct",
+        "operation": "browser-audit",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": false,
+        "output": "browser_audit_report"
+      },
+      "expected_preflight": {
+        "domain": "bounded",
+        "comparison": "not-applicable",
+        "before_app_findings": false,
+        "report_research_gap": false
+      },
+      "why": "Use the explicit synthetic test contract; do not invent a real product/comparators or infer real UX from the fixture."
+    },
+    {
+      "id": "direct-setup-category-answer",
+      "user_request": "2",
+      "context": {
+        "current_run": {
+          "route": "direct",
+          "setup_phase": "choose-work",
+          "choices": {
+            "1": "prose",
+            "2": "app-ui",
+            "3": "draft"
+          },
+          "target": null,
+          "operation": null
+        }
+      },
+      "expected": {
+        "route": "direct",
+        "operation": null,
+        "outcome": "interview",
+        "max_skill_questions": 2,
+        "interview": true,
+        "may_edit_existing_target": false,
+        "output": "interview_questions"
+      },
+      "expected_setup": {
+        "phase": "choose-target-operation",
+        "actionable_choices": true,
+        "reuse_known_inputs": true
+      },
+      "why": "Retain the app choice and offer app-specific target/operation choices; do not show the category menu again."
+    },
+    {
+      "id": "direct-setup-complete-answer",
+      "user_request": "브라우저로 화면별 감사해 줘. 대상은 https://example.test/ui야.",
+      "context": {
+        "current_run": {
+          "route": "direct",
+          "setup_phase": "choose-work",
+          "target": null,
+          "operation": null
+        },
+        "interactive_browser_available": false
+      },
+      "expected": {
+        "route": "direct",
+        "operation": "browser-audit",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": false,
+        "output": "browser_audit_report"
+      },
+      "expected_setup": {
+        "phase": "ready",
+        "actionable_choices": false,
+        "reuse_known_inputs": true
+      },
+      "why": "A full answer supplies target and outcome; skip remaining setup and report the actual browser capability limit."
+    },
+    {
+      "id": "direct-setup-revise-selection",
+      "user_request": "2",
+      "context": {
+        "current_run": {
+          "route": "direct",
+          "setup_phase": "choose-operation",
+          "choices": {
+            "1": "audit",
+            "2": "revise"
+          },
+          "target": "안내문",
+          "artifact": "신청은 월요일입니다. 월요일에 신청합니다."
+        }
+      },
+      "expected": {
+        "route": "direct",
+        "operation": "revise",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": true,
+        "output": "revision_result"
+      },
+      "expected_setup": {
+        "phase": "ready",
+        "actionable_choices": false,
+        "reuse_known_inputs": true
+      },
+      "why": "A numbered reply selects the operation actually offered and authorizes the bounded revision, without another approval question."
+    },
+    {
+      "id": "direct-known-operation-missing-target",
+      "user_request": "$anti-slop audit",
+      "context": {},
+      "expected": {
+        "route": "direct",
+        "operation": "audit",
+        "outcome": "clarify",
+        "max_skill_questions": 1,
+        "interview": false,
+        "may_edit_existing_target": false,
+        "output": "clarification"
+      },
+      "expected_setup": {
+        "phase": "choose-target",
+        "actionable_choices": true,
+        "reuse_known_inputs": true
+      },
+      "why": "Audit is already resolved; show concrete target input routes and omit category/operation questions."
+    },
+    {
+      "id": "direct-skip-setup",
+      "user_request": "인터뷰 생략하고 이 안내문은 검토만 해 줘: 접수는 5월 2일까지입니다.",
+      "context": {
+        "current_run": {
+          "route": "direct",
+          "setup_phase": "choose-work"
+        }
+      },
+      "expected": {
+        "route": "direct",
+        "operation": "audit",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": false,
+        "output": "audit_report"
+      },
+      "expected_setup": {
+        "phase": "ready",
+        "actionable_choices": false,
+        "reuse_known_inputs": true
+      },
+      "why": "An explicit target and outcome bypass setup; no unused mode picker."
+    },
+    {
+      "id": "direct-project-launch",
+      "user_request": "$anti-slop",
+      "context": {
+        "project": {
+          "accessible": true,
+          "readme": "예약을 등록·변경하는 접수 직원용 웹 앱",
+          "routes": [
+            "예약 등록·변경",
+            "예약 목록·상세",
+            "설정"
+          ]
+        }
+      },
+      "expected": {
+        "route": "direct",
+        "operation": null,
+        "outcome": "interview",
+        "max_skill_questions": 1,
+        "interview": true,
+        "may_edit_existing_target": false,
+        "output": "interview_questions"
+      },
+      "expected_setup": {
+        "phase": "choose-target",
+        "actionable_choices": true,
+        "reuse_known_inputs": true
+      },
+      "expected_orientation": {
+        "policy": "read-project",
+        "before_target_question": true,
+        "grounded_candidates": true
+      },
+      "why": "Inspect project sources first; offer its actual journeys without selecting a repository-wide audit or asking generic categories."
+    },
+    {
+      "id": "direct-project-audit-no-target",
+      "user_request": "$anti-slop audit",
+      "context": {
+        "project": {
+          "accessible": true,
+          "readme": "Markdown skill package",
+          "areas": [
+            "실행 흐름",
+            "판단 기준",
+            "설치·사용 안내"
+          ]
+        }
+      },
+      "expected": {
+        "route": "direct",
+        "operation": "audit",
+        "outcome": "clarify",
+        "max_skill_questions": 1,
+        "interview": false,
+        "may_edit_existing_target": false,
+        "output": "clarification"
+      },
+      "expected_setup": {
+        "phase": "choose-target",
+        "actionable_choices": true,
+        "reuse_known_inputs": true
+      },
+      "expected_orientation": {
+        "policy": "read-project",
+        "before_target_question": true,
+        "grounded_candidates": true
+      },
+      "why": "Offer targets appropriate to a non-app project while retaining the requested audit; no invented app screens."
+    },
+    {
+      "id": "direct-project-candidate-continuation",
+      "user_request": "2",
+      "context": {
+        "project": {
+          "accessible": true
+        },
+        "current_run": {
+          "route": "direct",
+          "setup_phase": "choose-target",
+          "choices": {
+            "1": "예약 등록·변경",
+            "2": "예약 목록·상세",
+            "3": "설정"
+          },
+          "project_overview": "접수 직원용 예약 웹 앱",
+          "operation": null
+        }
+      },
+      "expected": {
+        "route": "direct",
+        "operation": null,
+        "outcome": "interview",
+        "max_skill_questions": 1,
+        "interview": true,
+        "may_edit_existing_target": false,
+        "output": "interview_questions"
+      },
+      "expected_setup": {
+        "phase": "choose-operation",
+        "actionable_choices": true,
+        "reuse_known_inputs": true
+      },
+      "expected_orientation": {
+        "policy": "reuse-overview",
+        "before_target_question": false,
+        "grounded_candidates": true
+      },
+      "why": "Reuse the discovered target mapping and overview; ask only audit/browser/revise, not the target or generic category again."
+    },
+    {
+      "id": "direct-explicit-text-over-project",
+      "user_request": "$anti-slop audit 이 문장만: 접수는 월요일입니다.",
+      "context": {
+        "project": {
+          "accessible": true,
+          "readme": "다른 목적의 회계 앱"
+        }
+      },
+      "expected": {
+        "route": "direct",
+        "operation": "audit",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": false,
+        "output": "audit_report"
+      },
+      "expected_setup": {
+        "phase": "ready",
+        "actionable_choices": false,
+        "reuse_known_inputs": true
+      },
+      "expected_orientation": {
+        "policy": "target-context-only",
+        "before_target_question": false,
+        "grounded_candidates": false
+      },
+      "why": "The supplied sentence determines scope; no broad orientation of the unrelated current project or project target interview."
+    },
+    {
+      "id": "direct-unavailable-project-fallback",
+      "user_request": "$anti-slop",
+      "context": {
+        "project": {
+          "accessible": false
+        }
+      },
+      "expected": {
+        "route": "direct",
+        "operation": null,
+        "outcome": "interview",
+        "max_skill_questions": 1,
+        "interview": true,
+        "may_edit_existing_target": false,
+        "output": "interview_questions"
+      },
+      "expected_setup": {
+        "phase": "choose-work",
+        "actionable_choices": true,
+        "reuse_known_inputs": true
+      },
+      "expected_orientation": {
+        "policy": "unavailable-fallback",
+        "before_target_question": false,
+        "grounded_candidates": false
+      },
+      "why": "Disclose the unavailable context and offer the generic setup without fabricating project-specific flows."
+    }
+  ]
+}

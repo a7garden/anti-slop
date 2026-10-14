@@ -140,7 +140,63 @@ These paired examples show the smallest useful change. Each before block is foll
 
 **After**
 
-> 복용 전 의사와 상담이 필요합니다. 하루 한 번 복용하세요.
+> 복용 효과는 개인에 따라 다를 수 있습니다. 전문가와 상담하세요.
 
-**Why:** the required notice appears once where it applies; repeated hedges erased the instruction without adding safety.
+**Why:** keep the outcome uncertainty and required notice once. The source supplied no dose, frequency, or consultation timing, so the rewrite cannot add one.
+
+## 11. Apply the brief without printing it
+
+**Given:** artifact: “접수는 5월 2일에 끝납니다.” Editing instruction: “짧게 쓰고, 마감일은 그대로 두세요.”
+
+**Before**
+
+> 접수는 5월 2일에 끝납니다. 짧게 쓰고, 마감일은 그대로 두세요.
+
+**After**
+
+> 접수는 5월 2일에 끝납니다.
+
+**Why:** the second sentence addresses the editor, not the reader. A quoted instruction in an actual script would remain part of the artifact.
+
+## 12. Preserve a supplied voice
+
+**Given:** the author's sample uses informal endings and fragments. The source is an attributed personal note; the user asks only for redundant wording to be removed.
+
+**Before**
+
+> 좋았어. 좀 무서웠고. 아직은, 잘 모르겠어. 아직은 잘 모르겠다는 생각이야.
+
+**After**
+
+> 좋았어. 좀 무서웠고. 아직은, 잘 모르겠어.
+
+**Why:** delete duplicated meaning without imposing formal endings, resolving mixed feelings, or inventing an explanation for them.
+
+## 13. Reject a plausible cause added by the editor
+
+**Given:** costs rose 18% during the migration. The source does not explain why.
+
+**Before**
+
+> Costs rose 18% during the migration because both systems ran in parallel.
+
+**After**
+
+> Costs rose 18% during the migration.
+
+**Why:** temporal overlap does not establish causality. A plausible mechanism is still an unsupported addition (W21).
+
+## 14. Keep interface terms stable
+
+**Given:** the product calls the object “초안”. The button saves that object without publishing it.
+
+**Before**
+
+> 제목: 초안 편집. 버튼: 콘텐츠 확정. 성공 메시지: 문서를 발행했습니다.
+
+**After**
+
+> 제목: 초안 편집. 버튼: 초안 저장. 성공 메시지: 초안을 저장했습니다.
+
+**Why:** stable terminology makes the flow understandable (D25), and the labels now describe the verified save action (D10). Do not infer publication from a generic button label.
 
