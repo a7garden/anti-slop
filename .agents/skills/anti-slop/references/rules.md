@@ -1,8 +1,10 @@
 # Canonical anti-slop rules
 
-Reviewed 2026-10-08. The rules are editing prompts, not a classifier. Severity describes the impact if the observed condition is real; confidence describes whether the signal proves it. Do not turn a heuristic or preference into a hard failure. The classes are language-agnostic; examples mix Korean and English, and language profiles supply register-specific cautions.
+Framework alignment reviewed 2026-10-22; individual sources retain their checked dates. The rules are editing prompts, not a classifier. Severity describes the impact if the observed condition is real; confidence describes whether the signal proves it. Do not turn a heuristic or preference into a hard failure. The classes are language-agnostic; examples mix Korean and English, and language profiles supply register-specific cautions.
 
 ## Finding classes
+
+[Finding and evidence policy](finding-evidence.md) owns classification, conditional severity, and one-primary-rule deduplication. Apply review guardrails such as D18/D24 to your own method; report them only when that method or a review/brief is itself the target.
 
 - **확실한 오류 / error:** evidence shows a false claim, contradictory fact, broken task, or applicable conformance failure. Correct only after checking the relevant source, code, or rendered behavior.
 - **휴리스틱 경고 / warning:** a pattern can make prose or UI generic, inflated, repetitive, or harder to use. A pattern alone never proves AI authorship or poor quality.
@@ -93,7 +95,7 @@ For the wider comparison and rejected defaults, see [skill-comparison.md](skill-
 - **Detect:** readers cannot tell who said what, which evidence applies, or whether the text claims causation, correlation, or mere timing; a relationship is only gestured at (“~와 연관된”, “~의 일환으로”, “연계된”) where the actual role, date, or action could be stated.
 - **Repair:** name the source and scope from supplied evidence, qualify the relation, or remove the unsupported attribution.
 - **Exceptions:** a broad summary can be acceptable when its sources are cited nearby and the scope is clear.
-- **Class/severity:** error / high when it changes factual trust; otherwise warning / medium.
+- **Class/severity:** warning for observed attribution/relation ambiguity; error only when evidence establishes a false attribution, contradiction, or unsupported causal assertion. Severity follows the demonstrated consequence, not the absence of a source alone.
 - **Automatic:** no; source and causal meaning need checking.
 
 ### W07 — Promotional modifiers without a concrete claim
@@ -243,10 +245,10 @@ For the wider comparison and rejected defaults, see [skill-comparison.md](skill-
 ### W23 — Unit, arithmetic, or comparison basis lost
 - **Scope:** measurements, currencies, percentages, sample sizes, dates, rankings.
 - **Basis:** user-supplied preservation requirement and S03 (2026-10-07; study-scope caution).
-- **Detect:** a number has no unit/baseline, a comparison drops its denominator, arithmetic no longer reconciles, or a narrow study is generalized.
+- **Detect:** a necessary unit, population, denominator, or comparison baseline is absent from the relevant context; arithmetic does not reconcile; or a narrow study is generalized. Check surrounding headings, labels, and established conventions before declaring information missing.
 - **Repair:** retain the source unit and population; recompute only from verified values; state limits.
-- **Exceptions:** a clearly illustrative hypothetical, labeled and not presented as the user's result.
-- **Class/severity:** error / high.
+- **Exceptions:** a clearly labeled hypothetical; meaningful unitless values; units or bases unambiguously established in the surrounding context.
+- **Class/severity:** error for demonstrated wrong arithmetic, changed units/basis, or false generalization; warning for an observed interpretive ambiguity. Severity depends on the consequence; a missing label is not automatically high severity.
 - **Automatic:** partial; arithmetic and format can be checked, evidentiary scope needs a reader.
 
 ### W24 — Opening and ending repeat instead of advancing
@@ -332,12 +334,12 @@ For the wider comparison and rejected defaults, see [skill-comparison.md](skill-
 - **Class/severity:** warning / low; false state is an error.
 - **Automatic:** partial.
 
-### D04 — Heading hierarchy is redundant or misleading
-- **Scope:** hero, section titles, labels, page outline.
-- **Basis:** S01, S04, S05 (2026-10-07).
-- **Detect:** eyebrow, title, subtitle, and another large title all repeat one sentence; or heading levels skip/lie about structure.
-- **Repair:** make each heading do distinct work and use semantic levels that match the outline.
-- **Exceptions:** a short eyebrow can orient a page; a visually large heading need not be an H1 if semantics are correct.
+### D04 — Interface headings, labels, or explanations do redundant work
+- **Scope:** hero, section titles, secondary labels, subtitles, helper text, and page outline.
+- **Basis:** S01, S04, S05 (2026-10-07), and the owner's AGENTS.md economy constraint (2026-10-22).
+- **Detect:** a secondary label, subtitle, or explanation repeats the nearby heading/control or explains an arrangement already clear from layout, without adding needed context; or the heading outline misrepresents structure. Identify the actual redundant content and its surrounding arrangement.
+- **Repair:** remove or merge redundant copy; use placement, grouping, and hierarchy to communicate the relationship before adding explanation. Match semantic headings to the outline.
+- **Exceptions:** persistent field labels, accessible names, units, scope/eligibility, safety conditions, recovery, and genuinely useful orientation. Layout does not replace necessary content. A visually large heading need not be an H1 if semantics are correct.
 - **Class/severity:** warning / medium; semantic outline failure may be an error.
 - **Automatic:** partial; inspect DOM and content.
 
@@ -518,7 +520,7 @@ For the wider comparison and rejected defaults, see [skill-comparison.md](skill-
 - **Detect:** “too many cards,” centered layout, gradient, typeface, whitespace, or color is labeled a failure without a user-task, measured, brand, or accessibility reason.
 - **Repair:** label it as an optional direction and name the effect it might improve; leave the viable choice intact.
 - **Exceptions:** a style choice can become a real defect when evidence shows clipping, low contrast, confusion, or task friction.
-- **Class/severity:** preference / low.
+- **Class/severity:** classify the target review's unsupported claim under the shared evidence policy; the underlying viable visual choice remains optional taste and is not a product defect.
 - **Automatic:** no; this rule is a reviewer discipline.
 
 ### D25 — Terminology or action labels obscure the outcome

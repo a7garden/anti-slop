@@ -105,7 +105,7 @@ def validate_execution_cases() -> int:
             fail(f"{case_id} has unknown invocation route")
         if operation not in {"audit", "browser-audit", "revise", "draft", None}:
             fail(f"{case_id} has unknown operation")
-        if outcome not in {"deliver", "clarify", "interview", "maintain"}:
+        if outcome not in {"deliver", "clarify", "interview", "await-input", "maintain"}:
             fail(f"{case_id} has unknown outcome")
         if type(questions) is not int or not 0 <= questions <= 3:
             fail(f"{case_id} has invalid question bound")
@@ -115,7 +115,7 @@ def validate_execution_cases() -> int:
             fail(f"{case_id} embedded use cannot introduce skill questions")
         if operation in {"audit", "browser-audit"} and edits:
             fail(f"{case_id} audit cannot edit the existing target")
-        if outcome in {"clarify", "interview"} and edits:
+        if outcome in {"clarify", "interview", "await-input"} and edits:
             fail(f"{case_id} cannot edit while awaiting essential or interview input")
         if interview != (outcome == "interview"):
             fail(f"{case_id} interview expectation disagrees with outcome")
@@ -123,6 +123,8 @@ def validate_execution_cases() -> int:
             fail(f"{case_id} interview requires a direct guided or requested question round")
         if outcome == "clarify" and (route != "direct" or not questions):
             fail(f"{case_id} skill clarification requires a direct essential blocker")
+        if outcome == "await-input" and (route != "direct" or questions):
+            fail(f"{case_id} exhausted setup must wait without more skill questions")
         if outcome == "deliver" and questions:
             fail(f"{case_id} delivery cannot add an unsolicited question round")
         if route == "maintenance":
@@ -134,6 +136,7 @@ def validate_execution_cases() -> int:
             "deliver": {"audit_report", "browser_audit_report", "revision_result", "artifact_only", "parent_contract", "acknowledgment"},
             "clarify": {"clarification"},
             "interview": {"interview_questions"},
+            "await-input": {"input_needed"},
             "maintain": {"maintenance_result"},
         }
         if output not in allowed_output[outcome]:
@@ -175,6 +178,8 @@ def main() -> None:
     skill_text = SKILL.read_text(encoding="utf-8")
     examples_text = EXAMPLES.read_text(encoding="utf-8")
     data = json.loads(CASES.read_text(encoding="utf-8"))
+    if data.get("schema_version") != 2:
+        fail("regression fixtures need schema_version 2 (rule applicability and issue decisions)")
     cases = data.get("cases", [])
     execution_count = validate_execution_cases()
     behavior_suite = load_suite()
@@ -236,15 +241,15 @@ def main() -> None:
         if profile not in counts:
             fail(f"{case.get('id')} has unknown profile {profile!r}")
         counts[profile] += 1
-        for key in ("input", "why", "expect_findings", "must_not_flag", "preserve"):
+        for key in ("input", "why", "applicable_rules", "must_not_flag", "preserve"):
             if key not in case:
                 fail(f"{case.get('id')} lacks {key}")
-        findings = set(case["expect_findings"])
+        findings = set(case["applicable_rules"])
         covered_rules.update(findings)
         negatives = set(case["must_not_flag"])
         if findings & negatives:
             fail(f"{case['id']} expects and forbids the same finding")
-        if not findings:
+        if not findings and not case.get("expected_issues"):
             clean[profile] += 1
         if negatives:
             guarded[profile] += 1
@@ -255,6 +260,22 @@ def main() -> None:
         for literal in case["preserve"]:
             if literal not in case["input"]:
                 fail(f"{case['id']} preservation literal is absent from its input: {literal!r}")
+        issues = case.get("expected_issues", [])
+        if not isinstance(issues, list):
+            fail(f"{case['id']} issue decisions must be a list")
+        for issue in issues:
+            if set(issue) != {"primary", "related", "class", "severity"}:
+                fail(f"{case['id']} issue decisions need primary/related rule, class, and severity")
+            primary = issue["primary"]
+            if primary not in findings and not re.fullmatch(r"(?:CT|UX|VD)-\d{2}", primary):
+                fail(f"{case['id']} primary rule lacks applicability or a valid report-local category")
+            related = issue["related"]
+            if not isinstance(related, list) or len(related) != len(set(related)):
+                fail(f"{case['id']} related rules must be unique")
+            if primary in related or not set(related) <= findings:
+                fail(f"{case['id']} related rules cannot duplicate primary or lack applicability")
+            if issue["class"] not in {"error", "warning", "preference"} or issue["severity"] not in {"low", "medium", "high"}:
+                fail(f"{case['id']} has invalid issue class/severity")
 
     for profile in counts:
         if counts[profile] < 20:

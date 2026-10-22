@@ -2,6 +2,8 @@
 
 Review the interface against its user task, content, context, and current implementation. Aesthetic defaults can be useful when they fit. Do not prescribe one font, palette, card count, density, navigation shape, or visual style for every product.
 
+For every visual design review, also use [visual-style.md](visual-style.md) to inspect palette roles, typography, surfaces, and style fit. Apply D04 and the shared framework’s economy principle to interface labels and explanations: repair grouping or hierarchy before adding copy, while preserving necessary labels and conditions.
+
 For a requested browser walkthrough, use [browser-audit.md](browser-audit.md) within the execution contract. Actually visit and operate the scoped UI; source inspection and static screenshots supplement the walk, not replace it. Ordinary UI review can remain bounded to the containing task.
 
 ## Review order: rendered design, then interaction evidence
@@ -17,13 +19,14 @@ Stage 2 preparation is governed by [domain-research.md](domain-research.md); use
 
 For an app-level design audit, keep a compact ledger of the scoped rendered **screen × viewport × material state** combinations. Include revealed panels/dialogs; visiting a route is not reviewing its composition. Use the actual supplied/captured states, not invented states or every possible permutation. A bounded component review needs only its relevant row(s).
 
-Each row records the screen/evidence, current user decision, and the following four relationship checks. Use the deeper lenses below as needed:
+Each row records the screen/evidence, current user decision, and the following five relationship checks. Use the deeper lenses below as needed:
 
 | Check | Required observation |
 | --- | --- |
 | **Priority** | Identify the strongest visual emphasis and the information/action needed for the current decision. Compare their weight/position. Present/readable status is not necessarily appropriately prioritized. |
 | **Association** | Follow a control or heading through its name, explanation, state, and action. Describe their actual proximity/alignment; check whether a user can treat them as one group. Semantic labeling and visual association answer different questions. |
-| **Redundancy** | Compare simultaneously visible regions for repeated information. Explain the distinct purpose of each repetition, or the competing work it creates. Real records can still be presented redundantly; necessary summary, orientation, and detail links can be useful. |
+| **Redundancy** | Compare simultaneously visible regions for repeated information. Identify the distinct work of secondary labels, subtitles, helper text, and repeated data, or explain the competing work they create. Prefer layout to copy that merely explains an obvious arrangement. Real records can still be presented redundantly; necessary summary, orientation, and detail links can be useful. |
+| **Style and color** | Inspect palette roles, competing accents, typography/surfaces, and fit to the actual brief. Record a specific relationship or an evidence gap; “neutral,” “colorful,” or “on brand” alone is insufficient. |
 | **Fit and craft** | Check content at the tested size: wrapping, order, shared edges, component alignment, pane/overlay space and important-state visibility. No horizontal overflow alone does not establish a sound composition. |
 
 For **each check**, record `concern`, `adequate`, `unknown`, or `not applicable`, plus a short concrete observation. “Looks clean,” “consistent neutral styling,” and “buttons work” are not evidence for an adequate association/priority judgment. An adequate judgment can be brief, such as “field name, input, and hint share a left edge.” These are observable review notes, not a request to expose private reasoning.
@@ -39,7 +42,7 @@ Keep the ledger in a task-owned audit artifact when file output is appropriate; 
 1. Review all scoped rows before selecting highlights. A first valid issue or a minor wording issue is not a stopping condition.
 2. Account for every `concern`: include it as a finding, merge it with the same underlying issue, or retain a short dismissal with its **specific** task/evidence rationale. Unknown evidence stays a gap. For an important unknown, reinspect the available state once when useful; stop and disclose a real access limit rather than looping or inventing a failure.
 3. For each retained issue, use a stable identity: **screen/state + region + mechanism**. One grouping problem across several labels is one issue with multiple examples. Do not compare audits by report-local numbering or exact phrasing, and do not duplicate it as typography, spacing, and UX findings.
-4. Rank by supported consequence: a hidden/misrepresented decision or unavailable required action first; a recurring priority/association/redundancy burden next; minor finish last. Name the supported consequence; a sensitive screen alone does not make a visual concern a severe defect. Do not bury a meaningful grouping issue beneath optional truncation polish or fill a required issue count.
+4. Rank by supported consequence: a hidden/misrepresented decision or unavailable required action first; a recurring priority/association/redundancy/style burden next; minor finish last. Name the supported consequence; a sensitive screen alone does not make a visual concern a severe defect. Do not bury a meaningful grouping issue beneath optional truncation polish or fill a required issue count.
 
 “It follows the neutral design system,” “the control works,” or “the records are real” cannot alone dismiss a different observed relationship. Preserve the useful design choice while repairing the specific friction when possible. Conversely, no finding is required when the relationships fit the task. Design interpretation remains a heuristic judgment, not proof that users failed.
 
@@ -61,13 +64,9 @@ Apply each relevant lens within the selected scope and place the resulting obser
 
 Before a no-finding conclusion on UI design, finish the relevant visual lenses or state the remaining visual gaps. Report a compact visual assessment separately from behavioral verification. An accessibility checklist and a list of working buttons cannot substitute for composition, hierarchy, and craft review.
 
-## Distinguish defects from taste
+## Findings
 
-- **Defect:** a control does nothing or misleads; text clips at a tested viewport; focus is unavailable; an error/empty state blocks the task; an image misstates the product; a measured contrast or reflow requirement fails.
-- **Heuristic:** an observed visual relationship makes the supported task harder to scan or interpret, even when every control works. Examples include secondary identity overpowering an attention-needed state, control/label separation, or duplicated detail competing with the current decision. Repeated cards, gradients, badges, or a familiar page rhythm are cues to inspect, not findings by themselves.
-- **Taste:** a centered layout, serif type, generous space, dark mode, a card, gradient, badge, or illustration can fit. Offer another treatment only as an option unless it harms the user's task.
-
-For a visual warning, provide **screen/region and actual capture → observed relationship → supported task/brief → likely mechanism → minimal repair**. Mark the mechanism as a design judgment, not a measured user outcome. A reproducible broken control or user study is not required for a grounded visual warning. If no canonical D rule fits, use the report-local visual-design category in [finding-evidence.md](finding-evidence.md); do not discard an observed composition/craft issue merely because it is absent from the catalog. Do not claim AI authorship, measured delay, confusion rates, or standards failure from visual appearance.
+Use [finding-evidence.md](finding-evidence.md) for class, severity, deduplication, and evidence limits. A visual warning records **actual screen/region → observed relationship → supported task/brief → likely mechanism → minimal repair**. Functional success does not establish visual quality; an unmeasured interpretation is not a measured user outcome. Use a fitting D rule or report-local VD category for composition, style, and color concerns.
 
 ## Implementation checks
 

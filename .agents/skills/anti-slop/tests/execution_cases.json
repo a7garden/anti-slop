@@ -1302,6 +1302,30 @@
         "grounded_candidates": false
       },
       "why": "Disclose the unavailable context and offer the generic setup without fabricating project-specific flows."
+    },
+    {
+      "id": "direct-setup-budget-exhausted",
+      "user_request": "Review only.",
+      "context": {
+        "invocation": "direct continuation",
+        "setup_rounds_used": 2,
+        "known_operation": "audit",
+        "target": null,
+        "previous_answers": [
+          "Prose",
+          "Review only"
+        ]
+      },
+      "expected": {
+        "route": "direct",
+        "operation": "audit",
+        "outcome": "await-input",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": false,
+        "output": "input_needed"
+      },
+      "why": "After two setup rounds, retain audit and state that the actual text/path is missing. Wait without a third menu, guessed target, or edit."
     }
   ]
 }

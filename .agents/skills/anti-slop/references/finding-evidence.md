@@ -1,29 +1,52 @@
 # Finding categories and evidence
 
-This reference governs classification for all findings. The execution contract governs delivery. User requests can narrow the audit; a broader category does not expand authorization.
+This reference owns finding identity, classification, severity, and evidence limits. The execution contract owns delivery; the shared framework owns preservation and economy. Categories do not expand the user's scope.
 
-## Choose the right category
+## One issue, one primary rule
 
-Use W01–W29 or D01–D25 when the observation fits the canonical rule's detection conditions and exceptions. Do not stretch a rule or invent a canonical ID to fill a template. A severity field does not broaden the detection conditions: W21 concerns drift/differences between statements, not every absent contextual detail. A hypothetical need for an unstated year is not a W21 finding; mention it only as an optional context note when useful.
+Choose a matching canonical W01–W29 or D01–D25 rule as primary when one fits its detection conditions and exceptions. Use a report-local ID only when no canonical rule fits; do not put a local ID first with a fitting canonical ID in parentheses. W21 covers demonstrated drift or conflicts, not every missing contextual detail. A hypothetical need for an unstated year is not a W21 finding.
 
-An in-scope domain/user-journey problem outside those rules can use a report-local **UX-01**, **UX-02**, etc., labeled **domain UX**. State the supported job, target requirement or visible promise, affected journey, actual evidence, user impact, and minimal repair. These IDs identify this report's observations; they are not additions to the canonical catalog. Do not count the same problem twice under both categories.
+Identify an issue by **location/state + mechanism + consequence**, not by the number of matching rules. Select the most specific applicable rule as primary; cite other rules as related when useful, without creating duplicate findings. If independent mechanisms need different repairs, they may be separate issues. Apply the same identity when comparing repeated runs.
 
-For example, a supplied workflow requires checking overlapping bookings, but the observed journey makes users reopen each booking individually to discover overlaps. If no canonical rule fits, a domain UX finding can explain that observed friction and a bounded improvement. Without the requirement or observation, it remains a hypothesis to investigate. A competing app's conflict calendar does not prove a defect here.
+Useful overlap boundaries:
 
-An observed composition or component-craft concern outside the canonical rules can use report-local **VD-01**, **VD-02**, etc., labeled **visual design**. Include the actual screen/region/capture, competing visual relationships, supported task or design-brief basis, likely effect, and one minimal repair. These are report-local IDs, not additional canonical rules. Use one best-fitting category per issue; do not duplicate it under D, UX, and VD.
+| Overlap | Primary rule |
+| --- | --- |
+| W13 / D04 | D04 for redundant visible UI labels, subtitles, and helper explanations; W13 for prose repetition outside that interface structure. |
+| D08 / VD | D08 when decoration or secondary identity visibly outranks the task; VD for other observed composition/style mechanisms outside the catalog. |
+| W01 / W13 / W24 | W01 for redundant heading structure; W24 for a repeated opening/ending; W13 for other semantic repetition. |
+| W18 / W21 / W23 | W18 for source/claim mismatch; W23 for numeric basis or arithmetic; W21 for other source/result or cross-passage drift. |
+| D07 / D22 | D22 for a product screenshot/demo falsely presented as real; D07 for other image relevance or representation problems. |
+| D10 / D25 | D10 for verified behavior contradicting an affordance/label; D25 for inconsistent terminology or contextual ambiguity. |
+| D18 / D24 | D18 for an arbitrary style mandate; D24 for presenting taste as a functional/standards defect. These review guardrails do not themselves establish a defect in the product. |
 
-## Classify the evidence, then the finding
+Outside the catalog, use a report-local category rather than stretching a canonical rule:
 
-- **Proven error / 확실한 오류:** direct evidence shows a contradiction, broken behavior, violated target requirement, or applicable measured standard failure. Give the evidence and scope.
-- **Heuristic warning / 휴리스틱 경고:** contextual evidence suggests avoidable generic writing or UX friction. Explain the mechanism; do not claim measured user preference, speed, or failure without evidence.
-- **Optional taste / 취향 제안:** a viable alternative in tone, rhythm, hierarchy, or presentation. It is not a required repair.
+| Category | Required basis |
+| --- | --- |
+| **CT-01**, etc. — content | An observed factual, reasoning, relevance, or necessary-content problem in prose. State the excerpt, supported purpose/requirement or inspected evidence, consequence, and minimal repair. An omitted requirement needs a real brief or task basis, not an imagined audience need. |
+| **UX-01**, etc. — domain UX | A supported user job, requirement or visible promise, affected journey, observed friction, and minimal repair. A competitor feature alone is not a target requirement. |
+| **VD-01**, etc. — visual design | The actual screen/region/capture, observed composition, style or color relationship, task/design-brief basis, likely effect, and minimal repair. |
 
-A grounded visual warning is not optional taste merely because the app still functions or its overall style is intentional. Visible control/label separation or misallocated emphasis can support a heuristic interpretation without a user study. The observed relationship must be real and its task relevance explained; an imagined runtime failure, aesthetic dislike, or a competitor's different layout cannot supply that basis.
+These IDs belong to the report, not the canonical catalog. For example, a verified false standalone fact without an attribution need not be forced into W18; a required scheduling workflow with observed overlap-checking friction can use UX; a palette that undermines a declared action hierarchy can use VD.
 
-Access or evidence gaps have **no defect classification**. Report an inaccessible citation, unobserved control outcome, or missing measurement in verification limits. Lack of access does not prove fabrication or failure. Independent evidence may establish a defect despite that gap; cite that evidence specifically.
+## Evidence class and severity are independent
 
-A concern that exists only if an **unobserved binding or behavior** is true remains a hypothesis or verification probe, not a canonical heuristic warning. For example, a source snapshot contains change-confirmation copy but does not show which screen uses it; that missing connection does not establish that registration uses misleading copy. Keep the proposed check in verification limits until the relevant binding or observed context supports the rule's detection conditions.
+- **Error:** direct evidence establishes a false claim, contradiction, broken behavior, violated target requirement, or applicable measured standards failure.
+- **Warning:** observed contextual evidence supports a likely clarity, reasoning, UX, or visual-fit problem. Explain the mechanism as judgment; do not claim measured user outcomes.
+- **Preference:** an optional alternative when the existing choice remains sound. Do not present it as a required repair.
+- **Unverified gap:** missing access, binding, observation, or measurement. It has no defect class or severity; record it in verification limits.
 
-Name evidence kinds accurately: supplied requirement, inspected source, documented behavior, visual observation, operated interaction, or measured value. A screenshot cannot prove persistence; a help page cannot prove an action was executed. For accessibility, identify the criterion, level, applicability conditions, and actual observation/measurement; do not claim whole-product conformance from a few probes. Research about surface habits supplies review cues, not authorship evidence.
+Choose severity only after establishing the class: **high** for a supported material misrepresentation, blocked core task, or concrete consequential requirement failure; **medium** for meaningful understanding/decision cost; **low** for limited local friction or polish. Rule-level severities are conditional guides, not automatic scores. An error can be low impact; a grounded warning can concern a consequential decision. Preferences remain optional regardless of prominence.
 
-Rank by supported reader/user impact. Include location or excerpt, impact, and one minimal repair; browser findings also need replay actions, expected/observed result, and actual evidence references. Preserve material limits even in a compact report. Do not manufacture findings for an otherwise sound artifact.
+A visual warning does not require a broken control or a user study. A real control/label separation, unnecessary explanation, conflicting color role, or misplaced emphasis needs an observed relationship and task/brief basis. Overall intentional style or working controls cannot dismiss it. Aesthetic dislike and another app's different palette supply no such basis.
+
+## Evidence limits
+
+Unavailable citation records, testimonial provenance, or measurement logs do not establish fabrication or absent permission. Do not adopt a supplied author's verification as your own. Correct a proven mismatch; otherwise preserve attribution and report the relevant gap. An agent's own claim of checking something requires actual execution/observation.
+
+A concern that depends on an unobserved binding or behavior remains a hypothesis/probe. For example, confirmation copy found in source without a known screen binding cannot establish misleading registration copy. An icon-only screenshot cannot establish the absence of an accessible name. Keep these gaps visible instead of inventing warnings or outcomes.
+
+Name the evidence kind: supplied requirement, inspected source, documented behavior, rendered observation, operated interaction, or measurement. A screenshot cannot prove persistence; a help page cannot prove clicks. For an accessibility claim identify the criterion, level, applicability, and actual measurement/observation; a few probes cannot establish product-wide conformance.
+
+Each finding needs a location/excerpt, evidence, consequence, and one minimal repair. Browser findings also need replay actions and expected/observed results; visual findings describe the observed relationship without inventing a failed action. Keep material limits in compact reports and permit no-finding results.

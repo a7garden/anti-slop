@@ -4,7 +4,7 @@ Package validation checks data integrity. This evaluation checks **observed agen
 
 ## Run protocol
 
-Use [behavior_cases.json](behavior_cases.json): nineteen scenarios, at least three fresh executions each (57 runs). Keep model, harness, skill revision, and available tools constant within a comparison. Record actual settings rather than assuming defaults. These cases cover all four operations and supplement the 59 broader [execution scenarios](execution_cases.json); they do not prove all scenarios pass.
+Use [behavior_cases.json](behavior_cases.json): 28 scenarios, at least three fresh executions each (84 runs). Keep model, harness, skill revision, and available tools constant within a comparison. Record actual settings rather than assuming defaults. These cases cover all four operations and supplement the 60 broader [execution scenarios](execution_cases.json); they do not prove all scenarios pass.
 
 Prepare evaluator inputs without answers:
 
@@ -30,6 +30,8 @@ For each case's semantic checks, record a boolean, reason, and exact evidence re
 - Other checks are named for the case's observable contract: artifact-only output, no forced findings, no false-citation judgment from access alone, retained continuation and acknowledgment, domain-grounded UX without forced canonical mapping, research gaps, and no false browser completion.
 - `source_claim_not_self_verification` and `access_gap_not_fabrication`: unavailable records do not turn an existing author/testimonial claim into a falsehood, and the reviewer does not adopt it as independently verified. `fabrication_reported_without_repair`: known invented proof is reported as a finding, without claiming an applied edit in audit mode.
 - `blocked_report_proportionate`: with no inspected target material, report the actual access and evidence limits without repeating them under a full audit template or adding an unrequested generic plan. Partial runs must still preserve their observed findings.
+
+New framework cases also check redundant prose/UI scaffolding against preserved labels and conditions, styling and color within the brief, intact supplied metrics despite inaccessible records, content fallback categories, one-primary-rule deduplication, class/severity calibration, and awaiting-input continuation after the setup cap.
 
 Semantic review requires judgment; an exact word match cannot establish it. Require trace evidence and a reason even for passes. Negative conclusions about actions not performed need the complete tool transcript/artifact comparison, with a cited relevant span and the completeness basis in the reason.
 
@@ -77,3 +79,7 @@ The maintainer reviews whether each visual warning names an observed relationshi
 For consistency comparisons, freeze the input **before both revisions run**, including exact screen/viewport/state captures and any source extracts. Keep the request and output allowance identical apart from the skill path and run ID. Declare the supported anchor issues before the retest, with screenshot/region/mechanism and an independently reviewed task basis when available. Do not give those anchors or prior outputs to the execution agents. A disputed aesthetic direction is not a mandatory anchor; retain disagreements rather than tuning the skill to one reviewer's preferred layout.
 
 Review omissions in two parts: was the relevant state/check inspected, and was its concern retained or specifically dismissed? Compare semantic issue identities and their evidence, not headings or detector terms. Check that ledger concerns reconcile with findings, merged entries, or specific dismissals, and that unknown states do not receive clean judgments. Record per-anchor detection across repetitions, unsupported warnings, material severity variation, coverage gaps, and clean-control results. An issue appearing in all three runs of one product is a bounded observation, not a general reliability estimate. Keep held-out views or products separate from the tuning examples when extending the evaluation.
+
+## Framework-focused visual fixture
+
+[visual-quality-fixture.html](visual-quality-fixture.html) is a synthetic approval-component design fixture. Its controls intentionally have no transaction or persistence behavior; use it only for bounded visual/copy review, not as a real product or a passing browser-interaction test. Capture its rendered state, record actual dimensions, then freeze that capture for repetitions. Use [visual-style-control.html](visual-style-control.html) as a contrasting, purposeful serif/gradient treatment. Pair each capture with a supplied brief that retains the existing palette and names the approval task. Keep the evaluator’s anchors outside the execution request. Include a purposeful style negative control and prose revision case so a broader scope does not become blanket criticism or deletion. Follow the focused-evaluation protocol above; report final-output-only evidence limits where full transcripts are unavailable.

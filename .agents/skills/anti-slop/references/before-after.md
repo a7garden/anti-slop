@@ -18,7 +18,7 @@ These paired examples show the smallest useful change. Each before block is foll
 
 ## 2. Missing metric stays missing
 
-**Given:** the brief contains no latency measurement.
+**Given:** comparison with the author's source confirms that an editor invented the 32% metric. The source says only that the response path changed. This is not merely an inaccessible measurement record.
 
 **Before**
 
@@ -26,9 +26,9 @@ These paired examples show the smallest useful change. Each before block is foll
 
 **After**
 
-> 제공된 자료에는 응답 시간 측정값이 없습니다.
+> 응답 처리 경로가 바뀌었습니다.
 
-**Why:** the rewrite does not invent a more plausible number or imply that a test was run.
+**Why:** remove the confirmed invented claim and retain the supplied fact. If the author had supplied the 32% claim but its records were inaccessible, preserve attribution and report the verification gap outside the artifact instead.
 
 ## 3. Keep a useful colon and comparison scope
 
@@ -62,7 +62,7 @@ These paired examples show the smallest useful change. Each before block is foll
 
 ## 5. Remove a fabricated proof block, not replace it with new proof
 
-**Given:** no customer quote, customer name, or adoption metric was provided.
+**Given:** the developer confirms that the displayed customer and quote were invented to fill the layout. This establishes fabrication; unavailable provenance by itself would not.
 
 **Before**
 
@@ -200,3 +200,19 @@ These paired examples show the smallest useful change. Each before block is foll
 
 **Why:** stable terminology makes the flow understandable (D25), and the labels now describe the verified save action (D10). Do not infer publication from a generic button label.
 
+
+## 15. Let layout carry an obvious relationship
+
+**Given:** a rendered Downloads page has a heading “Downloads” and a button “Download CSV”. A subtitle says “Download your files here”, and a second line says “Click Download CSV to download a CSV”. Neither line contains a condition, consequence, or instruction beyond the visible control.
+
+**After:** keep the heading and button; remove the two redundant lines. Retain a separate “Paid accounts only” condition if that condition applies.
+
+**Why:** layout and the action label already provide orientation. Economy does not authorize dropping eligibility or accessible names (D04).
+
+## 16. Repair emphasis without replacing the palette
+
+**Given:** an approval screen's brief prioritizes the pending approval. The rendered secondary profile panel takes the sole saturated accent across half the viewport; the approval action uses the same faint treatment as inactive metadata.
+
+**After:** reduce the secondary panel's accent area and restore the primary-action emphasis using the existing palette. Inspect focus, disabled, and relevant theme states afterward.
+
+**Why:** the observed competition supports a visual hierarchy warning, not a ban on bright color. No measured user delay or standards failure has been established.

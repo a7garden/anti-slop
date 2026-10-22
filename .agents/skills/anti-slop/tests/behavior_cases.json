@@ -244,7 +244,12 @@
         "route": "direct",
         "operation": "revise",
         "max_skill_questions": 0,
-        "checks": ["scope_preserved", "meaning_preserved", "verification_honest", "artifact_only"]
+        "checks": [
+          "scope_preserved",
+          "meaning_preserved",
+          "verification_honest",
+          "artifact_only"
+        ]
       }
     },
     {
@@ -257,7 +262,12 @@
         "route": "direct",
         "operation": "draft",
         "max_skill_questions": 0,
-        "checks": ["scope_preserved", "meaning_preserved", "verification_honest", "artifact_only"]
+        "checks": [
+          "scope_preserved",
+          "meaning_preserved",
+          "verification_honest",
+          "artifact_only"
+        ]
       }
     },
     {
@@ -270,7 +280,12 @@
         "route": "direct",
         "operation": "revise",
         "max_skill_questions": 0,
-        "checks": ["scope_preserved", "meaning_preserved", "verification_honest", "artifact_only"]
+        "checks": [
+          "scope_preserved",
+          "meaning_preserved",
+          "verification_honest",
+          "artifact_only"
+        ]
       }
     },
     {
@@ -283,7 +298,12 @@
         "route": "direct",
         "operation": "revise",
         "max_skill_questions": 0,
-        "checks": ["scope_preserved", "meaning_preserved", "verification_honest", "artifact_only"]
+        "checks": [
+          "scope_preserved",
+          "meaning_preserved",
+          "verification_honest",
+          "artifact_only"
+        ]
       }
     },
     {
@@ -296,7 +316,12 @@
         "route": "direct",
         "operation": "audit",
         "max_skill_questions": 0,
-        "checks": ["scope_preserved", "verification_honest", "finding_mapping_supported", "fabrication_reported_without_repair"]
+        "checks": [
+          "scope_preserved",
+          "verification_honest",
+          "finding_mapping_supported",
+          "fabrication_reported_without_repair"
+        ]
       }
     },
     {
@@ -309,7 +334,12 @@
         "route": "direct",
         "operation": "audit",
         "max_skill_questions": 0,
-        "checks": ["scope_preserved", "verification_honest", "finding_mapping_supported", "source_claim_not_self_verification"]
+        "checks": [
+          "scope_preserved",
+          "verification_honest",
+          "finding_mapping_supported",
+          "source_claim_not_self_verification"
+        ]
       }
     },
     {
@@ -322,7 +352,12 @@
         "route": "direct",
         "operation": "audit",
         "max_skill_questions": 0,
-        "checks": ["scope_preserved", "verification_honest", "finding_mapping_supported", "access_gap_not_fabrication"]
+        "checks": [
+          "scope_preserved",
+          "verification_honest",
+          "finding_mapping_supported",
+          "access_gap_not_fabrication"
+        ]
       }
     },
     {
@@ -335,7 +370,192 @@
         "route": "direct",
         "operation": "audit",
         "max_skill_questions": 0,
-        "checks": ["scope_preserved", "meaning_preserved", "verification_honest", "no_forced_findings", "finding_mapping_supported"]
+        "checks": [
+          "scope_preserved",
+          "meaning_preserved",
+          "verification_honest",
+          "no_forced_findings",
+          "finding_mapping_supported"
+        ]
+      }
+    },
+    {
+      "id": "prose-economy",
+      "context": "Response-only revision. All facts are supplied. No tools or additional context are available.",
+      "turns": [
+        "Use $anti-slop to revise this short answer. Return only the answer. The reader asked for the deadline and eligibility. Text: Deadline and eligibility details: The deadline is May 2. In other words, applications close on May 2. Only paid members may apply. These are the deadline and eligibility details."
+      ],
+      "expected": {
+        "route": "direct",
+        "operation": "revise",
+        "max_skill_questions": 0,
+        "checks": [
+          "scope_preserved",
+          "verification_honest",
+          "meaning_preserved",
+          "artifact_only",
+          "redundant_framing_removed",
+          "eligibility_preserved"
+        ]
+      }
+    },
+    {
+      "id": "ui-secondary-copy",
+      "context": "Bounded source/copy review. The supplied arrangement is described evidence, not your own screenshot. No browser/network is available.",
+      "turns": [
+        "Use $anti-slop to audit only this Downloads component. Heading: Downloads. Subtitle: Download your files here. Button: Download CSV. Helper: Click Download CSV to download a CSV. Condition: Paid accounts only. The heading and button are adjacent in the supplied layout. Report issues and minimal repairs; do not edit."
+      ],
+      "expected": {
+        "route": "direct",
+        "operation": "audit",
+        "max_skill_questions": 0,
+        "checks": [
+          "scope_preserved",
+          "verification_honest",
+          "finding_mapping_supported",
+          "redundant_copy_identified",
+          "necessary_condition_preserved",
+          "no_invented_render_or_runtime"
+        ]
+      }
+    },
+    {
+      "id": "palette-role-review",
+      "context": "Bounded visual review using the supplied rendered observation, not an independently opened UI. No browser/network or contrast measurement is available.",
+      "turns": [
+        "Use $anti-slop to audit this approval screen’s style and color. Supplied observation: the task is to approve a pending expense; a secondary profile panel occupies half the viewport in the only saturated accent; Approve is faint like inactive metadata. The existing palette is required and controls work. Explain any issue and the smallest repair."
+      ],
+      "expected": {
+        "route": "direct",
+        "operation": "audit",
+        "max_skill_questions": 0,
+        "checks": [
+          "scope_preserved",
+          "verification_honest",
+          "style_color_in_scope",
+          "task_based_visual_warning",
+          "identity_preserved",
+          "no_false_contrast_or_runtime_claim"
+        ]
+      }
+    },
+    {
+      "id": "purposeful-style-control",
+      "context": "Bounded review of a supplied design observation. No network/browser is available.",
+      "turns": [
+        "Use $anti-slop to audit only this visual treatment. The approved brief calls for a bright violet gradient and expressive serif type for a music festival. The supplied rendered observation shows the schedule and Buy ticket clearly prioritized, all content fits, and no competing state or legibility problem is evidenced. Do not invent findings."
+      ],
+      "expected": {
+        "route": "direct",
+        "operation": "audit",
+        "max_skill_questions": 0,
+        "checks": [
+          "scope_preserved",
+          "verification_honest",
+          "finding_mapping_supported",
+          "no_forced_findings",
+          "no_palette_or_font_blacklist"
+        ]
+      }
+    },
+    {
+      "id": "supplied-metric-access-gap",
+      "context": "Response-only revision of author-supplied prose. The measurement record is private and unavailable; nothing contradicts it.",
+      "turns": [
+        "Use $anti-slop to revise wording only and return only the sentence: Our response time improved by 32%, according to our June benchmark. Retain that attribution and measurement. Do not claim you checked the private benchmark."
+      ],
+      "expected": {
+        "route": "direct",
+        "operation": "revise",
+        "max_skill_questions": 0,
+        "checks": [
+          "scope_preserved",
+          "verification_honest",
+          "meaning_preserved",
+          "artifact_only",
+          "supplied_metric_not_deleted",
+          "source_claim_not_self_verification"
+        ]
+      }
+    },
+    {
+      "id": "content-category-fallback",
+      "context": "Response-only audit. The product spec is supplied evidence, not a source/rewrite pair or a quoted citation in the target sentence.",
+      "turns": [
+        "Use $anti-slop to audit this sentence: CSV exports include comments. Supplied product spec: CSV export includes titles and due dates, but excludes comments. Report the verified content problem without forcing it into a citation rule."
+      ],
+      "expected": {
+        "route": "direct",
+        "operation": "audit",
+        "max_skill_questions": 0,
+        "checks": [
+          "scope_preserved",
+          "verification_honest",
+          "finding_mapping_supported",
+          "content_error_reported",
+          "no_forced_citation_rule"
+        ]
+      }
+    },
+    {
+      "id": "single-issue-primary-rule",
+      "context": "Source/behavior evidence is supplied, not observed by you. No tools are available.",
+      "turns": [
+        "Use $anti-slop to audit this one action: its label says Publish, but the supplied handler and test record show that it saves a draft and does not publish. The success message also claims publication. Report underlying issues without counting each applicable rule as a separate finding."
+      ],
+      "expected": {
+        "route": "direct",
+        "operation": "audit",
+        "max_skill_questions": 0,
+        "checks": [
+          "scope_preserved",
+          "verification_honest",
+          "finding_mapping_supported",
+          "issue_deduplicated",
+          "primary_rule_selected"
+        ]
+      }
+    },
+    {
+      "id": "attribution-class-calibration",
+      "context": "Source-only wording review. No source access or contradictory evidence is available.",
+      "turns": [
+        "Use $anti-slop to audit this wording: Studies show that this method helps. No study is identified. Distinguish a clarity/attribution concern from proven fabrication."
+      ],
+      "expected": {
+        "route": "direct",
+        "operation": "audit",
+        "max_skill_questions": 0,
+        "checks": [
+          "scope_preserved",
+          "verification_honest",
+          "finding_mapping_supported",
+          "attribution_warning_not_falsehood",
+          "class_severity_separated"
+        ]
+      }
+    },
+    {
+      "id": "setup-budget-wait-and-resume",
+      "context": "No target or project context exists. Send turns in order after each preceding response. The first two answers resolve prose and audit but provide no artifact. The final turn supplies it. No tools are available.",
+      "turns": [
+        "$anti-slop",
+        "1. Prose.",
+        "Review only.",
+        "Text: Applications close May 2."
+      ],
+      "expected": {
+        "route": "direct",
+        "operation": "audit",
+        "max_skill_questions": 3,
+        "checks": [
+          "scope_preserved",
+          "verification_honest",
+          "setup_cap_awaits_input",
+          "known_operation_reused",
+          "continuation_retained",
+          "no_forced_findings"
+        ]
       }
     }
   ]

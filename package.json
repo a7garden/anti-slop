@@ -1,7 +1,7 @@
 {
   "name": "@a7garden/anti-slop",
-  "version": "1.9.1",
-  "description": "Language-agnostic skill that audits and revises AI-flavored writing (Korean+English) and UI for slop patterns — evidence-sourced rules, not a detector.",
+  "version": "2.0.0",
+  "description": "Modular quality framework for prose, UI copy, layout, visual style, color, and interaction — evidence-grounded review, not a detector.",
   "bin": {
     "anti-slop": "bin/install.mjs"
   },
