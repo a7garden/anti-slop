@@ -30,6 +30,10 @@ Outside the catalog, use a report-local category rather than stretching a canoni
 
 These IDs belong to the report, not the canonical catalog. For example, a verified false standalone fact without an attribution need not be forced into W18; a required scheduling workflow with observed overlap-checking friction can use UX; a palette that undermines a declared action hierarchy can use VD.
 
+A broad domain task alone does not establish that a particular field, proof document, feature, or explanatory label is required. For a missing-information finding, cite the target-specific requirement/visible promise or show the actual ambiguity that prevents the supported decision. A screenshot's absent information and a separate identity region do not establish hidden workflow requirements or that person's role. If the connection is unknown, record a gap rather than adding a requirement or inventing a role in the repair.
+
+Before delivery, reconcile every retained issue with the overlap table: identify its mechanism, check the applicable canonical detection/exception, and choose one primary ID. In particular, decoration or secondary identity outweighing the task maps to D08; redundant visible UI explanation maps to D04. Reserve VD for a different mechanism outside those rules. This is a classification check, not permission to invent findings or rewrite their evidence to fit an ID.
+
 ## Evidence class and severity are independent
 
 - **Error:** direct evidence establishes a false claim, contradiction, broken behavior, violated target requirement, or applicable measured standards failure.

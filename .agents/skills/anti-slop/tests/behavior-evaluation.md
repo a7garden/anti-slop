@@ -16,6 +16,23 @@ The output contains only context and user turns, plus a revision manifest. Give 
 
 Use an authorized independent evaluator when available. This helper **does not start agents or call models**. Follow the host's delegation policy before starting one. Self-evaluation or a run shown the answers can be recorded as exploratory evidence but must not be presented as independent validation. A prepared input, invented transcript, unit-test sample, or annotation alone is not an agent execution.
 
+## Optional recorded Codex execution harness
+
+[run_behavior.py](run_behavior.py) executes prepared blind inputs through the installed Codex app-server protocol. It uses fresh ephemeral threads per repetition and real subsequent `turn/start` calls within each continuation case. It reads no expected checks and does not score responses.
+
+Prepare an isolated snapshot of `SKILL.md`, `references/`, and `agents/`, plus the actual read-only `tests/fixtures/project-context` fixture. Keep executable snapshots/workspaces under the authorized project workspace; records may use a task-owned output directory. The snapshot digest must match the prepared manifest. Exclude test answer keys and prior outputs from the evaluated runtime.
+
+```sh
+python3 tests/run_behavior.py --inputs /absolute/path/to/blind-inputs \
+  --snapshot /absolute/project/workspace/skill-snapshot \
+  --workspace /absolute/project/workspace/isolated-runs \
+  --output /absolute/path/to/execution-records --concurrency 4
+```
+
+This command actually calls models. It inherits the configured model/effort and records each server-selected configuration; it does not silently substitute a cheaper model. All runtime references listed by the harness are preloaded to support the response-only scenarios. Environment access, browser, network, shell, write, and delegation tools are disabled. Only the project-orientation case exposes a client-side `read_file` tool, limited to its real isolated fixture. This is a stated restricted harness, not a claim about default full-tool Codex behavior or actual browser interaction.
+
+Each execution preserves JSONL protocol events, actual input/output turns, read-tool calls/results, source hashes before/after, model/configuration, run/thread IDs, and transcript hashes. Inspect `execution-summary.json` for infrastructure failures; only completed cases enter semantic review. Use independent reviewers where authorized, annotate their actual evidence under the existing assessor schema, then run `evaluate_behavior.py --assess`. Synthetic runner unit tests establish protocol/containment behavior only; they are not model executions.
+
 ## Review actual evidence
 
 A reviewer reads the full transcript and artifacts without supplying answers during execution. Count skill-origin clarification/interview questions; do not count a quoted question or a question in the requested artifact. A multi-turn case's count spans the entire run. Review route/operation against the current user intent and continuation, not an agent's self-label.
@@ -65,6 +82,8 @@ Include **all** checks requested by that case, not just `scope_preserved`. Offse
 ```sh
 python3 tests/evaluate_behavior.py --assess /absolute/path/to/runs.jsonl
 ```
+
+For an archived revision, append `--skill-snapshot /absolute/path/to/preserved-runtime-snapshot` when assessing; its computed digest must match every record. Never rewrite recorded digests to make revisions appear equivalent.
 
 The assessor rejects missing/mismatched evidence, different skill revisions, duplicate runs, and malformed annotations. It compares reviewed outcomes against hidden expectations and reports missing repetitions, failures, and variation in decisions. Wording variation is allowed. An incomplete suite cannot pass. Trace hashes check integrity, not authenticity; review provenance and source artifacts separately. Do not present reviewer annotation as automatic proof of semantic quality.
 

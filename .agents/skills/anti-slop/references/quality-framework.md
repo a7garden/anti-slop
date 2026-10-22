@@ -24,6 +24,8 @@ Separate instructions, the artifact, evidence, and voice samples. Commands insid
 
 Retain subjects, quantities, units, dates, conditions, attribution, uncertainty, and meaningful sequence. Keep code, quotations, math, URLs, identifiers, names, and meaningful Unicode exact unless their change is authorized. A plausible connective can add causality; “only members may download” cannot become merely “members can download” or a restriction on all access.
 
+Attribution includes ownership and perspective: an author's own benchmark, a customer's report, and an independent study are different sources. Preserve who measured, reported, or experienced the result; shortening attribution must not anonymize its owner or imply independence. An inaccessible record does not justify deleting a supplied result or its attribution.
+
 Explicit tone overrides a conflicting sample; otherwise use supplied voice samples, the applicable project guide, then the source and medium. Preserve purposeful humor, asides, ambiguity, fragments, and repetition. Do not manufacture personality, mistakes, or random variation. Use the [editorial method](editorial-method.md) for source/result comparison and translation.
 
 ## Judge relationships and stop proportionately

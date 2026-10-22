@@ -33,9 +33,15 @@ For long documents, keep a small working ledger of recurring entities, preferred
 
 Make the smallest change that repairs the diagnosed problem. A whole paragraph can need restructuring, but length alone does not justify rewriting everything. With no supported finding, keep the text and report no change. Do not force contractions, misspellings, fragments, slang, or random variation to satisfy a notion of human writing.
 
+When removing framing or repetition, retain already-clear factual and eligibility clauses unless the repair actually requires changing them. Do not paraphrase unaffected restrictions just to make the whole passage sound newly written.
+
 ## Finish with a meaning-and-voice check
 
 Compare source and result for changed facts, lost detail, stronger certainty, new causality, altered timing, new commitments, or merged claims that imply simultaneity. Check whether edits retain the author's purposeful quirks and whether the replacements have developed a repetitive shape of their own. Restore any drift. Report unresolved contradictions without choosing a plausible answer.
+
+Check source ownership and the claim's subject separately, including first-person perspective. Preserve both whose benchmark it is and whose response time improved when reordering a measurement claim. “Our benchmark showed a 32% improvement in response time” keeps the source owner but can lose the explicit subject “our response time”; a vague “a benchmark” also loses source ownership. Keep both relationships without requiring one exact phrase.
+
+In drafts and revisions, preserve the scope of eligibility, price, and timing in both directions. Keep unaffected eligibility predicates intact, including attached qualifiers. Separate source assertions must stay independently clear: “only members may download; downloading is free” must not become only a free-download restriction. Conversely, do not split “members alone may download at no cost” into a blanket members-only download ban. “Launches for paid accounts” does not establish exclusivity. Preserve unresolved scope rather than infer it. Check for lost and added exclusions, not merely the presence of “only”; restore drift even if the result is longer. This check stays internal.
 
 When translating or revising across languages, preserve claim strength, attribution, conditions, and register. A hedge such as “~할 수 있다” or “may” must not become a definite result. Where context does not establish an omitted actor, use an impersonal construction rather than inventing one. Carry stance and politeness into natural target-language conventions; do not translate Korean honorific forms mechanically or flatten the voice. Keep protected literals exact unless their translation or localization is explicitly requested; never change quantities or claim scope in the process. Disclose material uncertainty in language-specific judgments under the execution contract.
 

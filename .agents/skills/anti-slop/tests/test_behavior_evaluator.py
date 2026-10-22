@@ -5,7 +5,7 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
-from evaluate_behavior import assess, load_suite, prepare
+from evaluate_behavior import assess, load_suite, prepare, skill_digest
 
 
 class EvaluatorTests(unittest.TestCase):
@@ -91,6 +91,21 @@ class EvaluatorTests(unittest.TestCase):
         self.assertEqual(len(list(output.glob("*.json"))), len(suite["cases"]) + 1)
         with self.assertRaises(FileExistsError):
             prepare(output)
+
+    def test_runtime_snapshot_digest_tracks_instructions_not_review_data(self):
+        snapshot = self.root / "snapshot"
+        (snapshot / "references").mkdir(parents=True)
+        (snapshot / "tests").mkdir()
+        (snapshot / "SKILL.md").write_text("Runtime entrypoint.\n")
+        reference = snapshot / "references/policy.md"
+        reference.write_text("Preserve restrictions.\n")
+        review_data = snapshot / "tests/review.json"
+        review_data.write_text('{"review": "first"}')
+        original = skill_digest(snapshot)
+        review_data.write_text('{"review": "second"}')
+        self.assertEqual(original, skill_digest(snapshot))
+        reference.write_text("A materially different runtime policy.\n")
+        self.assertNotEqual(original, skill_digest(snapshot))
 
 
 if __name__ == "__main__":

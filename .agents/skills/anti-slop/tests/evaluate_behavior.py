@@ -137,12 +137,16 @@ def main() -> None:
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("--prepare", type=Path, metavar="NEW_OUTPUT_DIR")
     group.add_argument("--assess", type=Path, metavar="RUNS_JSONL")
+    parser.add_argument("--skill-snapshot", type=Path,
+                        help="Assess an archived run against its preserved runtime snapshot instead of the current skill")
     args = parser.parse_args()
+    if args.skill_snapshot and args.prepare:
+        parser.error("--skill-snapshot applies to --assess, not --prepare")
     if args.prepare:
         prepare(args.prepare)
         print("Prepared blind requests. No model executions performed.")
     else:
-        report = assess(args.assess)
+        report = assess(args.assess, expected_digest=skill_digest(args.skill_snapshot) if args.skill_snapshot else None)
         print(json.dumps(report, ensure_ascii=False, indent=2))
         if report["status"] != "passed":
             raise SystemExit(1)

@@ -2,7 +2,7 @@
 name: anti-slop
 description: "Draft, audit, or revise prose and product interfaces for clarity, truth, useful structure, and visual fit. Covers sentences, UI copy, layout, typography, style, color, and interaction while preserving the author's voice and product identity."
 metadata:
-  version: "2.0.0"
+  version: "2.0.6"
   short-description: "Writing and interface quality framework"
 ---
 

@@ -370,10 +370,10 @@ For the wider comparison and rejected defaults, see [skill-comparison.md](skill-
 - **Class/severity:** warning / medium; false product evidence is error / high.
 - **Automatic:** no.
 
-### D08 — Decoration outranks the user's task
-- **Scope:** visual hierarchy, motion, ornament, hero elements.
+### D08 — Decoration or secondary identity outranks the user's task
+- **Scope:** visual hierarchy, motion, ornament, secondary brand/profile identity, hero elements.
 - **Basis:** S01, S04, S05, S06 (2026-10-07).
-- **Detect:** ornament, dramatic typography, animation, badges, or art draws attention before the primary information/control without serving the task.
+- **Detect:** ornament, a secondary brand/profile identity region, dramatic typography, animation, badges, or art takes greater visual emphasis than the primary information/control without serving the current task. A functional identity panel can still be secondary; compare its actual role and emphasis with the supported decision.
 - **Repair:** reduce or relocate only the competing element; keep necessary whitespace and brand character.
 - **Exceptions:** art-directed work may intentionally lead with visual expression.
 - **Class/severity:** warning / medium.

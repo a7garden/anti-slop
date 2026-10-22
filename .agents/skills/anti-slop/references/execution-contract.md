@@ -33,12 +33,12 @@ Stay inside the identified project. Do not install, start servers, mutate files,
 
 Use at most **two setup rounds and three decision questions**:
 
-1. Briefly state the inspected project basis and offer a small set of concrete artifacts/journeys. Without usable context, offer prose review/edit, UI audit/improvement, or new writing. Allow a free-form alternative. Never respond to a bare launch with only an open-ended target question.
+1. Briefly state the inspected project basis and offer a small set of concrete artifacts/journeys. Without usable context, offer prose review/edit, UI audit/improvement, or new writing. If both target and operation are unresolved, this first round asks only for the work/target; do not append an operation picker to that prompt. Allow a free-form alternative. Never respond to a bare launch with only an open-ended target question.
 2. Ask only what remains: target/input and operation. A chosen project target needs only an operation; a known operation needs only a target. Offer audit/revise for prose and audit/browser-audit/revise for a supported web UI. Drafting needs purpose and supported facts. Request the actual text/path/URL in the choice prompt, rather than asking for an input method and then asking for its value.
 
 Use the host's choice UI when available and permitted; otherwise a numbered menu works. A default selection is not a submitted answer. Read the entire reply: “1, review this” can resolve the operation as well as the category. Do not repeat answered questions or ask “shall I proceed?” once resolved. A URL alone still leaves the operation unresolved. Skipping setup cannot supply a missing target or authorize invented facts.
 
-If the limit is reached with essential input missing, enter **awaiting input**: state only what is missing, retain known choices, and wait. Do not show another menu, guess, or edit. The next substantive answer resumes the same run. An unavailable file needs a concrete access/path clarification or bounded limitation report, not restarted onboarding.
+If the limit is reached with essential input missing, enter **awaiting input**: acknowledge the retained operation and state the missing input declaratively, then wait. Do not repeat the solicitation to paste/send/choose, show another menu, guess, or edit. This is a status, not a third setup round. The next substantive answer resumes the same run. An unavailable file needs a concrete access/path clarification or bounded limitation report, not restarted onboarding.
 
 Later clarification is limited to a newly discovered essential ambiguity affecting facts, obligations, authorization, or target. Optional tone/audience/style uses context and conservative defaults. A supporting source or probe that is inaccessible normally calls for a disclosed gap, not another interview.
 
