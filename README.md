@@ -1,87 +1,91 @@
 # anti-slop
 
-A review-and-editing skill for AI assistants that audits or revises **writing in any language** and **product UI** for generic, inflated, repetitive, fabricated, inaccessible, or nonfunctional patterns — without flattening the author's voice or turning subjective taste into a defect.
+A modular quality framework for prose and product interfaces. It drafts, audits, and revises sentences, UI copy, layout, typography, visual style, color, imagery, and interaction while preserving meaning, voice, and product identity.
 
-It is guidance for careful editing, **not an AI detector**. It never attributes authorship, never invents replacement facts, and distinguishes proven defects from heuristic warnings and optional taste.
+It is not an AI detector. A word, punctuation mark, palette, card, or gradient is a review cue, never proof of authorship or poor quality.
 
-Works with any agent harness that supports the `.agents/skills/` convention (tested with [omp](https://github.com/can1357/oh-my-pi) and codex). The skill folder is self-contained — copy it anywhere.
+## Quality principles
 
-## Why
-
-AI-assisted text drifts toward a recognizable median: stacked praise, uniform sentence rhythm, sycophantic openers, tacked-on significance, fake metrics, interchangeable card grids. Most advice about this is either a word blacklist (tells drift and get trained away) or a detector (unreliable). This skill takes a third path:
-
-- **Rules describe reader-serving quality**, not model fingerprints. A pattern is a review cue, never evidence of who wrote it.
-- **Evidence registry**: every rule cites dated sources with stated limits — including *negative* results (the em dash is a bad tell; "delve" retired; short-sentence cadence was refuted in favor of uniform cadence).
-- **Findings come in three classes**: 확실한 오류 (proven error), 휴리스틱 경고 (heuristic warning), 취향 제안 (optional preference). Only the first is a defect.
+- Give the reader the needed answer and the user a clear task path.
+- Avoid unnecessary secondary labels and explanatory text. Let layout carry grouping and hierarchy; preserve meaningful labels, conditions, accessible names, units, and recovery.
+- Check style and color against the actual brief, content, emphasis, and state. Do not replace every identity with a neutral theme or ban a color/font by default.
+- Preserve facts, uncertainty, attribution, conditions, voice, and protected literals. Never invent proof, features, experiences, causes, or commitments.
+- Separate demonstrated errors, contextual warnings, optional taste, and unverified gaps. Class and severity are independent.
+- Report one underlying issue once, with one primary rule, evidence, consequence, and a bounded repair. Preserve clean material.
 
 ## Install
 
-One command installs (or updates) into every detected agent harness — omp (`~/.agents/skills`) and codex (`~/.codex/skills`); if neither exists, omp's is created:
+Works with harnesses supporting `.agents/skills/`, including omp and Codex. The folder is portable and has no runtime dependencies.
 
 ```sh
 npx github:a7garden/anti-slop
 ```
 
-Options: `-- --omp`, `-- --codex`, `-- --all`, `-- --dir <path>` (extra target), `-- --list`, `-- --uninstall`. **Update** by re-running the same command; the copy is replaced with the latest `main`.
+The installer updates every detected harness (`~/.agents/skills`, `~/.codex/skills`); if neither exists, it creates the former. Options:
 
-Manual alternative — the skill folder is self-contained, so plain copying works everywhere:
+- `-- --omp`, `-- --codex`, or `-- --all` select known harnesses.
+- `-- --dir <path>` selects only that destination unless combined with a harness flag.
+- `-- --list` previews destinations without filesystem changes.
+- `-- --uninstall` removes selected installations.
 
-```sh
-# omp
-cp -R .agents/skills/anti-slop ~/.agents/skills/
-
-# codex
-cp -R .agents/skills/anti-slop ~/.codex/skills/
-```
-
-No runtime dependencies. Python 3 is only needed for the offline validator.
+Re-running the installer replaces the active folder and retains the previous copy, including custom and obsolete files, at `../anti-slop-backups/update-*/anti-slop`. It prints the backup path; intentionally reapply any customizations. Manual copying also works but merges into an existing folder.
 
 ## Use
 
-- `anti-slop audit <target>` — ranked punch list, no edits.
-- `anti-slop revise <target>` — bounded edits + change summary.
-- no verb — the profiles apply while drafting.
+Send instructions in agent chat; the packaged executable only installs the skill.
 
-Paste the text or name the screen/component. Ask before broad rewrites. The user's brief, evidence, and existing product conventions take priority over skill defaults.
+- `$anti-slop audit <target>` — inspect and propose repairs; leave source unchanged.
+- `$anti-slop browser-audit <web target>` — operate the scoped UI and record actual results and coverage. `audit --browser` is an alias.
+- `$anti-slop revise <target>` — apply authorized bounded edits and verify them.
+- `$anti-slop draft <brief>` — create the requested deliverable.
 
-## What's inside
+A request to exercise and fix a UI uses revision with the browser method. A URL alone provides a target, not an operation. Ordinary component or copy work does not become a whole-app audit.
 
-```
-.agents/skills/anti-slop/
-├── SKILL.md                     # invocation, workflow, safeguards
-├── references/
-│   ├── rules.md                 # 53 rules (W01–W29 writing, D01–D24 design) with sources, exceptions, automation limits
-│   ├── writing-profile.md       # Korean profile
-│   ├── english-profile.md       # English profile
-│   ├── design-profile.md        # UI review profile
-│   └── before-after.md          # grounded rewrite examples
-├── tests/
-│   ├── regression_cases.json    # 95 fixtures: expected findings + intentional non-findings (Korean & English)
-│   └── validate_package.py      # offline structure/fixture validator
-└── extensions/                  # optional, inactive hook sample
-```
+For an unresolved direct launch, the agent reads enough of an accessible project to offer grounded target choices. It asks only missing target/operation questions, with at most two setup rounds and three decision questions. At the limit, it retains known choices and waits for missing input. Complete requests proceed immediately.
 
-**Languages**: the rule classes are language-agnostic; Korean and English profiles add register-specific cautions. For other languages, apply the rules directly and mark language-specific judgments as lower confidence.
+Embedded use follows the containing task without another interview, report, or approval gate. The user's explicit scope and output format take precedence. Internal instructions are English; deliverables follow the requested language, with Korean and English examples retained where they test language-specific decisions.
 
-Example rules: significance inflated beyond the facts (W05), vague authority ("연구에 따르면" / "studies show", W06), monotone cadence (W14), assistant scaffolding in deliverables ("좋은 질문이네요!", "Hope this helps!", W16), interpretation appended without evidence (W27), qualifier density erasing information (W28), calqued phrasing replacing plain wording (W29), fabricated testimonials or metrics (D05/D06), reflow and contrast failures (D12/D15).
+## Framework modules
+
+One entrypoint routes to relevant references instead of loading every checklist or duplicating workflows across separate skills.
+
+| Module | Authority |
+| --- | --- |
+| [Shared quality framework](.agents/skills/anti-slop/references/quality-framework.md) | Scope, precedence, economy, truth, voice, and stopping discipline across media. |
+| [Execution contract](.agents/skills/anti-slop/references/execution-contract.md) | Routing, short setup, continuation, five-stage progression, edit boundaries, and delivery. |
+| [Editorial method](.agents/skills/anti-slop/references/editorial-method.md) | Drafting, source/brief separation, sentence/document review, translation, and final meaning check; [Korean](.agents/skills/anti-slop/references/writing-profile.md) and [English](.agents/skills/anti-slop/references/english-profile.md) profiles supply language cautions. |
+| [Interface composition](.agents/skills/anti-slop/references/design-profile.md) | Screen/region/component relationships and a ledger for priority, association, redundancy, style/color, and fit/craft. |
+| [Visual style and color](.agents/skills/anti-slop/references/visual-style.md) | Palette roles, accents, typography, surfaces, identity, state/theme behavior, and bounded styling repairs. |
+| [Domain and UX preparation](.agents/skills/anti-slop/references/domain-research.md) | Grounded jobs/journeys and inspected comparable-app evidence before app-level audits; bounded work stays bounded. |
+| [Browser audit](.agents/skills/anti-slop/references/browser-audit.md) | Observe, act, verify, record; scoped inventory, coverage, safe test authority, and cleanup. |
+| [Finding policy](.agents/skills/anti-slop/references/finding-evidence.md) | Primary/related rules, report-local content/UX/visual categories, evidence class, severity, and gaps. |
+| [Canonical rules](.agents/skills/anti-slop/references/rules.md) | 54 rules: W01–W29 and D01–D25, with sources, detection conditions, exceptions, and automation limits. |
+
+Existing rule IDs remain stable. Report-local `CT`, `UX`, and `VD` categories cover supported issues outside the catalog without forcing a fit. Review guardrails such as arbitrary-style mandates are not themselves product defects.
+
+A rendered visual warning needs an observed relationship and task/brief basis; it does not require a broken button or user study. A screenshot cannot establish persistence, keyboard behavior, an absent accessible name, or measured accessibility conformance. Working controls alone cannot establish good visual design. Research and verification gaps remain explicit.
 
 ## Validation
 
 ```sh
-cd .agents/skills/anti-slop && python3 tests/validate_package.py
+npm test
 ```
 
-Checks package structure, rule metadata, fixture coverage, and link integrity. It does not measure model judgment.
+This checks package structure and links, rule/source metadata, regression and execution fixture integrity, installer replacement/rollback, and the evidence assessor's unit tests. It does not run models or certify semantic judgment.
 
-## Limitations
+The current package includes 150 rule-applicability fixtures, 60 execution scenarios, and 28 behavior scenarios. Regression schema 2 distinguishes applicable rule conditions from deduplicated issue decisions; focused cases specify primary/related rules, class, and severity. Fixture data is not execution evidence.
 
-- Not a detector; tells vary by model version and system prompt and drift over time. Sources are re-checked and the registry carries each one's scope.
-- The rules are editing prompts, not a classifier. Heuristics and preferences must never block or silently rewrite a sound choice.
+For a portable copy:
 
-## Sources
+```sh
+cd .agents/skills/anti-slop
+python3 tests/validate_package.py
+```
 
-The evidence registry in [rules.md](.agents/skills/anti-slop/references/rules.md) cites, among others: [Wikipedia: Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing), excess-vocabulary corpus studies ([arXiv:2406.07016](https://arxiv.org/abs/2406.07016)), a slop-measurement taxonomy ([arXiv:2509.19163](https://arxiv.org/abs/2509.19163)), the [sloptells](https://sloptells.com/) measured-tell catalog, W3C WCAG 2.2 guidance, and practitioner design references.
+Use [behavior evaluation](.agents/skills/anti-slop/tests/behavior-evaluation.md) for repeated observed executions: at least three fresh runs per scenario, frozen inputs/revision/settings, preserved evidence, and review for unsupported findings as well as omissions. The complete behavior suite requires 84 runs. The optional [recorded execution harness](.agents/skills/anti-slop/tests/run_behavior.py) uses real ephemeral Codex threads, keeps continuation turns in the same thread, and preserves protocol traces; it does not grade itself. Focused exercises are reported separately and cannot establish a full-suite pass.
 
-## License
+The [2026-10-23 evaluation report](tests/behavior-results-2026-10-23.md) records actual settings, revision digests, observed failures and corrections, repeated results, and the separate actual-image follow-up.
 
-[MIT](LICENSE)
+The [browser fixture](.agents/skills/anti-slop/tests/browser-audit-fixture.html) tests actual interactions under the [browser evaluation protocol](.agents/skills/anti-slop/tests/browser-evaluation.md). The [visual fixture](.agents/skills/anti-slop/tests/visual-quality-fixture.html) supports capture-based composition/style/copy exercises; the [style control](.agents/skills/anti-slop/tests/visual-style-control.html) supplies a purposeful serif/gradient contrast case. These fixtures’ static controls do not implement a transaction or persistence.
+
+The [source registry](.agents/skills/anti-slop/references/rules.md) and [comparison notes](.agents/skills/anti-slop/references/skill-comparison.md) record evidence dates, limits, adopted methods, and rejected defaults. Surface habits drift; editorial and practitioner references are not validated authorship classifiers. The [OMP extension sample](.agents/skills/anti-slop/extensions/README.md) remains optional and inactive.

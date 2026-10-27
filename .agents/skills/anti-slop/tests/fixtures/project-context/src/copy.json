@@ -1,0 +1,7 @@
+{
+  "create_action": "예약 등록",
+  "edit_action": "예약 변경",
+  "confirm_action": "변경 확인",
+  "success_message": "예약을 변경했습니다.",
+  "empty_message": "선택한 날짜에 예약이 없습니다."
+}

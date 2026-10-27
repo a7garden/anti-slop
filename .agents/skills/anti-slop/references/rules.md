@@ -1,8 +1,10 @@
 # Canonical anti-slop rules
 
-Reviewed 2026-10-08. The rules are editing prompts, not a classifier. Severity describes the impact if the observed condition is real; confidence describes whether the signal proves it. Do not turn a heuristic or preference into a hard failure. The classes are language-agnostic; examples mix Korean and English, and language profiles supply register-specific cautions.
+Framework alignment reviewed 2026-10-22; individual sources retain their checked dates. The rules are editing prompts, not a classifier. Severity describes the impact if the observed condition is real; confidence describes whether the signal proves it. Do not turn a heuristic or preference into a hard failure. The classes are language-agnostic; examples mix Korean and English, and language profiles supply register-specific cautions.
 
 ## Finding classes
+
+[Finding and evidence policy](finding-evidence.md) owns classification, conditional severity, and one-primary-rule deduplication. Apply review guardrails such as D18/D24 to your own method; report them only when that method or a review/brief is itself the target.
 
 - **확실한 오류 / error:** evidence shows a false claim, contradictory fact, broken task, or applicable conformance failure. Correct only after checking the relevant source, code, or rendered behavior.
 - **휴리스틱 경고 / warning:** a pattern can make prose or UI generic, inflated, repetitive, or harder to use. A pattern alone never proves AI authorship or poor quality.
@@ -33,6 +35,13 @@ Each rule cites one or more IDs below; the source URL and checked date apply to 
 - **S17 — Korean model-voice comparison**, a practitioner observation of recurring Korean prose habits across three assistant families; the author notes variation by model version and system prompt: https://brunch.co.kr/@webtutor/1157 (checked 2026-10-08).
 - **S18 — AI design slop analysis**, a practitioner account of same-stack interface defaults (purple gradients, glass surfaces, identical card grids, interchangeable hero copy) adopted without a product reason: https://smoothui.dev/blog/ai-design-slop (checked 2026-10-08).
 
+- **S19 — Slopbeth workflow**, practitioner guidance on brief/artifact separation, evidence boundaries, and commitments: https://github.com/ehmo/slopkit/blob/b33718bb9283c11b09567dc714f92d90ffb7bd16/skills/slopbeth/SKILL.md (checked 2026-10-10).
+- **S20 — Blader Humanizer**, practitioner examples of structural repetition, invented objections, and reader-context mismatch; its stronger token restrictions are not adopted: https://github.com/blader/humanizer/blob/225a6f39ac85f76ee48dbad772ea4abe4ed6c9d8/SKILL.md (checked 2026-10-10).
+- **S21 — Hannsxpeter Humanizer text hygiene**, practitioner guidance on preserving meaningful Unicode, not authorship evidence: https://github.com/hannsxpeter/humanizer/blob/e8f1248a7d4919689c1f942e356ed95b102d9f07/references/text-hygiene.md (checked 2026-10-10).
+- **S22 — Impeccable clarify**, practitioner guidance on action outcomes, terminology, state copy, and localization; not a conformance standard: https://github.com/pbakaus/impeccable/blob/d631a8827f99414d2b6daba4ef08b7f8701751d7/skill/reference/clarify.md (checked 2026-10-10).
+
+For the wider comparison and rejected defaults, see [skill-comparison.md](skill-comparison.md). External skills provide editorial examples, not an empirical detector or automatic repair authority.
+
 ## Writing
 
 ### W01 — Empty, repeated, or overgrown headings and subtitles
@@ -53,12 +62,12 @@ Each rule cites one or more IDs below; the source URL and checked date apply to 
 - **Class/severity:** preference / low, unless a title misleads.
 - **Automatic:** no meaningful decision; punctuation counts alone are not findings.
 
-### W03 — Repeated negative contrast
-- **Scope:** adjacent or repeated “A가 아니다, B다” and “not X but Y” constructions.
-- **Basis:** S01, S02 (2026-10-07).
-- **Detect:** the same reversal cadence is used several times to manufacture emphasis without adding a distinction.
-- **Repair:** state the actual positive claim, retain only contrasts that resolve a real misconception.
-- **Exceptions:** a single precise correction or rhetorical antithesis can be effective.
+### W03 — Repeated contrast or invented objection
+- **Scope:** “A가 아니다, B다”, “not X but Y”, and passages that stage an alternative only to reject it.
+- **Basis:** S01, S02, S20 (2026-10-10).
+- **Detect:** the same reversal cadence manufactures emphasis without adding a distinction; or the passage invents an objection, weaker option, or defense that the audience has no reason to consider. Check split sentences and adjacent paragraphs too.
+- **Repair:** state the supported positive claim; retain contrasts or objections that explain an actual decision or resolve a relevant misconception.
+- **Exceptions:** a precise correction, genuine trade-off, teaching example, FAQ misconception, or deliberate rhetorical antithesis can be effective; absence of a quoted opponent alone is not a finding.
 - **Class/severity:** warning / low to medium, depending on repetition.
 - **Automatic:** partial; pattern search can flag candidates, not judge purpose.
 
@@ -86,7 +95,7 @@ Each rule cites one or more IDs below; the source URL and checked date apply to 
 - **Detect:** readers cannot tell who said what, which evidence applies, or whether the text claims causation, correlation, or mere timing; a relationship is only gestured at (“~와 연관된”, “~의 일환으로”, “연계된”) where the actual role, date, or action could be stated.
 - **Repair:** name the source and scope from supplied evidence, qualify the relation, or remove the unsupported attribution.
 - **Exceptions:** a broad summary can be acceptable when its sources are cited nearby and the scope is clear.
-- **Class/severity:** error / high when it changes factual trust; otherwise warning / medium.
+- **Class/severity:** warning for observed attribution/relation ambiguity; error only when evidence establishes a false attribution, contradiction, or unsupported causal assertion. Severity follows the demonstrated consequence, not the absence of a source alone.
 - **Automatic:** no; source and causal meaning need checking.
 
 ### W07 — Promotional modifiers without a concrete claim
@@ -144,9 +153,9 @@ Each rule cites one or more IDs below; the source URL and checked date apply to 
 - **Automatic:** no; do not ban individual terms.
 
 ### W13 — Same meaning repeated with synonyms
-- **Scope:** neighboring clauses, paragraphs, and summary lines.
-- **Basis:** S02 (2026-10-07).
-- **Detect:** the same claim is paraphrased for emphasis without adding a condition, example, implication, or distinction.
+- **Scope:** neighboring clauses, paragraphs, headings, and summary lines.
+- **Basis:** S02, S20 (2026-10-10).
+- **Detect:** the same claim is paraphrased for emphasis without adding a condition, example, implication, or distinction; a heading is immediately restated; or each section closes by naming the lesson its example already made clear.
 - **Repair:** keep the clearest version and preserve any genuinely new qualification.
 - **Exceptions:** a recap may aid navigation or learning when it adds orientation or a useful synthesis.
 - **Class/severity:** warning / low to medium.
@@ -163,19 +172,19 @@ Each rule cites one or more IDs below; the source URL and checked date apply to 
 
 ### W15 — Background delays or avoids the answer
 - **Scope:** answers, reports, FAQ, support and product copy.
-- **Basis:** S02 and user-supplied candidates (2026-10-07).
-- **Detect:** general background repeats the question or postpones the requested answer, decision, or instruction.
-- **Repair:** lead with the supported answer, then give only context needed to understand scope or caveats.
-- **Exceptions:** a safety-critical qualification or setup step may need to precede a direct answer.
+- **Basis:** S02, S20 and user-supplied candidates (2026-10-10).
+- **Detect:** general background repeats the question or postpones the requested answer, decision, or instruction; a reply rebuilds context the recipient supplied before reaching its decision.
+- **Repair:** lead with the supported answer, then retain evidence or context that changes the reader's understanding or decision. Omit already-shared background only when that shared context is available.
+- **Exceptions:** a safety-critical qualification, necessary setup, or standalone document for a new audience may need background first.
 - **Class/severity:** warning / medium; error when a required instruction is omitted.
 - **Automatic:** no; compare with the user's question and context.
 
 ### W16 — Conversational assistant scaffolding remains in a deliverable
 - **Scope:** submitted reports, public copy, finished docs.
-- **Basis:** S02, S17 (2026-10-08).
-- **Detect:** “요청하신 내용을 정리해 보겠습니다”, “아래는 …입니다”, process narration, sycophantic openers (“물론입니다!”, “좋은 질문이네요!”), or formulaic closers (“도움이 되셨길 바랍니다”, “추가로 궁금하신 점은 언제든 말씀해 주세요”) address the requester instead of serving the final reader.
-- **Repair:** remove it or convert it into content the final audience needs.
-- **Exceptions:** a cover note, email reply, facilitation script, or explicitly conversational deliverable.
+- **Basis:** S02, S17, S19 (2026-10-10).
+- **Detect:** “요청하신 내용을 정리해 보겠습니다”, “아래는 …입니다”, process narration, sycophantic openers (“물론입니다!”, “좋은 질문이네요!”), or formulaic closers (“도움이 되셨길 바랍니다”, “추가로 궁금하신 점은 언제든 말씀해 주세요”) address the requester instead of serving the final reader; editing instructions or internal checklists are printed as if they belong to the artifact.
+- **Repair:** apply the brief, remove leaked instructions and process narration, and keep content the final audience needs.
+- **Exceptions:** a cover note, email reply, facilitation script, quoted instruction, or explicitly conversational deliverable; determine the artifact boundary before deleting text.
 - **Class/severity:** warning / low.
 - **Automatic:** partial; exact phrase checks miss context.
 
@@ -191,19 +200,19 @@ Each rule cites one or more IDs below; the source URL and checked date apply to 
 ### W18 — False, unsupported, or mismatched citation
 - **Scope:** citations, quotes, references, links, attribution.
 - **Basis:** S02 (2026-10-07).
-- **Detect:** the cited item is absent, cannot be resolved, does not support the attached claim, misquotes a source, or is outside the stated population/scope.
-- **Repair:** check the source and scope; correct the citation or flag the claim as unverified. Never fabricate a replacement.
-- **Exceptions:** placeholders explicitly marked as such, or an opinion clearly presented without factual authority.
-- **Class/severity:** error / high.
-- **Automatic:** partial; URL and bibliographic existence can be checked, claim support needs reading.
+- **Detect:** evidence establishes a fabricated or mismatched reference, a misquotation, a claim the source does not support, or an attribution outside its population/scope. A failed fetch alone does not establish any of these.
+- **Repair:** read the source and check its scope; correct the demonstrated mismatch. If authentication, a paywall, network failure, or unavailable material prevents verification, record the access limit and leave support unverified; do not call the citation false or invent a replacement.
+- **Exceptions:** explicitly marked placeholders, opinions without factual authority, and inaccessible sources whose validity has not been established either way. Access gaps belong in verification limits unless independent evidence supports a finding.
+- **Class/severity:** error / high for a demonstrated citation or support failure; unverified access alone has no defect classification.
+- **Automatic:** partial; URL/bibliographic checks are evidence leads, not proof of fabrication. Claim support requires inspecting the source.
 
 ### W19 — Unsupported “verified,” “proven,” or completion claim
 - **Scope:** statements that checks, tests, studies, or validation succeeded.
 - **Basis:** S02 (2026-10-07).
-- **Detect:** the text claims a check was completed or a fact established without an observed result or source.
-- **Repair:** report exactly what was checked, by whom, and what evidence exists; otherwise state that it remains unverified.
-- **Exceptions:** the user supplied the verification or the evidence is present in the task record.
-- **Class/severity:** error / high.
+- **Detect:** an agent/editor claims its own verification without actually performing or observing it, strengthens a supplied report into independent proof, or available evidence contradicts the claimed check, scope, or outcome. An existing author's statement is not disproved merely because the reviewer cannot access its records.
+- **Repair:** report exactly what was checked and observed; preserve attribution to supplied verification rather than adopting it as your own. Correct demonstrated contradictions. If the underlying record is unavailable, disclose that the source claim remains unverified without recasting it as false.
+- **Exceptions:** supplied or attributed verification with no contradictory evidence; preserve its scope and disclose independent-access limits when relevant.
+- **Class/severity:** error / high for an invented, contradicted, or overstated verification claim; an access gap alone has no defect classification.
 - **Automatic:** no; compare statement to actual evidence.
 
 ### W20 — Invented first-person or lived experience
@@ -211,24 +220,24 @@ Each rule cites one or more IDs below; the source URL and checked date apply to 
 - **Basis:** S02 (2026-10-07).
 - **Detect:** an editor introduces personal experience or testimony absent from the source/author.
 - **Repair:** delete it or ask the author for a truthful account; never write a fictional testimonial as fact.
-- **Exceptions:** fictional character voice, clearly labeled hypothetical, or source-authenticated first person.
+- **Exceptions:** fictional character voice, clearly labeled hypothetical, or first-person experience already supplied by the author or attributed source. Missing independent corroboration does not establish invention.
 - **Class/severity:** error / high if represented as fact; otherwise warning.
 - **Automatic:** no.
 
-### W21 — Subject, number, time, or condition inconsistency
+### W21 — Subject, number, time, condition, or commitment drift
 - **Scope:** statements across a document and its summary/table.
-- **Basis:** user-supplied preservation requirement and S02 (2026-10-07).
-- **Detect:** a subject, date, comparison baseline, denominator, uncertainty, tense, or prerequisite changes between passages.
-- **Repair:** reconcile against the source; keep the exact known value and qualify unresolved differences.
+- **Basis:** user-supplied preservation requirement, S02, S19 (2026-10-10).
+- **Detect:** a subject, date, comparison baseline, denominator, uncertainty, tense, or prerequisite changes between passages or between source and rewrite; an edit introduces causality, simultaneity, obligation, or a recovery promise the source did not state.
+- **Repair:** reconcile against the source; restore claim strength and promise boundaries, keep exact known values, and flag unresolved differences. Plausibility cannot supply a missing cause or commitment.
 - **Exceptions:** a clearly labeled scenario, estimate, forecast, or deliberate change over time.
-- **Class/severity:** error / high when claims conflict; otherwise warning for an unresolved ambiguity.
+- **Class/severity:** error / high for demonstrated drift or conflict; warning for an unresolved difference between supplied statements. This classification does not extend detection to any missing contextual detail (such as an unstated year) without an evidenced ambiguity affecting the task.
 - **Automatic:** partial; tables and repeated entities can be diffed, but equivalence needs checking.
 
 ### W22 — Protected literals or sequence markers changed
-- **Scope:** code, quotations, math, units, URLs, proper names, identifiers, and meaningful numbered/bulleted sequence.
-- **Basis:** user-supplied preservation requirement (2026-10-07).
-- **Detect:** a style edit alters a literal, mathematical expression, source quote, route/URL, unit, or actual sequence.
-- **Repair:** restore the original exact string; edit around it. Verify display escaping without changing the stored content.
+- **Scope:** code, quotations, math, units, URLs, proper names, identifiers, meaningful sequence, and linguistically meaningful Unicode.
+- **Basis:** user-supplied preservation requirement, S21 (2026-10-10).
+- **Detect:** a style edit alters a literal, mathematical expression, source quote, route/URL, unit, or actual sequence; broad Unicode cleanup removes joiners, direction controls, variation selectors, or spacing needed for language or display.
+- **Repair:** restore the original exact string; edit around it. Verify display escaping without changing stored content. Inspect a suspicious codepoint's role before any targeted cleanup; preserve ambiguous characters.
 - **Exceptions:** explicit user instruction to alter the protected material, or a verified correction requested by the user.
 - **Class/severity:** error / high.
 - **Automatic:** partial; exact diff catches changes but cannot tell whether a change was authorized.
@@ -236,10 +245,10 @@ Each rule cites one or more IDs below; the source URL and checked date apply to 
 ### W23 — Unit, arithmetic, or comparison basis lost
 - **Scope:** measurements, currencies, percentages, sample sizes, dates, rankings.
 - **Basis:** user-supplied preservation requirement and S03 (2026-10-07; study-scope caution).
-- **Detect:** a number has no unit/baseline, a comparison drops its denominator, arithmetic no longer reconciles, or a narrow study is generalized.
+- **Detect:** a necessary unit, population, denominator, or comparison baseline is absent from the relevant context; arithmetic does not reconcile; or a narrow study is generalized. Check surrounding headings, labels, and established conventions before declaring information missing.
 - **Repair:** retain the source unit and population; recompute only from verified values; state limits.
-- **Exceptions:** a clearly illustrative hypothetical, labeled and not presented as the user's result.
-- **Class/severity:** error / high.
+- **Exceptions:** a clearly labeled hypothetical; meaningful unitless values; units or bases unambiguously established in the surrounding context.
+- **Class/severity:** error for demonstrated wrong arithmetic, changed units/basis, or false generalization; warning for an observed interpretive ambiguity. Severity depends on the consequence; a missing label is not automatically high severity.
 - **Automatic:** partial; arithmetic and format can be checked, evidentiary scope needs a reader.
 
 ### W24 — Opening and ending repeat instead of advancing
@@ -325,22 +334,22 @@ Each rule cites one or more IDs below; the source URL and checked date apply to 
 - **Class/severity:** warning / low; false state is an error.
 - **Automatic:** partial.
 
-### D04 — Heading hierarchy is redundant or misleading
-- **Scope:** hero, section titles, labels, page outline.
-- **Basis:** S01, S04, S05 (2026-10-07).
-- **Detect:** eyebrow, title, subtitle, and another large title all repeat one sentence; or heading levels skip/lie about structure.
-- **Repair:** make each heading do distinct work and use semantic levels that match the outline.
-- **Exceptions:** a short eyebrow can orient a page; a visually large heading need not be an H1 if semantics are correct.
+### D04 — Interface headings, labels, or explanations do redundant work
+- **Scope:** hero, section titles, secondary labels, subtitles, helper text, and page outline.
+- **Basis:** S01, S04, S05 (2026-10-07), and the owner's AGENTS.md economy constraint (2026-10-22).
+- **Detect:** a secondary label, subtitle, or explanation repeats the nearby heading/control or explains an arrangement already clear from layout, without adding needed context; or the heading outline misrepresents structure. Identify the actual redundant content and its surrounding arrangement.
+- **Repair:** remove or merge redundant copy; use placement, grouping, and hierarchy to communicate the relationship before adding explanation. Match semantic headings to the outline.
+- **Exceptions:** persistent field labels, accessible names, units, scope/eligibility, safety conditions, recovery, and genuinely useful orientation. Layout does not replace necessary content. A visually large heading need not be an H1 if semantics are correct.
 - **Class/severity:** warning / medium; semantic outline failure may be an error.
 - **Automatic:** partial; inspect DOM and content.
 
 ### D05 — Fabricated testimonial, logo, or customer proof
 - **Scope:** marketing and product proof blocks.
 - **Basis:** S01, S04, S05 (2026-10-07).
-- **Detect:** testimonial, customer mark, endorsement, or usage claim lacks user/source support or is shown as a real person/customer without permission/context.
-- **Repair:** remove it, request verified evidence, or label an example clearly as fictional.
-- **Exceptions:** authenticated supplied content used with appropriate authorization.
-- **Class/severity:** error / high.
+- **Detect:** evidence establishes an invented or misattributed testimonial, customer mark, endorsement, or usage claim, or use outside a known consent/context boundary. Missing or inaccessible provenance alone does not establish fabrication or missing permission.
+- **Repair:** remove the demonstrated misrepresentation, use verified authorized evidence, or clearly label an illustrative example. For unavailable provenance, report the verification gap without inventing a replacement or assuming permission.
+- **Exceptions:** supplied authorized content and clearly labeled fictional examples; unverified provenance without independent evidence of misrepresentation remains a verification limit.
+- **Class/severity:** error / high for demonstrated misrepresentation or unauthorized use; an access gap alone has no defect classification.
 - **Automatic:** no; provenance review is required.
 
 ### D06 — Invented statistic or decorative chart
@@ -361,10 +370,10 @@ Each rule cites one or more IDs below; the source URL and checked date apply to 
 - **Class/severity:** warning / medium; false product evidence is error / high.
 - **Automatic:** no.
 
-### D08 — Decoration outranks the user's task
-- **Scope:** visual hierarchy, motion, ornament, hero elements.
+### D08 — Decoration or secondary identity outranks the user's task
+- **Scope:** visual hierarchy, motion, ornament, secondary brand/profile identity, hero elements.
 - **Basis:** S01, S04, S05, S06 (2026-10-07).
-- **Detect:** ornament, dramatic typography, animation, badges, or art draws attention before the primary information/control without serving the task.
+- **Detect:** ornament, a secondary brand/profile identity region, dramatic typography, animation, badges, or art takes greater visual emphasis than the primary information/control without serving the current task. A functional identity panel can still be secondary; compare its actual role and emphasis with the supported decision.
 - **Repair:** reduce or relocate only the competing element; keep necessary whitespace and brand character.
 - **Exceptions:** art-directed work may intentionally lead with visual expression.
 - **Class/severity:** warning / medium.
@@ -381,18 +390,18 @@ Each rule cites one or more IDs below; the source URL and checked date apply to 
 
 ### D10 — Control looks interactive but does nothing or misleads
 - **Scope:** buttons, links, toggles, menus, forms.
-- **Basis:** S01, S04, S05, S06 (2026-10-07).
-- **Detect:** activation has no effect, destination is placeholder, visible affordance disagrees with behavior, or label overpromises the action.
-- **Repair:** wire the actual action and truthful label, or render non-interactive content as such.
+- **Basis:** S01, S04, S05, S06, S22 (2026-10-10).
+- **Detect:** activation has no effect, destination is placeholder, visible affordance disagrees with behavior, or label overpromises the action or hides a material consequence.
+- **Repair:** wire the actual action and truthful label, including a verified consequence when it changes the user's decision, or render non-interactive content as such.
 - **Exceptions:** prototype controls may be inactive only when the prototype status is obvious.
 - **Class/severity:** error / high.
 - **Automatic:** partial; route and click checks help, but expected outcome needs context.
 
 ### D11 — Missing task-critical interaction state
 - **Scope:** loading, empty, error, success, disabled, selected, validation.
-- **Basis:** S01, S04, S05, S06 (2026-10-07).
-- **Detect:** the user cannot tell what happened, how to recover, why an action is unavailable, or what to do with no results.
-- **Repair:** supply the state and a useful next step; preserve visible progress when work is pending.
+- **Basis:** S01, S04, S05, S06, S22 (2026-10-10).
+- **Detect:** the user cannot tell what happened, how to recover, why an action is unavailable, or what to do with no results; vague state copy hides the known failure or available recovery.
+- **Repair:** state the known outcome and actual next action; preserve visible progress when work is pending. Do not invent a cause, completion time, support commitment, progress value, or retry option the system does not provide.
 - **Exceptions:** no need to invent states irrelevant to the component or unreachable in its contract.
 - **Class/severity:** error / high when task is blocked; otherwise warning.
 - **Automatic:** partial; exercise documented states or inspect component coverage.
@@ -471,9 +480,9 @@ Each rule cites one or more IDs below; the source URL and checked date apply to 
 
 ### D20 — Visual language fails the real content or device
 - **Scope:** color, type, density, hit areas, layout across target devices.
-- **Basis:** S04, S05, S07, S09, S10, S11 and user-supplied constraint (2026-10-07).
+- **Basis:** S04, S05, S07, S09, S10, S11, S22 and user-supplied constraint (2026-10-10).
 - **Detect:** tested language/zoom/device makes labels wrap badly, controls collide, hierarchy vanish, or required content disappear.
-- **Repair:** adapt the component and retest real copy, including Korean string lengths and zoom.
+- **Repair:** adapt the component and retest real copy, including Korean strings, long names, localized messages, dynamic values, and zoom. Preserve variables and allow translators to reorder complete messages.
 - **Exceptions:** breakpoints and densities depend on actual usage; do not enforce one viewport or hit-area style without the product context.
 - **Class/severity:** error / high for a reproduced task/access failure; otherwise warning.
 - **Automatic:** partial; responsive screenshots and DOM checks help, but inspect behavior.
@@ -511,10 +520,21 @@ Each rule cites one or more IDs below; the source URL and checked date apply to 
 - **Detect:** “too many cards,” centered layout, gradient, typeface, whitespace, or color is labeled a failure without a user-task, measured, brand, or accessibility reason.
 - **Repair:** label it as an optional direction and name the effect it might improve; leave the viable choice intact.
 - **Exceptions:** a style choice can become a real defect when evidence shows clipping, low contrast, confusion, or task friction.
-- **Class/severity:** preference / low.
+- **Class/severity:** classify the target review's unsupported claim under the shared evidence policy; the underlying viable visual choice remains optional taste and is not a product defect.
 - **Automatic:** no; this rule is a reviewer discipline.
 
+### D25 — Terminology or action labels obscure the outcome
+- **Scope:** navigation, forms, confirmations, and state copy across an interaction.
+- **Basis:** S22 (2026-10-10; practitioner guidance).
+- **Detect:** the same object or action receives interchangeable names with no distinction, one term refers to different concepts, or a generic action label leaves a consequential outcome unclear from its surrounding context.
+- **Repair:** use the established product term consistently and name the actual action or consequence where needed. Inspect the destination or handler before claiming its outcome; do not rename a domain term just to simplify vocabulary.
+- **Exceptions:** deliberate domain distinctions, documented aliases, localization inflection, and a short generic label with unambiguous surrounding context.
+- **Class/severity:** warning / medium; error only when verified behavior contradicts the label or users cannot determine a task-critical consequence.
+- **Automatic:** partial; string comparisons find candidates, semantic equivalence and actual outcomes need context.
+
 ## Evidence scope and maintenance
+
+Rule-level suggestions to ask for evidence are repair options, not permission to initiate an interview. The [execution contract](execution-contract.md) governs whether an essential clarification is needed; embedded use preserves or reports gaps within its containing task.
 
 The cited anti-pattern pages provide examples and opinions, not an empirical method to identify model authorship. Wikipedia's page is advice, not detector validation. The JMLA result concerns a small medical-title comparison and does not establish a colon rule for Korean or other writing. W3C guidance supports checking applicable reflow behavior; it does not prescribe a visual theme. Recheck sources before making new compliance claims, and revise a rule only when the source, product context, or observed false-positive cases justify it.
 

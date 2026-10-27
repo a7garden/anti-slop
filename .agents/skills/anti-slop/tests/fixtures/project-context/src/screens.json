@@ -1,0 +1,11 @@
+{
+  "platform": "web",
+  "locale": "ko-KR",
+  "screens": [
+    {"path": "/appointments/new", "title": "예약 등록", "job": "상담사와 시간을 확인하고 새 예약을 등록한다"},
+    {"path": "/appointments", "title": "예약 목록", "job": "날짜와 상담사로 예약을 찾는다"},
+    {"path": "/appointments/:id", "title": "예약 상세", "job": "예약의 시간과 상담사를 확인한다"},
+    {"path": "/appointments/:id/edit", "title": "예약 변경", "job": "기존 예약의 시간을 변경한다"},
+    {"path": "/settings", "title": "설정", "job": "운영 시간과 알림 문구를 확인한다"}
+  ]
+}

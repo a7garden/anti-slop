@@ -1,61 +1,36 @@
 ---
 name: anti-slop
-version: 1.0.1
-description: "Audit, revise, or draft writing in any language (Korean and English profiles included) and product UI free of AI slop — generic, inflated, repetitive, fabricated, inaccessible, or nonfunctional patterns while preserving meaning, facts, and voice. Covers requests like 'AI 티 나는 표현 제거', '슬롭 감사', '자연스럽게 다듬어 줘', 'this reads like AI', 'this UI looks AI-generated', 'make this copy less generic'."
+description: "Draft, audit, or revise prose and product interfaces for clarity, truth, useful structure, and visual fit. Covers sentences, UI copy, layout, typography, style, color, and interaction while preserving the author's voice and product identity."
 metadata:
-  short-description: "Careful writing and UI review"
+  version: "2.0.6"
+  short-description: "Writing and interface quality framework"
 ---
 
 # Anti-slop
 
-Use this skill when asked to reduce formulaic AI-style habits in writing or interface design, in any language. It is a review and editing aid, not an AI-origin detector. Read the applicable profiles and only the rules relevant to the target; the canonical rules live in [references/rules.md](references/rules.md).
+Improve what readers and users receive. A surface pattern is a review cue, never proof of AI authorship or a reason to change a sound choice.
 
-## Commands
+## Shared contract
 
-- **audit target**: inspect and return a ranked punch list. Do not edit the target.
-- **revise target**: make the requested, bounded edits, then show a concise change summary and any unresolved findings.
-- **No verb**: apply the profiles while drafting or implementing; do not force an audit report onto an ordinary creation task.
+Read [quality-framework.md](references/quality-framework.md) and [execution-contract.md](references/execution-contract.md) for runtime use. The former owns cross-medium quality and preservation; the latter owns routing, questions, authorization, continuation, and delivery. Maintenance of the skill is not a runtime invocation.
 
-Choose references by target:
+Use one entrypoint with task-specific modules. A sentence edit needs no app audit; a visual audit must assess style and color as well as copy and working controls. Embedded use inherits the containing task without a separate interview, report, or approval gate.
 
-- Prose in any language — headlines, reports, docs, email, posts, release notes, product copy: apply the canonical Writing rules in [references/rules.md](references/rules.md) plus the matching language profile: [Korean](references/writing-profile.md) or [English](references/english-profile.md). For other languages, apply the rules directly and mark language-specific judgments as lower confidence instead of inventing a profile.
-- A screen, component, or design implementation: read [references/design-profile.md](references/design-profile.md) and inspect the relevant implementation or rendered state when available.
-- For rule IDs, confidence, source scope, and exceptions: read [references/rules.md](references/rules.md).
-- Use [tests/regression_cases.json](tests/regression_cases.json) as behavioral examples when a judgment is borderline; cases cover Korean and English.
-- Grounded rewrite patterns: [references/before-after.md](references/before-after.md).
-- For the optional OMP sample, read [extensions/README.md](extensions/README.md) before considering [the inactive sample](extensions/anti-slop.omp.example.ts).
-- Run the offline validator from this skill folder: `python3 tests/validate_package.py`.
+Chat operations: `audit` inspects; `browser-audit` operates a web UI; `revise` applies authorized edits; `draft` creates the requested artifact. The terminal executable only installs the skill.
 
-## Preserve the user's meaning
+## Load the relevant modules
 
-Before editing, identify the user’s purpose, audience, claims, entities, quantities, units, dates, conditions, source attributions, uncertainty, and intended voice. Keep those facts and relationships intact. Never invent a metric, feature, source, quotation, user outcome, testimonial, benchmark, personal experience, or completed verification to make copy sound stronger. If evidence is missing, keep the uncertainty visible or ask a concise question; do not silently fill the gap.
+| Work | Guidance |
+| --- | --- |
+| Prose or interface wording | [Editorial method](references/editorial-method.md); [Korean](references/writing-profile.md) or [English](references/english-profile.md) profile when relevant. Other languages use shared principles with language-specific uncertainty disclosed. |
+| Layout, hierarchy, components, or app design | [Interface composition](references/design-profile.md), including its visual-language module. |
+| Style, palette, type, surfaces, or decoration | [Visual style and color](references/visual-style.md), even when no image asset is involved. |
+| App-level audit | [Domain and UX preparation](references/domain-research.md) before findings. Bounded edits stay bounded. |
+| Requested interactive walkthrough | [Browser audit](references/browser-audit.md); static inspection cannot complete an interactive target's walkthrough. |
+| Reporting a finding | [Finding and evidence policy](references/finding-evidence.md), then relevant [canonical rules](references/rules.md). Draft from the brief, not the rule catalog. |
 
-Preserve code, quoted source text, mathematics, units, URLs, identifiers, proper names, and meaningful sequence markers unless the user asks to change them. When revising, compare the result against the source for dropped or strengthened claims, changed subjects/timing/conditions, arithmetic changes, and unsupported details. If the edit would change meaning, restore the source meaning or mark the unresolved point instead of guessing.
+Use [before/after examples](references/before-after.md) and [regression cases](tests/regression_cases.json) only to resolve relevant borderline decisions. They do not authorize edits or supply facts for the current artifact.
 
-## Output format
+## Maintenance
 
-- **audit** — a ranked punch list, one line per finding: rule ID, class (확실한 오류 / 휴리스틱 경고 / 취향 제안), a short verbatim excerpt or concrete UI location, why it harms the reader or user, and one minimal repair. Close with anything that could not be verified. Do not edit the target.
-- **revise** — the bounded edits, then a change summary: what changed, which rule justified it (or "per the user's brief"), and any unresolved findings. The summary states exactly what changed — no more, no less.
-- **draft** — the deliverable only, with profiles applied silently; mention a rule only when you declined to add something the user asked for.
-
-## Review discipline
-
-For every finding, include its rule ID, a short excerpt or concrete UI location, why it harms clarity, accuracy, usability, or access, and one minimal repair. Separate:
-
-- **확실한 오류**: demonstrable contradiction, broken control, unsupported factual claim, clipping, missing required state, or a specific accessibility failure. Correct only after verifying it.
-- **휴리스틱 경고**: a pattern that can sound or look generic in context. Explain the evidence; do not treat a single word or structure as proof.
-- **취향 제안**: a viable alternative based on hierarchy, tone, or rhythm. Present it as optional.
-
-An audit is not a rewrite. Keep the punch list ranked by user impact, not by count. Avoid a fixed score, universal quota, or “AI detected” conclusion. Surface patterns drift as models and prompts change, so a pattern is a review cue about how the text serves its reader, never evidence of who wrote it. If the page or prose already works for its audience, say so and leave it alone.
-
-## Writing path
-
-For prose, establish what the text must say before looking for style patterns. Review directness and information density, then headings and repetition, then attribution and factual consistency, then punctuation and formatting. Apply the matching language profile. Prefer deleting a redundant phrase or making one claim precise over replacing the whole paragraph. Keep deliberate rhetoric, technical language, and the author's register when they serve the audience.
-
-## Design path
-
-For UI, start with the user's task and content, then check hierarchy, responsive behavior, interaction, states, and accessibility. Apply [references/design-profile.md](references/design-profile.md). Distinguish an observed defect from an aesthetic preference. Do not rebuild an existing app or replace its visual identity for an audit; keep fixes in the requested boundary. Verify behavior or rendering when available and state what you could not verify.
-
-## OMP extension
-
-The OMP sample is optional and disabled by default. It resides in this skill's [extensions/](extensions/README.md) directory, linked above. Read that extension README before loading it. Its context addition is not a substitute for this workflow. The sample does not rewrite assistant messages, block session completion, or retry edits. If adapted, cap any automated correction at one attempt and fail open with a clear report.
+Read [comparison notes](references/skill-comparison.md). Run `npm test` in the repository, or `python3 tests/validate_package.py` from a portable skill copy. These validate structure and fixtures, not agent judgment. Use [behavior evaluation](tests/behavior-evaluation.md) and [browser evaluation](tests/browser-evaluation.md) for observed executions. The [OMP extension](extensions/README.md) is optional and inactive.
