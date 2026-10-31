@@ -4,7 +4,7 @@ Package validation checks data integrity. This evaluation checks **observed agen
 
 ## Run protocol
 
-Use [behavior_cases.json](behavior_cases.json): 28 scenarios, at least three fresh executions each (84 runs). Keep model, harness, skill revision, and available tools constant within a comparison. Record actual settings rather than assuming defaults. These cases cover all four operations and supplement the 60 broader [execution scenarios](execution_cases.json); they do not prove all scenarios pass.
+Use [behavior_cases.json](behavior_cases.json): 31 scenarios, at least three fresh executions each (93 runs). Keep model, harness, skill revision, and available tools constant within a comparison. Record actual settings rather than assuming defaults. These cases cover all four operations and supplement the 60 broader [execution scenarios](execution_cases.json); they do not prove all scenarios pass.
 
 Prepare evaluator inputs without answers:
 
@@ -31,6 +31,8 @@ python3 tests/run_behavior.py --inputs /absolute/path/to/blind-inputs \
 
 This command actually calls models. It inherits the configured model/effort and records each server-selected configuration; it does not silently substitute a cheaper model. All runtime references listed by the harness are preloaded to support the response-only scenarios. Environment access, browser, network, shell, write, and delegation tools are disabled. Only the project-orientation case exposes a client-side `read_file` tool, limited to its real isolated fixture. This is a stated restricted harness, not a claim about default full-tool Codex behavior or actual browser interaction.
 
+The evaluation process disables lifecycle hooks and sets the project-instruction byte limit to zero through process/thread configuration; global user settings are unchanged. Global user instructions may still appear in the server's `instructionSources`: preserve and report that context rather than claiming an instruction-free harness. Inputs supply the case environment and skill sources. An unexpected lifecycle-hook prompt is recorded as an execution error, not silently filtered or counted as a semantic pass. Retain contaminated attempts separately from a fresh hook-free rerun.
+
 Each execution preserves JSONL protocol events, actual input/output turns, read-tool calls/results, source hashes before/after, model/configuration, run/thread IDs, and transcript hashes. Inspect `execution-summary.json` for infrastructure failures; only completed cases enter semantic review. Use independent reviewers where authorized, annotate their actual evidence under the existing assessor schema, then run `evaluate_behavior.py --assess`. Synthetic runner unit tests establish protocol/containment behavior only; they are not model executions.
 
 ## Review actual evidence
@@ -48,7 +50,7 @@ For each case's semantic checks, record a boolean, reason, and exact evidence re
 - `source_claim_not_self_verification` and `access_gap_not_fabrication`: unavailable records do not turn an existing author/testimonial claim into a falsehood, and the reviewer does not adopt it as independently verified. `fabrication_reported_without_repair`: known invented proof is reported as a finding, without claiming an applied edit in audit mode.
 - `blocked_report_proportionate`: with no inspected target material, report the actual access and evidence limits without repeating them under a full audit template or adding an unrequested generic plan. Partial runs must still preserve their observed findings.
 
-New framework cases also check redundant prose/UI scaffolding against preserved labels and conditions, styling and color within the brief, intact supplied metrics despite inaccessible records, content fallback categories, one-primary-rule deduplication, class/severity calibration, and awaiting-input continuation after the setup cap.
+New framework cases also check redundant prose/UI scaffolding against preserved labels and conditions, styling and color within the brief, intact supplied metrics despite inaccessible records, content fallback categories, one-primary-rule deduplication, class/severity calibration, and awaiting-input continuation after the setup cap. Design authoring cases additionally check that an authorized redesign or fresh draft supplies concrete palette, type, and spacing roles without inventing findings, demanding another approval, or claiming unrun verification.
 
 Semantic review requires judgment; an exact word match cannot establish it. Require trace evidence and a reason even for passes. Negative conclusions about actions not performed need the complete tool transcript/artifact comparison, with a cited relevant span and the completeness basis in the reason.
 

@@ -1,6 +1,8 @@
 # Before and after
 
-These paired examples show the smallest useful change. Each before block is followed by the evidence needed to revise it; examples do not authorize inventing replacement facts.
+These paired examples show a change fitted to the authorized extent, usually the smallest useful one. Values in them are illustrative, not universal. Each before block is followed by the evidence needed to revise it; examples do not authorize inventing replacement facts.
+
+For UI authoring, also inspect the [renderable design examples](design-examples.html): an authorized redesign, navigation alignment, and a purposeful style kept intact. They are illustrative alternatives, not measured usability results or layouts to copy into unrelated products.
 
 ## 1. Abstract praise to supplied behavior
 
@@ -216,3 +218,37 @@ These paired examples show the smallest useful change. Each before block is foll
 **After:** reduce the secondary panel's accent area and restore the primary-action emphasis using the existing palette. Inspect focus, disabled, and relevant theme states afterward.
 
 **Why:** the observed competition supports a visual hierarchy warning, not a ban on bright color. No measured user delay or standards failure has been established.
+
+## 17. Redesign on request, without a defect claim
+
+**Given:** the owner asks for a redesign of a field-survey dashboard so it suits researchers logging site visits. The current screen uses the framework's default font and starter blue; only the product name and logo file are declared identity.
+
+**After:** form a working brief (survey teams recording visits; exact, outdoorsy, unhurried; keep logo, name, metrics, filters, and every state; emphasize the visit log), then apply a new palette, type pairing, and layout across the dashboard. The logo, data, and features are unchanged.
+
+**Why:** the request authorizes system-level choices. The old blue needs no finding against it, and the delivery reports the changes rather than a defect list. An audit of the same screen would still classify only evidenced issues.
+
+## 18. Align icon boxes and comparison figures
+
+**Given:** in a rendered sidebar, icons of different widths push labels to different start positions. A comparison table shows `12.5%`, `8%`, and `−3.25%` in one column; its supplied data contract specifies exact values displayed to two decimal places.
+
+**After:** give every icon the same box, for example 20 px, and the same gap, so labels share one edge; center each icon on its label's first line. Show the figures as `12.50%`, `8.00%`, and `−3.25%` with tabular numerals and right alignment.
+
+**Why:** shared edges and one number format make rows comparable. The data contract supports the decimal padding here; without it, preserve the supplied precision and align the figures rather than implying more precision for appearance. The 20 px box is an example; the project's icon set and density decide the value.
+
+## 19. Let the content carry the color
+
+**Given:** a photo-archive home screen applies a saturated gradient and glow to navigation, buttons, and card borders. The user's own photos appear as small grey thumbnails.
+
+**After:** move navigation and controls to neutral roles with one accent for the primary action, and give the photographs the size and space to lead. No stock art or generated image is added.
+
+**Counterexample:** a children's reading app whose illustrated characters and colored frames are its declared identity keeps them. Repair only an observed competition with the reading action (D08).
+
+**Why:** richness belongs where it serves the content. Removing an identity that does its job would be a loss, not restraint.
+
+## 20. Sound settings screen, no change
+
+**Given:** a polish request for a settings screen. Sections are grouped, labels persist, switches align with their rows, conditions sit beside the setting they qualify, and the platform's standard styling renders cleanly at tested widths.
+
+**After:** no change; say briefly that the screen already fits its task.
+
+**Why:** a familiar pattern is the right answer here. Lacking a distinctive detail is not a defect, and polish does not license change for its own sake.

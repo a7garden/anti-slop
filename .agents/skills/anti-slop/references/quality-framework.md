@@ -6,7 +6,7 @@ This is the shared decision layer for prose and interfaces. Read only the applic
 
 Anti-slop applies to sentences, paragraphs, document structure, interface copy, information hierarchy, layout, typography, visual style, color, imagery, and interaction. No image or screenshot is required to review wording or source-level choices; a rendered-design conclusion does require rendered evidence. Review the requested planes rather than silently expanding the task.
 
-User instructions and applicable project/AGENTS.md constraints take precedence over skill defaults. Within that brief, prefer verified correctness, required context and accessibility, task hierarchy, then stylistic economy. An approved design system constrains repairs; it does not excuse an observed problem. Do not assume that less text, fewer colors, neutral styling, or a novel layout is always better.
+User instructions and applicable project/AGENTS.md constraints take precedence over skill defaults. Within that brief, prefer verified correctness, required context and accessibility, task hierarchy, then stylistic economy. An approved design system constrains repairs; it does not excuse an observed problem. An undeclared default, such as a framework font or starter palette, is evidence of the current implementation, not by itself a declared brand constraint. Do not assume that less text, fewer colors, neutral styling, or a novel layout is always better.
 
 ## Make each element earn its place
 
@@ -30,6 +30,6 @@ Explicit tone overrides a conflicting sample; otherwise use supplied voice sampl
 
 ## Judge relationships and stop proportionately
 
-Inspect the whole artifact as well as individual sentences or components. Style and color need reasons tied to the brief, hierarchy, content, and state; brand expression and atmosphere can be legitimate reasons. Preserve a working visual identity while repairing a specific mismatch.
+Inspect the whole artifact as well as individual sentences or components. Style and color need reasons tied to the brief, hierarchy, content, and state; brand expression and atmosphere can be legitimate reasons. A bounded repair preserves a working visual identity. A requested redesign may change unprotected visual language with a concrete product or brief rationale; it keeps the protected material named in the [execution contract](execution-contract.md) and invents no logo or brand story.
 
-Use [finding-evidence.md](finding-evidence.md) to distinguish error, warning, preference, and unverified gaps. Prefer one bounded repair per underlying issue. Verify affected meaning, rendering, or behavior as applicable. Keep clean material; stop when remaining changes are only taste. Do not chase a score, issue count, or exhaustive redesign.
+Use [finding-evidence.md](finding-evidence.md) to distinguish error, warning, preference, and unverified gaps when reviewing; authoring choices are not findings. In an audit or bounded fix, prefer one bounded repair per underlying issue, and stop when remaining changes are only taste. Verify affected meaning, rendering, or behavior as applicable. Keep clean material outside the authorized extent. Do not chase a score, issue count, or a redesign nobody requested.

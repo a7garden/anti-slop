@@ -25,6 +25,7 @@ RUNTIME_REFERENCES = (
 )
 CONFIG = {
     'features.apps': False, 'features.plugins': False,
+    'features.hooks': False, 'project_doc_max_bytes': 0,
     'features.shell_tool': False, 'features.multi_agent': False,
     'features.skill_search': False, 'web_search': 'disabled',
 }
@@ -143,7 +144,9 @@ async def execute(case: dict, repetition: int, args, pack: str) -> dict:
             await send({'id': message['id'], 'error': {'code': -32601, 'message': 'Capability unavailable in this evaluation environment'}})
         elif method == 'item/completed':
             item = params['item']
-            if item.get('type') == 'agentMessage':
+            if item.get('type') == 'hookPrompt':
+                raise RuntimeError('Lifecycle hook prompt contaminated the isolated evaluation')
+            elif item.get('type') == 'agentMessage':
                 text = item.get('text', '')
                 phase = item.get('phase') or 'unspecified'
                 outputs.append({'turn': current_turn, 'phase': phase, 'text': text})

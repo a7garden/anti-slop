@@ -4,7 +4,7 @@ Use for UI design, styling, palette, type, surfaces, icons, and decoration. Styl
 
 ## Establish a visual basis
 
-Read the actual brief, existing tokens, identity assets, and related screens within scope. Inspect rendered examples at relevant sizes when available. Distinguish a declared product convention from an agent's assumption. Source tokens can establish configured values, not their full rendered effect. Record unavailable theme, state, background, or viewport evidence as a gap.
+Read the actual brief, existing tokens, identity assets, and related screens within scope. Inspect rendered examples at relevant sizes when available. Distinguish a declared product convention from an agent's assumption or an unchosen default; only the first constrains a redesign. Source tokens can establish configured values, not their full rendered effect. Record unavailable theme, state, background, or viewport evidence as a gap.
 
 ## Review the visual language
 
@@ -19,12 +19,12 @@ Read the actual brief, existing tokens, identity assets, and related screens wit
 
 Color and styling concerns can be grounded heuristic warnings without a broken button or user study. For example, an observed secondary panel using the sole high-saturation accent while a required approval action visually recedes can justify a hierarchy warning. Name the task and visible competition; do not claim measured confusion or delay.
 
-A purple gradient, monochrome shell, serif heading, or bright palette is not a finding by itself. An explicit visual brief can support a style-fit finding even if interactions work. Without a brief or task-based reason, an alternative palette remains optional taste.
+A purple gradient, monochrome shell, serif heading, or bright palette is not a finding by itself. An explicit visual brief can support a style-fit finding even if interactions work. In a review, an alternative palette without a brief or task-based reason remains optional taste. In an authorized redesign, choosing one needs a product or brief rationale, not a finding against the old palette.
 
 ## Verify and repair
 
 For a contrast or other accessibility claim, identify the applicable criterion and level, actual rendered colors/backgrounds, measurement, and exceptions. APCA is not interchangeable with a WCAG ratio. A screenshot-based impression can identify a legibility concern, not establish a measured standards failure. Use verified current guidance before making a new conformance claim.
 
-Choose the smallest repair that restores the intended role: adjust an accent's area or saturation, restore semantic tokens, alter text weight, align surface treatments, or remove an unnecessary embellishment. Do not replace an entire palette or identity to fix one relationship. Inspect affected neighboring roles, relevant themes, and state distinctions after a token change; do not treat a global search-and-replace as verified styling.
+Match the change to the [edit extent](execution-contract.md#2-establish-the-brief). A bounded fix chooses the smallest repair that restores the intended role: adjust an accent's area or saturation, restore semantic tokens, alter text weight, align surface treatments, or remove an unnecessary embellishment; it never replaces a palette or identity to fix one relationship. Polish may realign related tokens across the selected screen. A redesign may replace unprotected palette, type, and surfaces as one system, using the [authoring recipes](design-profile.md#authoring-and-redesign) where no authoritative system exists. Inspect affected neighboring roles, relevant themes, and state distinctions after a token change; do not treat a global search-and-replace as verified styling.
 
-Report the actual screen/component, observed style or color relationship, brief/task basis, likely mechanism, and minimal repair. Map to a fitting D rule or a report-local VD finding. Keep visual judgment separate from measured accessibility and runtime verification.
+For a review finding, report the actual screen/component, observed style or color relationship, brief/task basis, likely mechanism, and minimal repair. Map to a fitting D rule or a report-local VD finding. Keep visual judgment separate from measured accessibility and runtime verification.

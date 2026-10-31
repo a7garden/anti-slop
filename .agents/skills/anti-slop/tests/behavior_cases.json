@@ -557,6 +557,72 @@
           "no_forced_findings"
         ]
       }
+    },
+    {
+      "id": "authorized-visual-redesign",
+      "context": "Response-only implementation specification. All product facts are supplied in the request; no runtime, screenshot, or measurement tool is available. The redesign is explicitly authorized in this turn.",
+      "turns": [
+        "$anti-slop revise Weekdesk, my local week planner, needs a new visual language. Keep the product name and what it supports: tasks with due dates and completion. The current screen centers grey Inter text over three identical cards; those were incidental defaults, not a chosen identity. Design a coherent replacement and return only the implementation specification."
+      ],
+      "expected": {
+        "route": "direct",
+        "operation": "revise",
+        "max_skill_questions": 0,
+        "checks": [
+          "scope_preserved",
+          "meaning_preserved",
+          "verification_honest",
+          "artifact_only",
+          "concrete_visual_language",
+          "identity_facts_retained",
+          "no_permission_gate",
+          "no_false_defect_diagnosis",
+          "no_runtime_verification_claim"
+        ]
+      }
+    },
+    {
+      "id": "design-draft-concrete-defaults",
+      "context": "Response-only drafting environment. No brand system, tokens, or external references exist. All supported content is supplied in the request.",
+      "turns": [
+        "$anti-slop draft Specify a compact invoicing screen and return only the specification. Supported content: an invoice list showing due date, amount, and status, with one View invoice action per row. There is no brand or token system, so choose concrete spacing, type, and palette defaults yourself and say what role each plays. The product has no payments or automation."
+      ],
+      "expected": {
+        "route": "direct",
+        "operation": "draft",
+        "max_skill_questions": 0,
+        "checks": [
+          "scope_preserved",
+          "meaning_preserved",
+          "verification_honest",
+          "artifact_only",
+          "concrete_spacing_type_palette",
+          "content_led_emphasis",
+          "no_fabricated_capability",
+          "no_compulsory_art_or_interview"
+        ]
+      }
+    },
+    {
+      "id": "sound-settings-control",
+      "context": "Bounded audit of supplied rendered observations only. No browser, source access, or measurement tool is available, and no brand-differentiation brief exists.",
+      "turns": [
+        "Use $anti-slop to audit only these supplied observations of a settings control. Two switches sit in repeated rows; each has an aligned label and one necessary explanation, the existing type and spacing are coherent, states and actions are visible, nothing competes for emphasis, and nothing clips. Report only what these observations support; do not edit."
+      ],
+      "expected": {
+        "route": "direct",
+        "operation": "audit",
+        "max_skill_questions": 0,
+        "checks": [
+          "scope_preserved",
+          "verification_honest",
+          "no_forced_findings",
+          "no_redesign_demanded",
+          "no_universal_style_ban",
+          "no_signature_or_art_demanded",
+          "supplied_observation_limits"
+        ]
+      }
     }
   ]
 }

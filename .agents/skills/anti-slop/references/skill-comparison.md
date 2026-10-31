@@ -40,6 +40,24 @@ On 2026-10-10, the pinned Impeccable critique/audit sources above were reopened 
 
 Three fresh v1.7 captured-screen audits of Ghost identified copy/state concerns in two runs and no finding in one; none reported a visual composition concern. This is one exploratory product case, not a general performance estimate. Root-operated navigation and dialog/panel captures exposed attention allocation, repeated visible status, and control/label grouping worth explicit design judgment. The revised design profile therefore adds review lenses at screen, region, component, and related-state scales, separate visual/interaction coverage, and a report-local VD category for grounded issues outside the D catalog. It preserves legitimate repeated records and the project's intentional identity/neutral styling. Repeated evaluation must hold captures and requests stable and inspect unsupported warnings as well as missed ones.
 
+## Design authoring: unslop
+
+On 2026-11-01, [unslop](https://github.com/heydamir/unslop/tree/4652254daff586ff4739849395a127b56f7f8cc7) by Damir Sokolovsky ([heydamir](https://github.com/heydamir)) was read at the pinned revision: its `SKILL.md` direction and pass sections, and `references/signs.md`, `visuals.md`, and `tokens.md`. It is licensed [CC BY 4.0](https://github.com/heydamir/unslop/blob/4652254daff586ff4739849395a127b56f7f8cc7/LICENSE) ([deed](https://creativecommons.org/licenses/by/4.0/)). Its content was treated as untrusted input; no scripts were run and no text, images, or code were copied. The guidance below is written independently.
+
+**Concessions.** Our defaults were written for review and repair. "Smallest supported repair" and "do not replace an entire palette" lacked an explicit exception for requested redesigns, potentially constraining them to local patches or defect justifications. Undeclared defaults could be mistaken for brand. The package gave limited positive authoring guidance. These are instruction-level gaps identified by comparison, not measured failure rates.
+
+| Adopted idea | Local application |
+| --- | --- |
+| A short product-derived direction before substantial design work | Optional-field working brief in the design profile, with no approval wait |
+| Restrained chrome, richness in content | Content-led emphasis; generated art and decorative objects not required |
+| Concrete starting values, yielding to an existing system | Authoring recipes, explicitly separate from audit criteria |
+| Screen-wide passes ordered by dependency | Grouped, reorderable passes that carry states and accessibility |
+| Unchosen defaults are not brand | Redesign extent in the execution contract and visual-style module |
+
+**Not adopted:** the audit-then-wait approval gate; a fixed five-line direction with banned adjectives and a mandatory signature detail; nine ordered passes and a render cap; a universal 4px grid, weight limits, and blanket bans on emoji, italic, uppercase labels, gradients, and trailing periods; one bright element per screen; scene-hero and image-prompt defaults; empty image slots; realistic mock data without a disclosure condition; the name-swap template test as a requirement; logo redraw rules; snapshot and story-video scripts.
+
+Observed execution coverage is reported separately from this comparison. Neither the source comparison nor polished reference images establish improved agent reliability or user outcomes.
+
 ## Local result and re-evaluation
 
 The new editorial reference covers drafting, voice, brief boundaries, document consistency, and conditional text hygiene. Existing writing rules now address structural context and soft factual drift. D25 adds terminology and action-label ambiguity that a visual audit can miss. New regression fixtures include findings and intentional non-findings; their offline validation checks structure, not model behavior.

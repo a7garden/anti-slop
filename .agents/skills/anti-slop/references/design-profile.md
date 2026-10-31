@@ -6,6 +6,26 @@ For every visual design review, also use [visual-style.md](visual-style.md) to i
 
 For a requested browser walkthrough, use [browser-audit.md](browser-audit.md) within the execution contract. Actually visit and operate the scoped UI; source inspection and static screenshots supplement the walk, not replace it. Ordinary UI review can remain bounded to the containing task.
 
+## Authoring and redesign
+
+The [execution contract](execution-contract.md#2-establish-the-brief) sets the extent. Before substantial UI drafting or redesign, derive a short working brief from the request, product, and existing screens: the product and the user's job; a few character words specific enough to decide between two options; declared constraints and identity to keep; the content or result the screen should emphasize; and, only if it helps, one recurring detail or metaphor taken from the product. Omit what context does not support. It is a working note, not a form, report, or approval checkpoint. Settings, admin, and business tools are often best served by familiar patterns; novelty and a distinctive flourish are optional.
+
+**Choosing is not finding.** While authoring, commit to concrete values and check them at rendered size; each is a hypothesis the content can overturn. In a review, a value differing from these recipes is not a defect; it needs the evidence in [finding-evidence.md](finding-evidence.md).
+
+Where no authoritative design system exists, these starting recipes are useful. Adjust them to language, platform, density, and content:
+
+- **Rhythm:** one spacing scale on a base suited to the platform; smaller gaps inside a group than between groups; equal siblings share padding and row height.
+- **Color roles:** neutrals carry surfaces and text roles such as primary, secondary, and muted; an accent marks the primary action, selection, or key figure; status color carries meaning. Content such as charts or media can hold richer color when each hue has a role.
+- **Icons:** one set at a consistent size and stroke; a fixed-width icon box and fixed gap so labels share a start edge; the icon centered on the first text line rather than the whole block.
+- **Type:** a few roles distinguished by size, weight, and color; comparable figures in one format with tabular numerals; line height and tracking fitted to the script, including Korean.
+- **Nested surfaces:** an inner radius near the outer radius minus the padding; depth from consistent surface steps, hairlines, or modest shadow across siblings.
+
+No universal 4px grid, font or color count, or ban on gradients, emoji, uppercase, or heavy weights applies. Judge each by its role.
+
+**Put richness in the content.** Where the screen needs visual interest, give it to real product content and results (data, previews, owned media) while navigation and controls stay restrained. Do not require generated art, decorative objects, or proof. A preview shows only supported behavior; disclose synthetic sample data when it could read as real (D22). Keep truthful empty states and do not reserve an empty image slot by default. Rich identity already carried by illustration or art direction stays.
+
+**Work screen-wide by dependency.** For redesign or screen-wide polish, group changes into passes such as content and hierarchy; spacing and type; palette and icons; detail and motion. Order them by what depends on what (copy length affects type size; rhythm affects alignment), merge or skip passes that do not apply, and render as often as the work needs. Preserve relevant existing focus, hover, selected, disabled, error, empty, and theme states, along with the labels and conditions the [shared framework](quality-framework.md) protects; verify the affected states without inventing new ones.
+
 ## Review order: rendered design, then interaction evidence
 
 Stage 2 preparation is governed by [domain-research.md](domain-research.md); use its app-level and bounded-work distinction. Judge this app against its supported user task and [finding-evidence.md](finding-evidence.md).

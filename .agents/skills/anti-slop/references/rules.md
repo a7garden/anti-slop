@@ -464,8 +464,8 @@ For the wider comparison and rejected defaults, see [skill-comparison.md](skill-
 - **Scope:** typography, palette, cards, spacing, and component counts.
 - **Basis:** S04, S05, S06 (2026-10-07; practitioner guidance).
 - **Detect:** a design review demands a particular font, color, number of cards, or fixed density without a brief, brand, content, platform, or access reason.
-- **Repair:** evaluate fit, hierarchy, legibility, and existing product conventions; offer alternatives as options.
-- **Exceptions:** an actual design system, platform rule, or explicit brand constraint is authoritative.
+- **Repair:** in an audit, evaluate fit, hierarchy, legibility, and existing product conventions; distinguish a requirement from an optional direction. In authorized design work, choose concrete starting values that fit the brief and adapt them to the actual content.
+- **Exceptions:** an actual design system, platform rule, or explicit brand constraint is authoritative. A chosen spacing rhythm, type scale, or palette for a draft/redesign is not a universal review mandate; it does not need a defect in the previous design to justify its selection.
 - **Class/severity:** preference / low; not a defect in the artifact itself.
 - **Automatic:** no.
 
@@ -518,7 +518,7 @@ For the wider comparison and rejected defaults, see [skill-comparison.md](skill-
 - **Scope:** any design review.
 - **Basis:** S01, S04, S05, S06, S07, S09, S10, S11 (2026-10-07).
 - **Detect:** “too many cards,” centered layout, gradient, typeface, whitespace, or color is labeled a failure without a user-task, measured, brand, or accessibility reason.
-- **Repair:** label it as an optional direction and name the effect it might improve; leave the viable choice intact.
+- **Repair:** in an audit, label it as an optional direction and name the effect it might improve; leave the source intact. An authorized redesign or draft can select that direction without declaring the viable previous choice defective. Preserve the brief's protected identity and requirements.
 - **Exceptions:** a style choice can become a real defect when evidence shows clipping, low contrast, confusion, or task friction.
 - **Class/severity:** classify the target review's unsupported claim under the shared evidence policy; the underlying viable visual choice remains optional taste and is not a product defect.
 - **Automatic:** no; this rule is a reviewer discipline.

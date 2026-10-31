@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Anti-slop design examples — illustrative teaching sheet</title>
+<style>
+/* Offline teaching sheet. No external fonts, scripts, or images: system font
+   stacks, CSS shapes, and inline SVG only. */
+:root{
+  --ink:#22262e;
+  --ink-soft:#565d6b;
+  --line:#d8dbd9;
+  --paper:#ffffff;
+  --sheet:#f4f4f0;
+  --accent:#2f5d50;
+  --accent-ink:#ffffff;
+}
+*{box-sizing:border-box}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--sheet);
+  color:var(--ink);
+  font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+.page{max-width:1080px;margin:0 auto;padding:32px 20px 56px}
+.sheet-header{border-bottom:2px solid var(--ink);padding-bottom:20px;margin-bottom:8px}
+.sheet-header h1{font-size:26px;line-height:1.2;margin:0 0 10px;letter-spacing:-.01em}
+.sheet-note{
+  margin:0;max-width:70ch;font-size:15px;color:var(--ink);
+  background:#fff;border:1px solid var(--line);border-left:4px solid var(--accent);
+  padding:12px 14px;border-radius:8px;
+}
+.sheet-note strong{display:block;margin-bottom:2px}
+.sheet-footer{margin-top:40px;padding-top:14px;border-top:1px solid var(--line);color:var(--ink-soft);font-size:13.5px}
+
+.pair{margin-top:36px}
+.pair-intro h2{font-size:19px;margin:0 0 6px}
+.pair-intro p{margin:0 0 14px;max-width:78ch;color:var(--ink-soft);font-size:14.5px}
+.panels{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));
+  gap:16px;align-items:start;
+}
+figure.panel{margin:0}
+figcaption{
+  font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--ink-soft);margin-bottom:8px;
+}
+.demo{
+  background:var(--paper);border:1px solid var(--line);border-radius:10px;
+  padding:18px;overflow-wrap:anywhere;
+}
+.annotations{
+  margin:14px 0 0;padding:12px 16px 12px 32px;border:1px dashed var(--line);
+  border-radius:8px;background:#fbfbf9;color:var(--ink);font-size:14px;
+}
+.annotations li{margin:4px 0}
+.annotations :first-child{margin-top:0}
+.annotations :last-child{margin-bottom:0}
+.annotations .keep{color:var(--accent);font-weight:600}
+
+/* ---- Pair A: generic default arrangement ---- */
+.demo-generic{background:#f3f3f3;color:#4a4a4a;font-family:Inter,system-ui,sans-serif;text-align:center;padding:26px 16px}
+.demo-generic .eyebrow{margin:0;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#9a9a9a}
+.demo-generic h3{margin:8px 0 6px;font-size:24px;line-height:1.15;color:#3c3c3c}
+.demo-generic .sub{margin:0 auto 16px;max-width:34ch;font-size:13.5px;color:#7a7a7a}
+.demo-generic .cta{
+  display:inline-block;margin-bottom:22px;padding:10px 26px;border-radius:999px;
+  font-size:13.5px;font-weight:600;color:#fff;
+  background:linear-gradient(90deg,#7d7dff,#bd6bff);
+}
+.demo-generic .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px}
+.demo-generic .card{background:#fff;border:1px solid #e3e3e3;border-radius:8px;padding:14px 8px}
+.demo-generic .card .dot{display:block;width:26px;height:26px;margin:0 auto 8px;border-radius:50%;background:#e6e6fa}
+.demo-generic .card h4{margin:0 0 4px;font-size:14px;color:#3c3c3c}
+.demo-generic .card p{margin:0;font-size:11.5px;color:#8a8a8a}
+.demo-generic .buried{margin:18px 0 6px;font-size:11px;color:#787878}
+.demo-generic .sample-tasks{list-style:none;margin:0;padding:0;font-size:11.5px;color:#696969;text-align:left}
+.demo-generic .sample-tasks li{display:flex;gap:8px;justify-content:space-between;margin-top:5px}
+.demo-generic .sample-tasks .complete{text-decoration:line-through}
+
+/* ---- Pair A: deliberately designed arrangement ---- */
+.demo-week{padding:0}
+.week-bar{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:12px 16px;border-bottom:1px solid var(--line);
+}
+.week-bar .brand{font-weight:700;font-size:15px;letter-spacing:.01em}
+.week-bar button{
+  border:0;border-radius:6px;padding:8px 14px;font:600 13.5px/1 system-ui,sans-serif;
+  background:var(--accent);color:var(--accent-ink);cursor:default;
+}
+.week-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px;padding:14px 16px 8px}
+.week-head h3{margin:0;font-size:17px;letter-spacing:-.01em}
+.week-head p{margin:0;font-size:12.5px;color:var(--ink-soft)}
+.tasks{list-style:none;margin:0;padding:0 16px 16px}
+.tasks li{
+  display:flex;align-items:center;gap:10px;padding:10px 0;
+  border-bottom:1px solid #ececea;font-size:14.5px;
+}
+.tasks li:last-child{border-bottom:0}
+.tasks .check{
+  flex:none;width:18px;height:18px;border:1.5px solid #b9bdbb;border-radius:4px;
+  display:inline-flex;align-items:center;justify-content:center;
+}
+.tasks li.done .check{background:var(--accent);border-color:var(--accent)}
+.tasks li.done .check svg{display:block}
+.tasks .check svg{display:none}
+.tasks .name{flex:1;min-width:0}
+.tasks li.done .name{color:var(--ink-soft);text-decoration:line-through}
+.tasks .due{
+  flex:none;font-size:12px;font-weight:600;padding:3px 8px;border-radius:999px;
+  background:#efefec;color:var(--ink-soft);
+}
+.tasks li.today .due{background:#e7efe9;color:var(--accent)}
+
+/* ---- Pair B: navigation consistency ---- */
+.demo-nav ul{list-style:none;margin:0;padding:2px;display:flex;flex-direction:column;gap:10px}
+.demo-nav li{display:flex;align-items:center;gap:10px}
+.ic{flex:none;display:inline-flex;align-items:center;justify-content:center;color:var(--ink)}
+.ic svg{display:block}
+/* inconsistent variant: mixed boxes, strokes, and label edges */
+.nav-bad .item-1 .ic{width:34px;height:34px;border-radius:50%;border:1px solid #b9bdbb}
+.nav-bad .item-2 .ic{width:42px;height:38px;border-radius:4px;border:2.5px solid #8f9793;background:#f0f0ec}
+.nav-bad .item-3 .ic{width:30px;height:24px;border-radius:999px;background:var(--ink);color:#fff}
+.nav-bad .item-4 .ic{width:38px;height:38px;border-radius:10px;border:1.5px dashed #9aa39e}
+.nav-bad .item-1{align-items:flex-start}
+.nav-bad .item-1 .lbl{font-size:13px;margin-top:1px}
+.nav-bad .item-2 .lbl{font-size:15.5px;font-weight:700}
+.nav-bad .item-3 .lbl{font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.nav-bad .item-4 .lbl{font-size:14px;color:var(--ink-soft)}
+/* consistent variant: one box metric, one stroke, one label rule */
+.nav-good .ic{width:38px;height:38px;border-radius:10px;border:1.5px solid #b9bdbb;background:#fff}
+.nav-good .lbl{font-size:14.5px;font-weight:600;align-self:center}
+
+/* ---- Pair C: purposeful identity, retained unchanged ---- */
+.demo-festival{
+  background:radial-gradient(ellipse at 88% 12%,#7c3fbf 0,transparent 60%),
+             linear-gradient(128deg,#251147,#472272);
+  color:#fdf9f0;border:0;padding:30px 24px;
+}
+.demo-festival .fest-brand{margin:0;font-size:12.5px;letter-spacing:.24em;text-transform:uppercase;color:#e6d9ff}
+.demo-festival h3{
+  font-family:Georgia,"Iowan Old Style","Times New Roman",serif;font-weight:400;
+  font-size:clamp(30px,5vw,44px);line-height:1.04;letter-spacing:-.02em;margin:14px 0 8px;
+}
+.demo-festival .fest-meta{margin:0;font-size:14px;color:#f0e6ff}
+.demo-festival button{
+  margin:18px 0 0;border:0;border-radius:6px;padding:13px 22px;
+  font:600 15px/1 system-ui,sans-serif;background:#fdf9f0;color:#251147;cursor:default;
+}
+.fest-schedule{
+  list-style:none;margin:22px 0 0;padding:16px 0 0;border-top:1px solid rgba(253,249,240,.35);
+  display:flex;flex-wrap:wrap;gap:8px 40px;
+}
+.fest-schedule li{font-size:15px}
+.fest-schedule small{display:block;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:#d9c8ff}
+
+@media print{
+  body{background:#fff;font-size:10.5pt}
+  .page{max-width:none;padding:0}
+  .pair{break-inside:avoid}
+  .demo-festival{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .annotations{background:#fff}
+}
+@media (prefers-reduced-motion:no-preference){
+  /* The sheet is static; this block intentionally adds no motion. */
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<header class="sheet-header">
+  <h1>Design examples</h1>
+  <p class="sheet-note">
+    <strong>These panels are illustrative designs for teaching — not actual product results, screenshots, or measured outcomes.</strong>
+    Product names, dates, and numbers are invented for this sheet. The paired examples preserve supported capabilities and task records while changing their wording and arrangement. These are teaching alternatives, not controlled usability experiments.
+  </p>
+</header>
+
+<section class="pair" aria-labelledby="pair-a">
+  <div class="pair-intro">
+    <h2 id="pair-a">Pair A — week planner: incidental default vs. deliberate arrangement</h2>
+    <p>
+      Both panels show the same illustrative product, “Weekdesk,” a local week planner that supports tasks, due dates, and completion — nothing more.
+      The left panel is a generic marketing arrangement of those facts; the right panel is one deliberately designed, restrained arrangement that puts the week itself first.
+    </p>
+  </div>
+  <div class="panels">
+    <figure class="panel">
+      <figcaption>Arrangement 1 — incidental default</figcaption>
+      <div class="demo demo-generic">
+        <p class="eyebrow">Introducing</p>
+        <h3>Weekdesk</h3>
+        <p class="sub">Tasks, due dates, and completion for the current week.</p>
+        <div class="cta">Add task</div>
+        <div class="cards">
+          <div class="card"><span class="dot" aria-hidden="true"></span><h4>Tasks</h4><p>Keep the week’s work together.</p></div>
+          <div class="card"><span class="dot" aria-hidden="true"></span><h4>Due dates</h4><p>See when each task is due.</p></div>
+          <div class="card"><span class="dot" aria-hidden="true"></span><h4>Completion</h4><p>See which tasks are done.</p></div>
+        </div>
+        <p class="buried">This week · Nov 2–8 · 2 of 4 tasks done</p>
+        <ul class="sample-tasks">
+          <li><span class="complete">Team sync notes to Yuna · Done</span><span>Tue</span></li>
+          <li><span class="complete">Submit invoice draft · Done</span><span>Thu</span></li>
+          <li><span>Buy train tickets<span class="sr-only"> · Not done</span></span><span>Today</span></li>
+          <li><span>Send newsletter draft<span class="sr-only"> · Not done</span></span><span>Sat</span></li>
+        </ul>
+      </div>
+    </figure>
+    <figure class="panel">
+      <figcaption>Arrangement 2 — deliberately designed</figcaption>
+      <div class="demo demo-week">
+        <div class="week-bar">
+          <span class="brand">Weekdesk</span>
+          <button type="button">Add task</button>
+        </div>
+        <div class="week-head">
+          <h3>This week · Nov 2–8</h3>
+          <p>2 of 4 tasks done</p>
+        </div>
+        <ul class="tasks">
+          <li class="done">
+            <span class="check" aria-hidden="true"><svg width="11" height="9" viewBox="0 0 11 9" fill="none"><path d="M1 4.5l3 3L10 1" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="name">Team sync notes to Yuna<span class="sr-only"> · Done</span></span><span class="due">Tue</span>
+          </li>
+          <li class="done">
+            <span class="check" aria-hidden="true"><svg width="11" height="9" viewBox="0 0 11 9" fill="none"><path d="M1 4.5l3 3L10 1" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="name">Submit invoice draft<span class="sr-only"> · Done</span></span><span class="due">Thu</span>
+          </li>
+          <li class="today">
+            <span class="check" aria-hidden="true"></span>
+            <span class="name">Buy train tickets<span class="sr-only"> · Not done</span></span><span class="due">Today</span>
+          </li>
+          <li>
+            <span class="check" aria-hidden="true"></span>
+            <span class="name">Send newsletter draft<span class="sr-only"> · Not done</span></span><span class="due">Sat</span>
+          </li>
+        </ul>
+      </div>
+    </figure>
+  </div>
+  <ul class="annotations">
+    <li>Arrangement 1 leads with feature descriptions; the same four task records, due dates, and completion states sit below them in a smaller, quieter list. No usability measurement is claimed: it is one generic arrangement, not a proven failure.</li>
+    <li>Arrangement 2 leads with the week’s real content, gives one accent color two jobs (primary action, due-today state), and limits the type scale to a few sizes. It is one coherent choice, not the only valid one.</li>
+    <li>Neither panel adds features: both show exactly tasks, due dates, and completion.</li>
+  </ul>
+</section>
+
+<section class="pair" aria-labelledby="pair-b">
+  <div class="pair-intro">
+    <h2 id="pair-b">Pair B — navigation: inconsistent boxes vs. consistent system</h2>
+    <p>
+      The same four labels and the same four meanings appear in both panels. Only the craft of the icon boxes, strokes, and label edges differs.
+    </p>
+  </div>
+  <div class="panels">
+    <figure class="panel">
+      <figcaption>Variant 1 — inconsistent boxes and text edges</figcaption>
+      <div class="demo demo-nav nav-bad" role="img" aria-label="Navigation with mixed icon box shapes, sizes, and misaligned labels">
+        <ul>
+          <li class="item-1">
+            <span class="ic" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="4" cy="4" r="1.6" fill="currentColor"/><circle cx="12" cy="4" r="1.6" fill="currentColor"/><circle cx="4" cy="12" r="1.6" fill="currentColor"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/></svg></span>
+            <span class="lbl">Overview</span>
+          </li>
+          <li class="item-2">
+            <span class="ic" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="11" rx="1.5" stroke="currentColor" stroke-width="1.6"/><path d="M2 6.5h12" stroke="currentColor" stroke-width="1.6"/></svg></span>
+            <span class="lbl">Schedule</span>
+          </li>
+          <li class="item-3">
+            <span class="ic" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 2.5v11M12 2.5v11" stroke="currentColor" stroke-width="1.6"/><path d="M2 8h12" stroke="currentColor" stroke-width="1.6"/></svg></span>
+            <span class="lbl">Invoices</span>
+          </li>
+          <li class="item-4">
+            <span class="ic" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 5h12M2 11h12" stroke="currentColor" stroke-width="1.6"/><circle cx="6" cy="5" r="2.2" fill="#fff" stroke="currentColor" stroke-width="1.6"/><circle cx="10.5" cy="11" r="2.2" fill="#fff" stroke="currentColor" stroke-width="1.6"/></svg></span>
+            <span class="lbl">Settings</span>
+          </li>
+        </ul>
+      </div>
+    </figure>
+    <figure class="panel">
+      <figcaption>Variant 2 — consistent boxes, aligned text</figcaption>
+      <div class="demo demo-nav nav-good" role="img" aria-label="Navigation with uniform icon boxes and labels aligned on one edge">
+        <ul>
+          <li>
+            <span class="ic" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="4" cy="4" r="1.6" fill="currentColor"/><circle cx="12" cy="4" r="1.6" fill="currentColor"/><circle cx="4" cy="12" r="1.6" fill="currentColor"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/></svg></span>
+            <span class="lbl">Overview</span>
+          </li>
+          <li>
+            <span class="ic" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="11" rx="1.5" stroke="currentColor" stroke-width="1.6"/><path d="M2 6.5h12" stroke="currentColor" stroke-width="1.6"/></svg></span>
+            <span class="lbl">Schedule</span>
+          </li>
+          <li>
+            <span class="ic" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 2.5v11M12 2.5v11" stroke="currentColor" stroke-width="1.6"/><path d="M2 8h12" stroke="currentColor" stroke-width="1.6"/></svg></span>
+            <span class="lbl">Invoices</span>
+          </li>
+          <li>
+            <span class="ic" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 5h12M2 11h12" stroke="currentColor" stroke-width="1.6"/><circle cx="6" cy="5" r="2.2" fill="#fff" stroke="currentColor" stroke-width="1.6"/><circle cx="10.5" cy="11" r="2.2" fill="#fff" stroke="currentColor" stroke-width="1.6"/></svg></span>
+            <span class="lbl">Settings</span>
+          </li>
+        </ul>
+      </div>
+    </figure>
+  </div>
+  <ul class="annotations">
+    <li>Variant 1 mixes circle, square, pill, and dashed boxes at different sizes and stroke weights; labels start at different left edges with four type treatments. Nothing is broken — but the drift reads as several systems.</li>
+    <li>Variant 2 gives every item the same box size, corner radius, stroke, and glyph area, and one label rule on one baseline. The labels, not the boxes, carry the meaning.</li>
+    <li>Consistency here is craft, not decoration: it costs no color and no extra elements.</li>
+  </ul>
+</section>
+
+<section class="pair" aria-labelledby="pair-c">
+  <div class="pair-intro">
+    <h2 id="pair-c">Example C — purposeful identity, retained unchanged</h2>
+    <p>
+      A supplied festival treatment with a violet gradient and serif display type, shown once, exactly as supplied. There is no “after” panel because no redesign is warranted.
+    </p>
+  </div>
+  <div class="panels">
+    <figure class="panel">
+      <figcaption>As supplied — kept unchanged</figcaption>
+      <div class="demo demo-festival">
+        <p class="fest-brand">Lantern Fields Festival</p>
+        <h3>One night,<br>open meadow.</h3>
+        <p class="fest-meta">26 June 2027 · Meadow Gate</p>
+        <button type="button">Buy ticket</button>
+        <ul class="fest-schedule" aria-label="Schedule">
+          <li><small>Doors</small>18:00</li>
+          <li><small>First set</small>19:30</li>
+          <li><small>Headline</small>22:00</li>
+        </ul>
+      </div>
+    </figure>
+  </div>
+  <ul class="annotations">
+    <li><span class="keep">Retain this treatment.</span> The gradient and serif type serve the brief’s identity; the schedule and ticket action have distinct, visible places within the composition.</li>
+    <li>A bright palette, a gradient, and a serif headline are not defects to neutralize. Replacing this identity with a neutral default would erase a sound choice, not fix one.</li>
+    <li>This panel illustrates a judgment call on arrangement, not a legibility measurement; a real product would still verify contrast, states, and behavior at their actual values.</li>
+  </ul>
+</section>
+
+<footer class="sheet-footer">
+  Offline sheet for the anti-slop skill · no external resources; system fonts, CSS, and inline SVG only · all names, dates, and numbers are invented for illustration.
+</footer>
+
+</div>
+</body>
+</html>

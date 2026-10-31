@@ -11,7 +11,7 @@ from run_behavior import execute
 
 class FakeServer:
     """Minimal in-memory JSONL peer with real client tool-output handling."""
-    def __init__(self, read_path=None):
+    def __init__(self, read_path=None, hook_prompt=False):
         self.stdout = self
         self.stdin = self
         self.returncode = None
@@ -19,12 +19,16 @@ class FakeServer:
         self.requests = []
         self.turn = 0
         self.read_path = read_path
+        self.hook_prompt = hook_prompt
         self.tool_results = []
 
     def emit(self, message):
         self.queue.put_nowait((json.dumps(message) + '\n').encode())
 
     def complete(self):
+        if self.hook_prompt:
+            self.emit({'method': 'item/completed', 'params': {'item': {
+                'type': 'hookPrompt', 'fragments': [{'text': 'Unexpected global instruction.'}]}}})
         text = 'Synthetic response for turn ' + str(self.turn)
         self.emit({'method': 'item/completed', 'params': {'item': {
             'type': 'agentMessage', 'phase': 'final_answer', 'text': text}}})
@@ -130,6 +134,15 @@ class RunnerTests(unittest.IsolatedAsyncioTestCase):
                                            'turns': ['Hello.']})
         self.assertFalse(result['tool_events'][0]['success'])
         self.assertIn('unavailable', peer.tool_results[0]['contentItems'][0]['text'])
+
+    async def test_unexpected_hook_contamination_is_not_a_completed_execution(self):
+        result = await self.run_peer(FakeServer(hook_prompt=True), {
+            'id': 'hook-contamination', 'context': 'Response-only.', 'turns': ['Hello.']})
+        self.assertEqual(result['status'], 'execution-error')
+        self.assertIn('Lifecycle hook prompt contaminated', result['error'])
+        self.assertEqual(result['outputs'], [])
+        protocol = (self.args.output/'runs/hook-contamination-1/protocol.jsonl').read_text()
+        self.assertIn('Unexpected global instruction.', protocol)
 
 
 if __name__ == '__main__':

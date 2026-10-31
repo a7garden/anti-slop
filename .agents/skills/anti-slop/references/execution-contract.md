@@ -46,19 +46,21 @@ A deeper voice/brand interview requires a user request: one round of at most thr
 
 ## 2. Establish the brief
 
-Separate instructions, artifact, evidence, and voice samples. Identify reader/task, needed answer, facts, protected literals, tone/language, and edit boundary using the shared framework. Default to the smallest supported repair.
+Separate instructions, artifact, evidence, and voice samples. Identify reader/task, needed answer, facts, protected literals, tone/language, and edit boundary using the shared framework.
+
+Infer the edit extent from the request and context; it adds no picker or interview. A **bounded fix** makes the smallest supported repair to the named issue. **Polish** may coordinate related token, spacing, and type fixes across the selected screen. A requested **redesign** or new **draft** authorizes coherent system-level palette, type, and layout choices within the target; it needs neither proof that the current design is defective nor another approval question. Every extent preserves declared or approved constraints, meaningful identity assets, names, facts, features, functional states, and accessibility. When the extent stays genuinely unclear, use the smaller one.
 
 Before an **app-level** audit, complete [domain-research.md](domain-research.md): deepen the retained project overview into domain/jobs, comparator evidence, and target probes. Preliminary read-only viewing may establish context. Routine copy/component edits stay bounded. Research gaps do not erase supported checks or start another setup.
 
 ## 3. Inspect or draft
 
-Audit/revise inspects sentence/component and whole-artifact relationships before repairs. Draft creates from the brief, then inspects the actual draft; do not audit a nonexistent artifact.
+Audit/revise inspects sentence/component and whole-artifact relationships before repairs. Draft creates from the brief, then inspects the actual draft; do not audit a nonexistent artifact. A UI draft or redesign first forms the internal working brief in [design-profile.md](design-profile.md); it is not a deliverable or checkpoint.
 
 UI review uses [design-profile.md](design-profile.md) and its style/color module. Keep the scoped screen/viewport/state ledger and reconcile concerns before ranking. A source-only review cannot establish rendered quality. Requested walkthroughs use [browser-audit.md](browser-audit.md): actual observations/actions/results, declared coverage, and visible gaps; static fallback is not completed interaction testing.
 
 ## 4. Propose or apply
 
-Audit/browser-audit proposes minimal repairs and leaves product source unchanged. Browser interaction authority and cleanup follow the browser method. Revision applies already authorized repairs without another permission request; drafting refines the requested artifact. Do not turn optional taste into mandatory change, expand scope, pad findings, or modify clean material.
+Audit/browser-audit proposes minimal repairs and leaves product source unchanged. Browser interaction authority and cleanup follow the browser method. Revision applies already authorized changes without another permission request; a redesign applies its direction across the target without first recasting each choice as a finding. Drafting refines the requested artifact. Do not present taste as a required repair, exceed the authorized extent, pad findings, or modify clean material outside that extent.
 
 ## 5. Verify and deliver
 

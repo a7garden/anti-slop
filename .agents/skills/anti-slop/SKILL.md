@@ -2,7 +2,7 @@
 name: anti-slop
 description: "Draft, audit, or revise prose and product interfaces for clarity, truth, useful structure, and visual fit. Covers sentences, UI copy, layout, typography, style, color, and interaction while preserving the author's voice and product identity."
 metadata:
-  version: "2.0.6"
+  version: "2.1.0"
   short-description: "Writing and interface quality framework"
 ---
 
@@ -25,6 +25,7 @@ Chat operations: `audit` inspects; `browser-audit` operates a web UI; `revise` a
 | Prose or interface wording | [Editorial method](references/editorial-method.md); [Korean](references/writing-profile.md) or [English](references/english-profile.md) profile when relevant. Other languages use shared principles with language-specific uncertainty disclosed. |
 | Layout, hierarchy, components, or app design | [Interface composition](references/design-profile.md), including its visual-language module. |
 | Style, palette, type, surfaces, or decoration | [Visual style and color](references/visual-style.md), even when no image asset is involved. |
+| Designing or redesigning a visual language | [Authoring and redesign](references/design-profile.md#authoring-and-redesign), with concrete starting recipes. |
 | App-level audit | [Domain and UX preparation](references/domain-research.md) before findings. Bounded edits stay bounded. |
 | Requested interactive walkthrough | [Browser audit](references/browser-audit.md); static inspection cannot complete an interactive target's walkthrough. |
 | Reporting a finding | [Finding and evidence policy](references/finding-evidence.md), then relevant [canonical rules](references/rules.md). Draft from the brief, not the rule catalog. |
