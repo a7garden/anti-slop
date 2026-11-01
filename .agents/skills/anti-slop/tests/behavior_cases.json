@@ -577,6 +577,30 @@
           "identity_facts_retained",
           "no_permission_gate",
           "no_false_defect_diagnosis",
+          "no_fabricated_capability",
+          "no_runtime_verification_claim"
+        ]
+      }
+    },
+    {
+      "id": "redesign-readonly-dates-control",
+      "context": "Response-only implementation specification. All product facts are supplied in the request; no runtime, screenshot, or measurement tool is available. The redesign and its layout, type, and color choices are explicitly authorized in this turn.",
+      "turns": [
+        "$anti-slop revise Dayfile, my local task viewer, needs this screen redesigned. The screen shows imported task titles, each with a read-only due date and a completion toggle; importing tasks happens outside this screen. Dayfile here has no task creation or deletion, no due-date editing, no reminders, no sync, and no server-provided overdue state. Keep the product name and what the screen supports; presentation derived from the shown fields, such as grouping tasks by day, is fine, and you choose the layout, type, and color yourself. Redesign only this screen and return only the implementation specification."
+      ],
+      "expected": {
+        "route": "direct",
+        "operation": "revise",
+        "max_skill_questions": 0,
+        "checks": [
+          "scope_preserved",
+          "meaning_preserved",
+          "verification_honest",
+          "artifact_only",
+          "concrete_visual_language",
+          "identity_facts_retained",
+          "no_permission_gate",
+          "no_fabricated_capability",
           "no_runtime_verification_claim"
         ]
       }

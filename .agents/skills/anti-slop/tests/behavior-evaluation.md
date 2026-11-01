@@ -4,7 +4,7 @@ Package validation checks data integrity. This evaluation checks **observed agen
 
 ## Run protocol
 
-Use [behavior_cases.json](behavior_cases.json): 31 scenarios, at least three fresh executions each (93 runs). Keep model, harness, skill revision, and available tools constant within a comparison. Record actual settings rather than assuming defaults. These cases cover all four operations and supplement the 60 broader [execution scenarios](execution_cases.json); they do not prove all scenarios pass.
+Use [behavior_cases.json](behavior_cases.json): 32 scenarios, at least three fresh executions each (96 runs). Keep model, harness, skill revision, and available tools constant within a comparison. Record actual settings rather than assuming defaults. These cases cover all four operations and supplement the 60 broader [execution scenarios](execution_cases.json); they do not prove all scenarios pass.
 
 Prepare evaluator inputs without answers:
 
@@ -49,6 +49,7 @@ For each case's semantic checks, record a boolean, reason, and exact evidence re
 - Other checks are named for the case's observable contract: artifact-only output, no forced findings, no false-citation judgment from access alone, retained continuation and acknowledgment, domain-grounded UX without forced canonical mapping, research gaps, and no false browser completion.
 - `source_claim_not_self_verification` and `access_gap_not_fabrication`: unavailable records do not turn an existing author/testimonial claim into a falsehood, and the reviewer does not adopt it as independently verified. `fabrication_reported_without_repair`: known invented proof is reported as a finding, without claiming an applied edit in audit mode.
 - `blocked_report_proportionate`: with no inspected target material, report the actual access and evidence limits without repeating them under a full audit template or adding an unrequested generic plan. Partial runs must still preserve their observed findings.
+- `no_fabricated_capability`: supplied/observed facts bind claims about existing functions, editing actions, calculations, and functional states; an unsupported assertion of existing behavior fails even when presented as a preservation dependency. Generic safeguards retain whatever supported behavior is actually present, without establishing that any particular capability exists. A proposed composition that relies on a specific unknown behavior needs an explicit support condition or must omit that dependency. Presentational grouping or emphasis derived from supplied data is allowed. A conditional does not override an explicitly excluded capability. Incidental cosmetic choices need not be supplied.
 
 New framework cases also check redundant prose/UI scaffolding against preserved labels and conditions, styling and color within the brief, intact supplied metrics despite inaccessible records, content fallback categories, one-primary-rule deduplication, class/severity calibration, and awaiting-input continuation after the setup cap. Design authoring cases additionally check that an authorized redesign or fresh draft supplies concrete palette, type, and spacing roles without inventing findings, demanding another approval, or claiming unrun verification.
 

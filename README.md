@@ -83,11 +83,13 @@ cd .agents/skills/anti-slop
 python3 tests/validate_package.py
 ```
 
-Use [behavior evaluation](.agents/skills/anti-slop/tests/behavior-evaluation.md) for repeated observed executions: at least three fresh runs per scenario, frozen inputs/revision/settings, preserved evidence, and review for unsupported findings as well as omissions. The complete behavior suite requires 93 runs. The optional [recorded execution harness](.agents/skills/anti-slop/tests/run_behavior.py) uses real ephemeral Codex threads, keeps continuation turns in the same thread, and preserves protocol traces; it does not grade itself. Focused exercises are reported separately and cannot establish a full-suite pass.
+Use [behavior evaluation](.agents/skills/anti-slop/tests/behavior-evaluation.md) for repeated observed executions: at least three fresh runs per scenario, frozen inputs/revision/settings, preserved evidence, and review for unsupported findings as well as omissions. The complete behavior suite requires 96 runs. The optional [recorded execution harness](.agents/skills/anti-slop/tests/run_behavior.py) uses real ephemeral Codex threads, keeps continuation turns in the same thread, and preserves protocol traces; it does not grade itself. Focused exercises are reported separately and cannot establish a full-suite pass.
 
 The [2026-10-23 evaluation report](tests/behavior-results-2026-10-23.md) records actual settings, revision digests, observed failures and corrections, repeated results, and the separate actual-image follow-up.
 
-The [2.1.0 focused evaluation](tests/behavior-results-2026-11-01.md) records 15 reviewed design-authoring and preservation executions, the excluded hook-contaminated attempt, and the unverified rendering of the new examples. It is separate from the full 93-run suite.
+The [corrected 2.1.0 focused evaluation](tests/behavior-results-2026-11-01.md) records 15 design-authoring and preservation executions, two withdrawn preservation passes, the excluded hook-contaminated attempt, and the unverified rendering of the new examples. It is separate from the complete behavior suite.
+
+The [2.1.1 preservation evaluation](tests/behavior-results-2026-11-01-preservation.md) records a 12-run candidate, its independent review and correction, and a final 12-run maintainer-reviewed retest, including a read-only-date redesign control. These are tuning/regression cases; they do not establish rendered quality or a full-suite pass.
 
 The [browser fixture](.agents/skills/anti-slop/tests/browser-audit-fixture.html) tests actual interactions under the [browser evaluation protocol](.agents/skills/anti-slop/tests/browser-evaluation.md). The [visual fixture](.agents/skills/anti-slop/tests/visual-quality-fixture.html) supports capture-based composition/style/copy exercises; the [style control](.agents/skills/anti-slop/tests/visual-style-control.html) supplies a purposeful serif/gradient contrast case. These fixtures’ static controls do not implement a transaction or persistence.
 

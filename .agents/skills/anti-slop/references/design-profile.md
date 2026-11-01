@@ -12,6 +12,8 @@ The [execution contract](execution-contract.md#2-establish-the-brief) sets the e
 
 **Choosing is not finding.** While authoring, commit to concrete values and check them at rendered size; each is a hypothesis the content can overturn. In a review, a value differing from these recipes is not a defect; it needs the evidence in [finding-evidence.md](finding-evidence.md).
 
+**Separate presentation from capability.** A visual redesign authorizes layout, type, and color choices; claims about existing actions, calculations, and functional states still need supplied or inspected support. Generic safeguards to preserve supported behavior retain whatever is actually present; they do not establish that a particular capability exists. If the proposed composition relies on a specific unknown behavior, make that dependency explicitly conditional on support or omit it; ask only if the missing fact blocks the requested work. A conditional cannot override a supplied exclusion. Grouping or emphasizing supplied records is a presentation choice, not evidence of additional product behavior.
+
 Where no authoritative design system exists, these starting recipes are useful. Adjust them to language, platform, density, and content:
 
 - **Rhythm:** one spacing scale on a base suited to the platform; smaller gaps inside a group than between groups; equal siblings share padding and row height.
