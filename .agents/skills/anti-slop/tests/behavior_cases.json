@@ -647,6 +647,137 @@
           "supplied_observation_limits"
         ]
       }
+    },
+    {
+      "id": "list-timeout-shown-as-empty",
+      "context": "Response-only audit of supplied component observations and product facts. No browser, source access, server, or measurement tool is available. The observations were supplied to the evaluated agent, not produced by it.",
+      "turns": [
+        "Use $anti-slop to audit only this records list component. Supplied observations: the list request timed out, so the actual record count is unknown. The screen shows “0 records” with a Create your first record CTA. The product has no retry action, no offline mode, and no record-creation feature. Report issues and the verification limits; do not edit."
+      ],
+      "expected": {
+        "route": "direct",
+        "operation": "audit",
+        "max_skill_questions": 0,
+        "checks": [
+          "scope_preserved",
+          "verification_honest",
+          "finding_mapping_supported",
+          "state_distinguished",
+          "no_fabricated_recovery"
+        ]
+      }
+    },
+    {
+      "id": "confirmed-empty-filtered-search",
+      "context": "Response-only audit of supplied component observations. No browser, source access, server, or measurement tool is available. The observations were supplied to the evaluated agent, not produced by it.",
+      "turns": [
+        "Use $anti-slop to audit only this filtered search results state. Supplied observations: the filtered request for “인보이스 2024-06” completed successfully and returned 0 matching records; the empty state names the query and offers Clear filters, a real control that removes the active filter. Report only what these observations support; do not edit."
+      ],
+      "expected": {
+        "route": "direct",
+        "operation": "audit",
+        "max_skill_questions": 0,
+        "checks": [
+          "scope_preserved",
+          "verification_honest",
+          "no_forced_findings",
+          "state_distinguished"
+        ]
+      }
+    },
+    {
+      "id": "service-unavailable-field-blame",
+      "context": "Response-only audit of supplied component observations and product facts. No browser, source access, server, or measurement tool is available. The product has no retry action or support route. The observations were supplied to the evaluated agent, not produced by it.",
+      "turns": [
+        "Use $anti-slop to audit only this form's submit state. Supplied observations: the submit request failed with a recorded service-unavailable response; no field-level error exists, and the entered values, including a valid email address, are retained. The message shown says “이메일 주소를 수정하세요”. Report issues and minimal repairs; do not edit."
+      ],
+      "expected": {
+        "route": "direct",
+        "operation": "audit",
+        "max_skill_questions": 0,
+        "checks": [
+          "scope_preserved",
+          "verification_honest",
+          "finding_mapping_supported",
+          "state_distinguished",
+          "no_fabricated_recovery"
+        ]
+      }
+    },
+    {
+      "id": "field-error-summary-repeat",
+      "context": "Response-only audit of supplied component observations. No browser, source access, server, or measurement tool is available. The observations were supplied to the evaluated agent, not produced by it.",
+      "turns": [
+        "Use $anti-slop to audit only this form validation state. Supplied observations: on submit, only the due date field is invalid; the field shows the inline error “날짜는 YYYY-MM-DD 형식이어야 합니다”, and an error summary at the top repeats that same single field error with a link that focuses the field. All entered values are retained. Report only what these observations support; do not edit."
+      ],
+      "expected": {
+        "route": "direct",
+        "operation": "audit",
+        "max_skill_questions": 0,
+        "checks": [
+          "scope_preserved",
+          "verification_honest",
+          "no_forced_findings",
+          "necessary_redundancy_preserved"
+        ]
+      }
+    },
+    {
+      "id": "table-reflow-local-scroll",
+      "context": "Response-only audit of supplied recorded observations at 320 CSS px. No browser, source access, server, or measurement tool is available. The observations were supplied to the evaluated agent, not produced by it.",
+      "turns": [
+        "Use $anti-slop to audit only this reflow behavior at 320 CSS px. Supplied observation: the shipments screen contains a real data table whose rows need row-column relationships; the table keeps those relationships and scrolls horizontally within its own bounded region, while ordinary text in individual cells, the page heading, search field, pagination, and the remaining content reflow without clipping and every control remains reachable. Report only what this observation supports; do not edit."
+      ],
+      "expected": {
+        "route": "direct",
+        "operation": "audit",
+        "max_skill_questions": 0,
+        "checks": [
+          "scope_preserved",
+          "verification_honest",
+          "no_forced_findings",
+          "reflow_exception_scoped",
+          "no_unearned_conformance_claim"
+        ]
+      }
+    },
+    {
+      "id": "table-controls-clipped-320",
+      "context": "Response-only audit of supplied recorded observations at 320 CSS px. No browser, source access, server, or measurement tool is available. The observations were supplied to the evaluated agent, not produced by it.",
+      "turns": [
+        "Use $anti-slop to audit only this reflow behavior at 320 CSS px. Supplied recorded observation: the data table keeps its row-column relationships and scrolls horizontally within its own bounded region; however, the search field and pagination sit on one fixed row that extends beyond 320 CSS px, and the Next button is clipped and cannot be reached. Report issues and the smallest repair; do not edit."
+      ],
+      "expected": {
+        "route": "direct",
+        "operation": "audit",
+        "max_skill_questions": 0,
+        "checks": [
+          "scope_preserved",
+          "verification_honest",
+          "finding_mapping_supported",
+          "reflow_exception_scoped",
+          "bounded_repair_scoped"
+        ]
+      }
+    },
+    {
+      "id": "ordinary-content-page-overflow",
+      "context": "Response-only audit of supplied recorded observations at 320 CSS px. No browser, source access, server, or measurement tool is available. The observations were supplied to the evaluated agent, not produced by it.",
+      "turns": [
+        "Use $anti-slop to audit only this article body at 320 CSS px. Supplied recorded observation: the body is fixed at 720 CSS px and ordinary paragraphs do not wrap to the viewport; reading each line requires repeatedly scrolling the page horizontally as well as vertically. This region contains only prose, without a table, map, diagram, or other two-dimensional content. Report supported issues and a minimal repair; do not edit."
+      ],
+      "expected": {
+        "route": "direct",
+        "operation": "audit",
+        "max_skill_questions": 0,
+        "checks": [
+          "scope_preserved",
+          "verification_honest",
+          "finding_mapping_supported",
+          "reflow_exception_scoped",
+          "bounded_repair_scoped"
+        ]
+      }
     }
   ]
 }

@@ -12,6 +12,7 @@ It is not an AI detector. A word, punctuation mark, palette, card, or gradient i
 - A requested redesign may choose a coherent palette, type, and layout without first proving the old arrangement defective. Declared identity, names, features, facts, and accessibility stay protected; starter defaults alone do not establish brand constraints.
 - Preserve facts, uncertainty, attribution, conditions, voice, and protected literals. Never invent proof, features, experiences, causes, or commitments.
 - Separate demonstrated errors, contextual warnings, optional taste, and unverified gaps. Class and severity are independent.
+- Distinguish confirmed empty results from unavailable data and field validation from service failures. Preserve useful error summaries and the scoped reflow exceptions for tables and maps.
 - Report one underlying issue once, with one primary rule, evidence, consequence, and a bounded repair. Preserve clean material.
 
 ## Install
@@ -74,7 +75,7 @@ npm test
 
 This checks package structure and links, rule/source metadata, regression and execution fixture integrity, installer replacement/rollback, and the evidence assessor's unit tests. It does not run models or certify semantic judgment.
 
-The current package includes 154 rule-applicability fixtures, 60 execution scenarios, and 31 behavior scenarios. Regression schema 2 distinguishes applicable rule conditions from deduplicated issue decisions; focused cases specify primary/related rules, class, and severity. Fixture data is not execution evidence.
+The current package includes 161 rule-applicability fixtures, 60 execution scenarios, and 39 behavior scenarios. Regression schema 2 distinguishes applicable rule conditions from deduplicated issue decisions; focused cases specify primary/related rules, class, and severity. Fixture data is not execution evidence.
 
 For a portable copy:
 
@@ -83,13 +84,15 @@ cd .agents/skills/anti-slop
 python3 tests/validate_package.py
 ```
 
-Use [behavior evaluation](.agents/skills/anti-slop/tests/behavior-evaluation.md) for repeated observed executions: at least three fresh runs per scenario, frozen inputs/revision/settings, preserved evidence, and review for unsupported findings as well as omissions. The complete behavior suite requires 96 runs. The optional [recorded execution harness](.agents/skills/anti-slop/tests/run_behavior.py) uses real ephemeral Codex threads, keeps continuation turns in the same thread, and preserves protocol traces; it does not grade itself. Focused exercises are reported separately and cannot establish a full-suite pass.
+Use [behavior evaluation](.agents/skills/anti-slop/tests/behavior-evaluation.md) for repeated observed executions: at least three fresh runs per scenario, frozen inputs/revision/settings, preserved evidence, and review for unsupported findings as well as omissions. The complete behavior suite requires 117 runs. The optional [recorded execution harness](.agents/skills/anti-slop/tests/run_behavior.py) uses real ephemeral Codex threads, keeps continuation turns in the same thread, and preserves protocol traces; it does not grade itself. Focused exercises are reported separately and cannot establish a full-suite pass.
 
 The [2026-10-23 evaluation report](tests/behavior-results-2026-10-23.md) records actual settings, revision digests, observed failures and corrections, repeated results, and the separate actual-image follow-up.
 
 The [corrected 2.1.0 focused evaluation](tests/behavior-results-2026-11-01.md) records 15 design-authoring and preservation executions, two withdrawn preservation passes, the excluded hook-contaminated attempt, and the unverified rendering of the new examples. It is separate from the complete behavior suite.
 
 The [2.1.1 preservation evaluation](tests/behavior-results-2026-11-01-preservation.md) records a 12-run candidate, its independent review and correction, and a final 12-run maintainer-reviewed retest, including a read-only-date redesign control. These are tuning/regression cases; they do not establish rendered quality or a full-suite pass.
+
+The [2.1.2 research and evaluation report](tests/behavior-results-2026-11-02.md) records seven state/reflow cases, 21 final response-only executions, an independently reviewed preliminary batch, and the capped independent follow-up. These selected cases do not establish rendered quality, full-suite completion, or improvement attributable to the skill.
 
 The [browser fixture](.agents/skills/anti-slop/tests/browser-audit-fixture.html) tests actual interactions under the [browser evaluation protocol](.agents/skills/anti-slop/tests/browser-evaluation.md). The [visual fixture](.agents/skills/anti-slop/tests/visual-quality-fixture.html) supports capture-based composition/style/copy exercises; the [style control](.agents/skills/anti-slop/tests/visual-style-control.html) supplies a purposeful serif/gradient contrast case. These fixtures’ static controls do not implement a transaction or persistence.
 

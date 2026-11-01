@@ -22,7 +22,7 @@ Each rule cites one or more IDs below; the source URL and checked date apply to 
 - **S04 — Anthropic frontend-design skill**, a design direction against generic interfaces: https://github.com/anthropics/claude-code/blob/main/plugins/frontend-design/skills/frontend-design/SKILL.md (checked 2026-10-07).
 - **S05 — Impeccable**, a practitioner toolkit for UI critique and craft; recommendations still need context: https://github.com/pbakaus/impeccable (checked 2026-10-07).
 - **S06 — Spot the Slop: a UI designer's guide**, practitioner observations rather than a formal standard: https://world.hey.com/kostac/spot-the-slop-a-ui-designer-s-guide-to-fixing-ai-defaults-4c448c9c (checked 2026-10-07).
-- **S07 — W3C WCAG 2.2 Reflow**, informative explanation of the applicable criterion, not a mandate for one visual layout: https://www.w3.org/WAI/WCAG22/Understanding/reflow.html (checked 2026-10-07).
+- **S07 — W3C WCAG 2.2 Reflow**, informative explanation of SC 1.4.10, including scoped two-dimensional exceptions, not a mandate for one visual layout: https://www.w3.org/WAI/WCAG22/Understanding/reflow.html (rechecked 2026-11-02).
 - **S08 — Oh My Pi extension guide**, checked against locally installed omp 18.8.0 and the official current guide: https://github.com/can1357/oh-my-pi/blob/main/docs/extensions.md (checked 2026-10-07).
 - **S09 — W3C WCAG 2.2 Contrast (Minimum)**, informative explanation of SC 1.4.3 and the applicable ratio: https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html (checked 2026-10-07).
 - **S10 — W3C WCAG 2.2 Keyboard**, informative explanation of keyboard operability: https://www.w3.org/WAI/WCAG22/Understanding/keyboard.html (checked 2026-10-07).
@@ -39,6 +39,9 @@ Each rule cites one or more IDs below; the source URL and checked date apply to 
 - **S20 — Blader Humanizer**, practitioner examples of structural repetition, invented objections, and reader-context mismatch; its stronger token restrictions are not adopted: https://github.com/blader/humanizer/blob/225a6f39ac85f76ee48dbad772ea4abe4ed6c9d8/SKILL.md (checked 2026-10-10).
 - **S21 — Hannsxpeter Humanizer text hygiene**, practitioner guidance on preserving meaningful Unicode, not authorship evidence: https://github.com/hannsxpeter/humanizer/blob/e8f1248a7d4919689c1f942e356ed95b102d9f07/references/text-hygiene.md (checked 2026-10-10).
 - **S22 — Impeccable clarify**, practitioner guidance on action outcomes, terminology, state copy, and localization; not a conformance standard: https://github.com/pbakaus/impeccable/blob/d631a8827f99414d2b6daba4ef08b7f8701751d7/skill/reference/clarify.md (checked 2026-10-10).
+
+- **S23 — Carbon empty states**, design-system guidance distinguishing first use, no results, permissions, and system problems: https://www.carbondesignsystem.com/building-blocks/core/patterns/empty-states (checked 2026-11-02).
+- **S24 — GOV.UK error message**, design-system guidance on field validation, retained answers, and consistent summary/field messages; its government-specific wording and placement are not universal rules: https://design-system.service.gov.uk/components/error-message/ (checked 2026-11-02).
 
 For the wider comparison and rejected defaults, see [skill-comparison.md](skill-comparison.md). External skills provide editorial examples, not an empirical detector or automatic repair authority.
 
@@ -399,19 +402,19 @@ For the wider comparison and rejected defaults, see [skill-comparison.md](skill-
 
 ### D11 — Missing task-critical interaction state
 - **Scope:** loading, empty, error, success, disabled, selected, validation.
-- **Basis:** S01, S04, S05, S06, S22 (2026-10-10).
-- **Detect:** the user cannot tell what happened, how to recover, why an action is unavailable, or what to do with no results; vague state copy hides the known failure or available recovery.
-- **Repair:** state the known outcome and actual next action; preserve visible progress when work is pending. Do not invent a cause, completion time, support commitment, progress value, or retry option the system does not provide.
-- **Exceptions:** no need to invent states irrelevant to the component or unreachable in its contract.
-- **Class/severity:** error / high when task is blocked; otherwise warning.
+- **Basis:** S01, S04, S05, S06, S22, S23, S24 (2026-11-02).
+- **Detect:** the user cannot tell what happened, how to recover, why an action is unavailable, or what to do with no results; state copy hides the known failure, treats unavailable data as confirmed empty, or misidentifies a service failure as an input error.
+- **Repair:** state the known outcome and actual next action; retain entered values during validation and visible progress when work is pending. Do not invent a count, cause, completion time, support commitment, progress value, or retry option the system does not provide.
+- **Exceptions:** no need to invent states irrelevant to the component or unreachable in its contract. An unknown cause can justify a general failure message; a confirmed empty result need not acquire extra explanation or a creation action. Documented input constraints can require clearing a particular value.
+- **Class/severity:** error for a demonstrated false state or blocked task; warning for supported clarity/recovery friction. Severity follows the actual consequence, not the presence of an error state.
 - **Automatic:** partial; exercise documented states or inspect component coverage.
 
 ### D12 — Content clipped or unavailable at narrow width/zoom
 - **Scope:** responsive layout, page overflow, fixed-width elements.
-- **Basis:** S07 (2026-10-07).
+- **Basis:** S07 (2026-11-02).
 - **Detect:** at applicable viewport/zoom, content or operation is cut off or requires two-dimensional scrolling contrary to the relevant reflow criterion.
 - **Repair:** fix width, wrapping, grid, or component behavior and retest. Do not hide a real overflow with overflow-x: clip.
-- **Exceptions:** content that inherently needs two-dimensional layout, such as a large data table, can use a clearly bounded accessible alternative under WCAG guidance.
+- **Exceptions:** parts that need two-dimensional layout for meaning or use, such as a data table or map, may scroll in two dimensions. Check ordinary cell content and surrounding headings, search, and pagination separately. Judge whether non-excepted content requires two-dimensional scrolling or loses access at the applicable viewport. The presence of a scrollbar alone does not require replacing the table.
 - **Class/severity:** error / high after reproduction.
 - **Automatic:** partial; viewport checks find overflow but need manual inspection and applicable exceptions.
 

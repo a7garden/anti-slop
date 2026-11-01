@@ -28,6 +28,18 @@ No universal 4px grid, font or color count, or ban on gradients, emoji, uppercas
 
 **Work screen-wide by dependency.** For redesign or screen-wide polish, group changes into passes such as content and hierarchy; spacing and type; palette and icons; detail and motion. Order them by what depends on what (copy length affects type size; rhythm affects alignment), merge or skip passes that do not apply, and render as often as the work needs. Preserve relevant existing focus, hover, selected, disabled, error, empty, and theme states, along with the labels and conditions the [shared framework](quality-framework.md) protects; verify the affected states without inventing new ones.
 
+## Content and state resilience
+
+Check the meaning of a state before polishing its message. A completed query with no matches, an unfinished request, a failed load, and a permission denial need different claims even if each leaves the same blank region. A failed load does not establish a zero count or first use. If the cause is unknown, say what could not be completed without diagnosing it. Show only recovery actions the product actually supports; a useful message need not invent a button, support channel, or completion estimate. Apply D11 to a demonstrated mismatch, not merely to an unavailable state.
+
+Keep field correction distinct from service failure. Point to a field only when evidence identifies an input problem; do not tell users to change valid answers to fix an outage. Preserve entered values through validation unless a documented constraint requires otherwise. Matching error text in a linked summary and beside its field can serve orientation and correction separately; do not remove it as D04 redundancy merely because the words repeat. This does not require every small form to add a summary.
+
+For layout work, try representative supported content rather than only ideal placeholders: a long name or title, relevant scripts/localized labels, and meaningful empty or dense states. Select probes for the changed component and documented audience; do not add languages, offline mode, or a large-data feature to satisfy a checklist. A pseudolocalized string can expose layout stress, not prove translation quality. Repair space, wrapping, or grouping before shortening a protected name, condition, or action. Truncation can remain when the necessary identity and detail are available in context.
+
+Separate responsive evidence from accessibility evidence. A narrow capture does not prove text enlargement; record the viewport and scaling mechanism actually exercised. For a reflow claim, inspect the applicable criterion and its exceptions. A table or map that needs two-dimensional relationships may retain them; check its surrounding heading, search, pagination, and ordinary cell text separately. Necessary two-dimensional scrolling of a table or map is not by itself a D12 failure. Check whether ordinary text or surrounding controls require two-dimensional scrolling or become unavailable at the applicable viewport; the table exception does not exempt them. Do not force a card conversion, smaller text, or hidden overflow to obtain a clean-looking capture.
+
+The [research comparison](skill-comparison.md#content-and-state-resilience-2026-11-02) records the practitioner and W3C sources. These probes refine existing D04/D11/D12/D20 decisions; they add no universal test sweep or conformance claim.
+
 ## Review order: rendered design, then interaction evidence
 
 Stage 2 preparation is governed by [domain-research.md](domain-research.md); use its app-level and bounded-work distinction. Judge this app against its supported user task and [finding-evidence.md](finding-evidence.md).

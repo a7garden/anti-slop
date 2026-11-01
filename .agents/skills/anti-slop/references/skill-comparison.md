@@ -58,6 +58,21 @@ On 2026-11-01, [unslop](https://github.com/heydamir/unslop/tree/4652254daff586ff
 
 Observed execution coverage is reported separately from this comparison. Neither the source comparison nor polished reference images establish improved agent reliability or user outcomes.
 
+## Content and state resilience (2026-11-02)
+
+This follow-up inspected primary sources on 2026-11-02. Comparison is instruction-level evidence, not a measured improvement. External content remained research data; no external scripts or templates were executed or copied.
+
+| Source | Applied decision | Limits and rejected defaults |
+| --- | --- | --- |
+| [Impeccable harden](https://github.com/pbakaus/impeccable/blob/e89e3ada3e875a89ac2c5d33d11e65ebef6fe285/skill/reference/harden.md) | Exercise representative content lengths, scripts, and states within the component's actual contract. | No universal translation expansion percentage, font floor, language sweep, offline feature, server rewrite, or fixed stress-action count. Truncation is not the automatic repair. |
+| [Carbon empty states](https://www.carbondesignsystem.com/building-blocks/core/patterns/empty-states) | Distinguish absent records from records unavailable because of access or a system problem. Use the actual state and available next action. | Its component anatomy is not a requirement for an image, title, helper paragraph, or CTA on every blank region. No recovery path is invented to complete the pattern. |
+| [GOV.UK error message](https://design-system.service.gov.uk/components/error-message/) | Keep validation distinct from service problems, retain entered answers, and preserve purposeful field/summary repetition. | No universal wording blacklist, red styling, error-summary mandate, or requirement to navigate every service failure to a new page. |
+| [W3C Reflow](https://www.w3.org/WAI/WCAG22/Understanding/reflow.html) and [Resize Text](https://www.w3.org/WAI/WCAG22/Understanding/resize-text.html) | Scope the two-dimensional exception to content that needs it; inspect surrounding controls separately. Record resizing and scaling as distinct observations. | No blanket horizontal-scroll failure, mandatory table-to-card conversion, or inference of zoom coverage from a narrow capture. Understanding pages explain criteria; they do not certify a product. |
+
+The current [Anthropic frontend-design](https://github.com/anthropics/skills/blob/ca45fc496a3436251f191354091d557da31c15b5/skills/frontend-design/SKILL.md) and [Anti-AI Writing Slop](https://github.com/thomasmeijer92/anti-ai-writing-slop/blob/e4090ac433e781d718a1f96044d1ee8aca4f7650/SKILL.md) were also inspected. Brief-derived design, meaningful structure, voice preservation, and bounded edits already have local guidance. No new rule was justified by those overlaps. Fixed palette counts, uniqueness tests, mandatory draft output, and banned-pattern ratings were not adopted.
+
+The narrow update lives in the existing design profile, browser checks, and D11/D12 rather than adding a separate skill or more canonical IDs. Its focused behavior cases pair real state/reflow problems with confirmed-empty, useful-summary, and intact-table controls. Fixture additions and structural checks alone do not establish that agents distinguish them; record actual executions separately.
+
 ## Local result and re-evaluation
 
 The new editorial reference covers drafting, voice, brief boundaries, document consistency, and conditional text hygiene. Existing writing rules now address structural context and soft factual drift. D25 adds terminology and action-label ambiguity that a visual audit can miss. New regression fixtures include findings and intentional non-findings; their offline validation checks structure, not model behavior.

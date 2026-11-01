@@ -4,7 +4,7 @@ Package validation checks data integrity. This evaluation checks **observed agen
 
 ## Run protocol
 
-Use [behavior_cases.json](behavior_cases.json): 32 scenarios, at least three fresh executions each (96 runs). Keep model, harness, skill revision, and available tools constant within a comparison. Record actual settings rather than assuming defaults. These cases cover all four operations and supplement the 60 broader [execution scenarios](execution_cases.json); they do not prove all scenarios pass.
+Use [behavior_cases.json](behavior_cases.json): 39 scenarios, at least three fresh executions each (117 runs). Keep model, harness, skill revision, and available tools constant within a comparison. Record actual settings rather than assuming defaults. These cases cover all four operations and supplement the 60 broader [execution scenarios](execution_cases.json); they do not prove all scenarios pass.
 
 Prepare evaluator inputs without answers:
 
