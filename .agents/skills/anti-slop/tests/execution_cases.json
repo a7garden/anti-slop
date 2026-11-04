@@ -1326,6 +1326,128 @@
         "output": "input_needed"
       },
       "why": "After two setup rounds, retain audit and state that the actual text/path is missing. Wait without a third menu, guessed target, or edit."
+    },
+    {
+      "id": "direct-visual-audit-native-capture",
+      "user_request": "$anti-slop visual-audit 첨부한 macOS 재고 앱의 품목 편집 모달만 봐 줘.",
+      "context": {
+        "native_app": "macOS",
+        "capture_available": true,
+        "live_app_available": false
+      },
+      "expected": {
+        "route": "direct",
+        "operation": "audit",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": false,
+        "output": "audit_report"
+      },
+      "expected_method": "visual",
+      "why": "A native capture supports a visual audit of the selected modal; it does not require a web preview or prove that the controls work."
+    },
+    {
+      "id": "direct-audit-visual-alias",
+      "user_request": "$anti-slop audit --visual 이 결제 화면의 밝은 테마 캡처.",
+      "context": {
+        "capture_available": true,
+        "theme": "light",
+        "other_themes_available": false
+      },
+      "expected": {
+        "route": "direct",
+        "operation": "audit",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": false,
+        "output": "audit_report"
+      },
+      "expected_method": "visual",
+      "why": "The flag chooses the same visual method as visual-audit. Report the supplied theme and do not assume dark-theme or live coverage."
+    },
+    {
+      "id": "direct-visual-audit-source-fallback",
+      "user_request": "$anti-slop visual-audit 결제 양식 CSS. 미리보기는 없어.",
+      "context": {
+        "source_available": true,
+        "render_available": false
+      },
+      "expected": {
+        "route": "direct",
+        "operation": "audit",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": false,
+        "output": "audit_report"
+      },
+      "expected_method": "visual",
+      "why": "The source supports limited observations without a rendered quality verdict. Report the coverage gap without switching to browser-audit."
+    },
+    {
+      "id": "direct-visual-audit-with-fixes",
+      "user_request": "$anti-slop visual-audit 예약 변경 모달의 정렬을 보고, 확인한 문제는 그 모달에서 바로 고쳐 줘.",
+      "context": {
+        "target": "reservation change modal",
+        "editable_source": true,
+        "preview_available": true
+      },
+      "expected": {
+        "route": "direct",
+        "operation": "revise",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": true,
+        "output": "revision_result"
+      },
+      "expected_method": "visual",
+      "why": "Explicit repair intent authorizes a bounded revision with visual inspection and comparable verification, without an approval round."
+    },
+    {
+      "id": "embedded-visual-audit-component",
+      "user_request": "첨부한 설정 화면에서 알림 행의 시각적 그룹만 검토해 줘. 결과는 기존 리뷰 표의 한 행에 넣어 줘.",
+      "context": {
+        "agent_selected_skill": true,
+        "capture_available": true,
+        "project": {
+          "accessible": true,
+          "has_other_screens": true
+        }
+      },
+      "expected": {
+        "route": "embedded",
+        "operation": "audit",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": false,
+        "output": "parent_contract"
+      },
+      "expected_method": "visual",
+      "why": "Inspect the requested region in context and fit the conclusion into the existing review. A full-screen capture does not expand the target to the whole app."
+    },
+    {
+      "id": "direct-visual-audit-noncomparable-repair",
+      "user_request": "$anti-slop visual-audit 이전 캡처와 수정 후 캡처를 비교해서 줄바꿈 문제가 해결됐는지 알려 줘.",
+      "context": {
+        "before_capture": {"viewport_css_px": 360, "theme": "light", "drawer": "open"},
+        "after_capture": {"viewport_css_px": 1024, "theme": "dark", "drawer": "closed"},
+        "other_captures_available": false
+      },
+      "expected": {
+        "route": "direct",
+        "operation": "audit",
+        "outcome": "deliver",
+        "max_skill_questions": 0,
+        "interview": false,
+        "may_edit_existing_target": false,
+        "output": "audit_report"
+      },
+      "expected_method": "visual",
+      "why": "Describe what each capture can show. The changed viewport, theme, and drawer state prevent verification of the original issue."
     }
   ]
 }

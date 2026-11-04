@@ -20,7 +20,7 @@ from evaluate_behavior import skill_digest
 RUNTIME_REFERENCES = (
     'quality-framework.md', 'execution-contract.md', 'editorial-method.md',
     'writing-profile.md', 'english-profile.md', 'design-profile.md',
-    'visual-style.md', 'domain-research.md', 'browser-audit.md',
+    'visual-style.md', 'domain-research.md', 'visual-audit.md', 'browser-audit.md',
     'finding-evidence.md', 'rules.md',
 )
 CONFIG = {
@@ -65,6 +65,7 @@ async def execute(case: dict, repetition: int, args, pack: str) -> dict:
     current_turn = 0
     started_at = datetime.now(timezone.utc).isoformat()
     started = time.monotonic()
+    # Preloading exercises instruction following, not skill discovery or reference loading.
     base = ('The following anti-slop runtime sources are already loaded. Apply only the modules relevant '
             'to the actual task. This is a runtime execution, not skill maintenance. '
             'There are no browser, network, shell, write, or user-question-UI capabilities. '

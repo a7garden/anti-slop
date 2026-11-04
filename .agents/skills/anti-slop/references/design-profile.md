@@ -6,6 +6,8 @@ For every visual design review, also use [visual-style.md](visual-style.md) to i
 
 For a requested browser walkthrough, use [browser-audit.md](browser-audit.md) within the execution contract. Actually visit and operate the scoped UI; source inspection and static screenshots supplement the walk, not replace it. Ordinary UI review can remain bounded to the containing task.
 
+For a focused `visual-audit` or visual revision, [visual-audit.md](visual-audit.md) supplies capture context, targeted measurements, and matched before/after checks. It uses the criteria and ledger here without adding a separate grading system.
+
 ## Authoring and redesign
 
 The [execution contract](execution-contract.md#2-establish-the-brief) sets the extent. Before substantial UI drafting or redesign, derive a short working brief from the request, product, and existing screens: the product and the user's job; a few character words specific enough to decide between two options; declared constraints and identity to keep; the content or result the screen should emphasize; and, only if it helps, one recurring detail or metaphor taken from the product. Omit what context does not support. It is a working note, not a form, report, or approval checkpoint. Settings, admin, and business tools are often best served by familiar patterns; novelty and a distinctive flourish are optional.

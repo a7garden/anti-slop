@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Illustrative visual audit fixture</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; color: #22202b; background: #faf9fc; font: 16px/1.5 system-ui, sans-serif; }
+    h1, h2, p { margin: 0; }
+    h1 { font-size: 2rem; line-height: 1.15; }
+    h2 { font-size: 1.125rem; }
+    summary { cursor: pointer; }
+    :focus-visible { outline: 3px solid #202c87; outline-offset: 3px; }
+
+    .approval {
+      --accent: #5525c8;
+      display: grid;
+      grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+      grid-template-areas: "identity review";
+      min-height: 100vh;
+    }
+    .identity { grid-area: identity; padding: clamp(24px, 5vw, 64px); color: white; background: var(--accent); }
+    .mark { font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 750; line-height: 1; letter-spacing: -.05em; }
+    .person { margin-top: 64px; }
+    .review { grid-area: review; padding: clamp(24px, 5vw, 64px); }
+    .record { margin: 24px 0; padding: 20px 0; border-block: 1px solid #d9d5e3; }
+    .amount { display: block; font-size: 2rem; }
+    .preview { margin-top: 20px; }
+    .preview summary {
+      width: fit-content;
+      padding: 10px 14px;
+      border: 1px solid #d9d5e3;
+      border-radius: 8px;
+      background: #eeecf2;
+      color: #514b5c;
+      font-weight: 650;
+    }
+    .preview p { margin-top: 12px; }
+
+    [data-view="approval-b"] .approval {
+      grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
+      grid-template-areas: "review identity";
+    }
+    [data-view="approval-b"] .identity { padding: 36px 24px; color: #22202b; background: #efe8fd; }
+    [data-view="approval-b"] .mark { font-size: 1.5rem; letter-spacing: -.02em; }
+    [data-view="approval-b"] .person { margin-top: 24px; }
+    [data-view="approval-b"] .preview summary { border-color: var(--accent); color: white; background: var(--accent); }
+
+    .rates { max-width: 72rem; margin: 0 auto; padding: clamp(16px, 4vw, 48px); }
+    .rates h1 { margin-bottom: 12px; }
+    .rates details { margin: 12px 0 20px; }
+    .rates details p { margin: 8px 0 0; }
+    .table-wrap { max-width: 100%; overflow-x: auto; border: 1px solid #a9a2ba; border-radius: 4px; }
+    table { width: 100%; min-width: 37rem; border-collapse: collapse; text-align: left; }
+    caption { padding: 8px 12px; text-align: left; background: #e8e2f3; font-weight: 650; }
+    th, td { padding: 8px 12px; border-bottom: 1px solid #ded9e7; }
+    thead { background: #f1edf7; }
+    tbody tr:nth-child(even) { background: #f6f2fa; }
+    tbody tr:last-child > * { border-bottom: 0; }
+    .numeric { text-align: right; font-variant-numeric: tabular-nums; }
+
+    @media (max-width: 680px) {
+      .approval, [data-view="approval-b"] .approval { grid-template-columns: minmax(0, 1fr); min-height: auto; }
+      .approval { grid-template-areas: "identity" "review"; }
+      [data-view="approval-b"] .approval { grid-template-areas: "review" "identity"; }
+      .person { margin-top: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <main id="target"></main>
+  <noscript>JavaScript selects which illustrative screen to display.</noscript>
+
+  <template id="approval-screen">
+    <div class="approval">
+      <section id="approval-review" class="review" aria-labelledby="approval-title">
+        <h1 id="approval-title">Approve expense</h1>
+        <div id="approval-record" class="record">
+          <h2>Office supplies</h2>
+          <strong class="amount">$124.00</strong>
+          <p>Submitted October 20 · Pending approval</p>
+        </div>
+        <p id="approval-consequence">Approval releases payment to the employee.</p>
+        <details class="preview">
+          <summary id="approval-preview">Preview approval</summary>
+          <p>Payment preview: $124.00 to Jordan Lee.</p>
+        </details>
+      </section>
+      <aside id="approval-identity" class="identity" aria-labelledby="approval-brand">
+        <p id="approval-brand" class="mark">Clear Expenses</p>
+        <div class="person">
+          <h2>Jordan Lee</h2>
+          <p>Product Operations</p>
+        </div>
+      </aside>
+    </div>
+  </template>
+
+  <template id="rates-screen">
+    <section class="rates" aria-labelledby="rates-title">
+      <h1 id="rates-title">Travel allowance rates</h1>
+      <p>Applies to domestic travel from 1 January 2027.</p>
+      <details>
+        <summary id="rates-key">Rate definitions</summary>
+        <p>Daily allowance covers meals and incidental expenses. Mileage is reimbursed per mile.</p>
+      </details>
+      <div id="rates-scroll" class="table-wrap" role="region" aria-labelledby="rates-caption" tabindex="0">
+        <table id="rates-table">
+          <caption id="rates-caption">Rates by region</caption>
+          <thead>
+            <tr><th scope="col">Region</th><th scope="col" class="numeric">Daily allowance</th><th scope="col" class="numeric">Mileage</th><th scope="col" class="numeric">Lodging cap</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">North</th><td class="numeric">$48/day</td><td class="numeric">$0.62/mi</td><td class="numeric">$105/night</td></tr>
+            <tr><th scope="row">South</th><td class="numeric">$54/day</td><td class="numeric">$0.62/mi</td><td class="numeric">$120/night</td></tr>
+            <tr><th scope="row">East</th><td class="numeric">$58/day</td><td class="numeric">$0.65/mi</td><td class="numeric">$135/night</td></tr>
+            <tr><th scope="row">West</th><td class="numeric">$60/day</td><td class="numeric">$0.65/mi</td><td class="numeric">$150/night</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </template>
+
+  <script>
+    const screens = new Map([
+      ['approval-a', 'approval-screen'],
+      ['approval-b', 'approval-screen'],
+      ['rates', 'rates-screen']
+    ]);
+    const requested = new URLSearchParams(window.location.search).get('case');
+    const view = requested === null ? 'approval-a' : requested;
+    const target = document.getElementById('target');
+    if (screens.has(view)) {
+      document.body.dataset.view = view;
+      const screen = document.getElementById(screens.get(view));
+      target.append(screen.content.cloneNode(true));
+    } else {
+      target.textContent = 'Unknown fixture case: ' + view;
+    }
+  </script>
+</body>
+</html>

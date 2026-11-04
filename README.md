@@ -37,11 +37,14 @@ Re-running the installer replaces the active folder and retains the previous cop
 Send instructions in agent chat; the packaged executable only installs the skill.
 
 - `$anti-slop audit <target>` — inspect and propose repairs; leave source unchanged.
+- `$anti-slop visual-audit <target>` — inspect rendered layout, color, type, and composition with capture/measurement evidence. `audit --visual` is an alias; both use audit with the visual method.
 - `$anti-slop browser-audit <web target>` — operate the scoped UI and record actual results and coverage. `audit --browser` is an alias.
 - `$anti-slop revise <target>` — apply authorized bounded edits and verify them.
 - `$anti-slop draft <brief>` — create the requested deliverable.
 
 A request to exercise and fix a UI uses revision with the browser method. A URL alone provides a target, not an operation. Ordinary component or copy work does not become a whole-app audit.
+
+“Inspect this screen's layout and color, then fix the issues” uses revision with the visual method and rechecks affected views under comparable conditions. A supplied screenshot can support a bounded visual audit of a web or native app; it does not establish control behavior or measured accessibility conformance. A source-only target remains limited until rendered evidence is available. Visual audits retain purposeful color, identity, and information density rather than imposing a palette, card count, or whitespace score.
 
 For an unresolved direct launch, the agent reads enough of an accessible project to offer grounded target choices. It asks only missing target/operation questions, with at most two setup rounds and three decision questions. At the limit, it retains known choices and waits for missing input. Complete requests proceed immediately.
 
@@ -58,6 +61,7 @@ One entrypoint routes to relevant references instead of loading every checklist 
 | [Editorial method](.agents/skills/anti-slop/references/editorial-method.md) | Drafting, source/brief separation, sentence/document review, translation, and final meaning check; [Korean](.agents/skills/anti-slop/references/writing-profile.md) and [English](.agents/skills/anti-slop/references/english-profile.md) profiles supply language cautions. |
 | [Interface composition](.agents/skills/anti-slop/references/design-profile.md) | Screen/region/component relationships and a ledger for priority, association, redundancy, style/color, and fit/craft. |
 | [Visual style and color](.agents/skills/anti-slop/references/visual-style.md) | Palette roles, accents, typography, surfaces, identity, state/theme behavior, and bounded styling repairs. |
+| [Focused visual audit](.agents/skills/anti-slop/references/visual-audit.md) | Dedicated visual entrypoints, capture context, targeted measurements, evidence-linked judgments, and matched checks after authorized repairs; reuses the design/style criteria. |
 | [Domain and UX preparation](.agents/skills/anti-slop/references/domain-research.md) | Grounded jobs/journeys and inspected comparable-app evidence before app-level audits; bounded work stays bounded. |
 | [Browser audit](.agents/skills/anti-slop/references/browser-audit.md) | Observe, act, verify, record; scoped inventory, coverage, safe test authority, and cleanup. |
 | [Finding policy](.agents/skills/anti-slop/references/finding-evidence.md) | Primary/related rules, report-local content/UX/visual categories, evidence class, severity, and gaps. |
@@ -75,7 +79,7 @@ npm test
 
 This checks package structure and links, rule/source metadata, regression and execution fixture integrity, installer replacement/rollback, and the evidence assessor's unit tests. It does not run models or certify semantic judgment.
 
-The current package includes 161 rule-applicability fixtures, 60 execution scenarios, and 39 behavior scenarios. Regression schema 2 distinguishes applicable rule conditions from deduplicated issue decisions; focused cases specify primary/related rules, class, and severity. Fixture data is not execution evidence.
+The current package includes 161 rule-applicability fixtures, 66 execution scenarios, and 43 behavior scenarios. Regression schema 2 distinguishes applicable rule conditions from deduplicated issue decisions; focused cases specify primary/related rules, class, and severity. Fixture data is not execution evidence.
 
 For a portable copy:
 
@@ -84,7 +88,7 @@ cd .agents/skills/anti-slop
 python3 tests/validate_package.py
 ```
 
-Use [behavior evaluation](.agents/skills/anti-slop/tests/behavior-evaluation.md) for repeated observed executions: at least three fresh runs per scenario, frozen inputs/revision/settings, preserved evidence, and review for unsupported findings as well as omissions. The complete behavior suite requires 117 runs. The optional [recorded execution harness](.agents/skills/anti-slop/tests/run_behavior.py) uses real ephemeral Codex threads, keeps continuation turns in the same thread, and preserves protocol traces; it does not grade itself. Focused exercises are reported separately and cannot establish a full-suite pass.
+Use [behavior evaluation](.agents/skills/anti-slop/tests/behavior-evaluation.md) for repeated observed executions: at least three fresh runs per scenario, frozen inputs/revision/settings, preserved evidence, and review for unsupported findings as well as omissions. The complete behavior suite requires 129 runs. The optional [recorded execution harness](.agents/skills/anti-slop/tests/run_behavior.py) uses real ephemeral Codex threads, keeps continuation turns in the same thread, and preserves protocol traces; it does not grade itself. Focused exercises are reported separately and cannot establish a full-suite pass.
 
 The [2026-10-23 evaluation report](tests/behavior-results-2026-10-23.md) records actual settings, revision digests, observed failures and corrections, repeated results, and the separate actual-image follow-up.
 
@@ -95,6 +99,10 @@ The [2.1.1 preservation evaluation](tests/behavior-results-2026-11-01-preservati
 The [2.1.2 research and evaluation report](tests/behavior-results-2026-11-02.md) records seven state/reflow cases, 21 final response-only executions, an independently reviewed preliminary batch, and the capped independent follow-up. These selected cases do not establish rendered quality, full-suite completion, or improvement attributable to the skill.
 
 The [browser fixture](.agents/skills/anti-slop/tests/browser-audit-fixture.html) tests actual interactions under the [browser evaluation protocol](.agents/skills/anti-slop/tests/browser-evaluation.md). The [visual fixture](.agents/skills/anti-slop/tests/visual-quality-fixture.html) supports capture-based composition/style/copy exercises; the [style control](.agents/skills/anti-slop/tests/visual-style-control.html) supplies a purposeful serif/gradient contrast case. These fixtures’ static controls do not implement a transaction or persistence.
+
+The [2.2.0 visual audit report](tests/visual-audit-results-2026-11-04.md) records actual captures and local disclosure/scroll checks, 12 supplied-image executions, 12 restricted-evidence executions, and observed judgment limits.
+
+The [focused visual audit protocol](.agents/skills/anti-slop/tests/visual-audit-evaluation.md) adds a paired hierarchy fixture, a narrow comparison table, and the festival control. Its four scenarios require 12 independent capture-based runs when evaluated together, separately from the behavior suite.
 
 The [design examples sheet](.agents/skills/anti-slop/references/design-examples.html) is an offline visual teaching aid: paired illustrative arrangements for a week planner and a navigation set, plus a purposeful violet/serif festival treatment retained unchanged. Its panels are explicitly illustrative designs, not product results or measured outcomes; design authoring and authorized-redesign guidance live in the [visual style module](.agents/skills/anti-slop/references/visual-style.md).
 

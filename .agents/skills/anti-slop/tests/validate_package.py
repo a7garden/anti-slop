@@ -8,7 +8,7 @@ import re
 import sys
 sys.dont_write_bytecode = True
 from pathlib import Path
-from urllib.parse import unquote
+from urllib.parse import unquote, urlsplit
 from evaluate_behavior import load_suite
 
 
@@ -17,12 +17,93 @@ RULES = ROOT / "references/rules.md"
 SKILL = ROOT / "SKILL.md"
 CASES = ROOT / "tests/regression_cases.json"
 EXECUTION_CASES = ROOT / "tests/execution_cases.json"
+VISUAL_AUDIT_CASES = ROOT / "tests/visual-audit-cases.json"
 EXAMPLES = ROOT / "references/before-after.md"
 MARKDOWN_LINK = re.compile(r"!?\[[^\]]*\]\(([^)\s]+)(?:\s+[^)]*)?\)")
 
 
 def fail(message: str) -> None:
     raise SystemExit(f"FAIL: {message}")
+
+
+def validate_visual_audit_cases() -> tuple[int, int]:
+    def nonempty_text(value: object) -> bool:
+        return isinstance(value, str) and bool(value.strip())
+
+    def nonempty_text_list(value: object) -> bool:
+        return isinstance(value, list) and bool(value) and all(nonempty_text(item) for item in value)
+
+    data = json.loads(VISUAL_AUDIT_CASES.read_text(encoding="utf-8"))
+    scenarios = data.get("scenarios")
+    repetitions = data.get("minimum_repetitions")
+    if data.get("schema_version") != 1 or not isinstance(scenarios, list) or not scenarios:
+        fail("visual audit fixtures need schema_version 1 and nonempty scenarios")
+    if type(repetitions) is not int or repetitions < 3:
+        fail("visual audit fixtures need at least three repetitions")
+
+    fixture_dir = VISUAL_AUDIT_CASES.parent.resolve()
+    ids = set()
+    for scenario in scenarios:
+        if not isinstance(scenario, dict):
+            fail("visual audit scenarios must be objects")
+        case_id = scenario.get("id")
+        if not nonempty_text(case_id) or case_id in ids:
+            fail("visual audit scenario IDs must be nonempty and unique")
+        ids.add(case_id)
+        if not nonempty_text(scenario.get("prompt")) or not nonempty_text(scenario.get("target")):
+            fail(f"{case_id} needs a visual audit prompt and target")
+        try:
+            target = urlsplit(scenario["target"])
+        except ValueError:
+            fail(f"{case_id} has an invalid visual audit target")
+        decoded_path = unquote(target.path)
+        target_path = Path(decoded_path)
+        if (
+            target.scheme or target.netloc or not decoded_path or target_path.is_absolute()
+            or ".." in target_path.parts or "\\" in decoded_path or "\0" in decoded_path
+        ):
+            fail(f"{case_id} must target a local fixture file without traversal")
+        fixture_path = (fixture_dir / target_path).resolve()
+        if not fixture_path.is_relative_to(fixture_dir) or not fixture_path.is_file():
+            fail(f"{case_id} target fixture is missing or outside the test folder")
+
+        capture = scenario.get("capture")
+        if (
+            not isinstance(capture, dict)
+            or not nonempty_text(capture.get("selector"))
+            or not nonempty_text(capture.get("state"))
+        ):
+            fail(f"{case_id} needs a capture selector and state")
+        for dimension in ("width_css_px", "height_css_px"):
+            value = capture.get(dimension)
+            if type(value) is not int or value <= 0:
+                fail(f"{case_id} needs a positive integer {dimension}")
+
+    reviewer = data.get("reviewer_only")
+    if not isinstance(reviewer, dict):
+        fail("visual audit fixtures need reviewer-only expectations")
+    for field in ("anchors", "preserve"):
+        entries = reviewer.get(field)
+        if not isinstance(entries, dict) or set(entries) != ids:
+            fail(f"visual audit {field} must cover exactly the scenario IDs")
+        if not all(nonempty_text_list(notes) for notes in entries.values()):
+            fail(f"visual audit {field} needs nonempty note lists")
+    pairs = reviewer.get("recheck_pairs")
+    if not isinstance(pairs, list) or not pairs:
+        fail("visual audit fixtures need at least one recheck pair")
+    for pair in pairs:
+        if not isinstance(pair, dict):
+            fail("visual audit recheck pairs must be objects")
+        initial = pair.get("initial")
+        comparison = pair.get("comparison")
+        if (
+            not nonempty_text(initial) or not nonempty_text(comparison)
+            or initial not in ids or comparison not in ids or initial == comparison
+        ):
+            fail("visual audit recheck pair must name two distinct scenario IDs")
+        if not all(nonempty_text_list(pair.get(field)) for field in ("hold_fixed", "recheck")):
+            fail("visual audit recheck pair needs conditions and observations to compare")
+    return len(scenarios), repetitions
 
 
 def validate_execution_cases() -> int:
@@ -105,6 +186,9 @@ def validate_execution_cases() -> int:
             fail(f"{case_id} has unknown invocation route")
         if operation not in {"audit", "browser-audit", "revise", "draft", None}:
             fail(f"{case_id} has unknown operation")
+        if "expected_method" in case:
+            if case["expected_method"] != "visual" or operation not in {"audit", "revise"}:
+                fail(f"{case_id} visual method requires audit or revise")
         if outcome not in {"deliver", "clarify", "interview", "await-input", "maintain"}:
             fail(f"{case_id} has unknown outcome")
         if type(questions) is not int or not 0 <= questions <= 3:
@@ -183,6 +267,7 @@ def main() -> None:
     cases = data.get("cases", [])
     execution_count = validate_execution_cases()
     behavior_suite = load_suite()
+    visual_count, visual_repetitions = validate_visual_audit_cases()
 
     relative_links = 0
     missing_links = []
@@ -304,6 +389,7 @@ def main() -> None:
     )
     print(f"PASS execution fixture integrity: {execution_count} invocation/continuation scenarios; routes and operations covered.")
     print(f"PASS behavior fixture integrity: {len(behavior_suite['cases'])} scenarios; {behavior_suite['minimum_repetitions']} repetitions required. No agent executions performed.")
+    print(f"PASS visual audit fixture integrity: {visual_count} scenarios; {visual_repetitions} repetitions required. No renders or agent executions performed.")
     print("NOTE: these offline checks validate package structure and test coverage, not model judgment or AI authorship.")
 
 

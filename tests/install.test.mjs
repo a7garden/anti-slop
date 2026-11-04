@@ -26,6 +26,16 @@ test("rejects runtime words, unknown flags and missing --dir values before insta
   assert.equal(result.status, 1);
 });
 
+test("visual audit commands are rejected without installing files", () => fixture((root) => {
+  const target = join(root, "skills");
+  const installer = fileURLToPath(new URL("../bin/install.mjs", import.meta.url));
+  for (const args of [["visual-audit", "capture.png"], ["audit", "--visual", "capture.png"], ["--visual"]]) {
+    const result = spawnSync(process.execPath, [installer, "--dir", target, ...args], { encoding: "utf8" });
+    assert.equal(result.status, 1);
+    assert.deepEqual(readdirSync(root), []);
+  }
+}));
+
 test("npm-style symlink entrypoints execute the installer", () => fixture((root) => {
   const alias = join(root, "anti-slop");
   symlinkSync(fileURLToPath(new URL("../bin/install.mjs", import.meta.url)), alias);

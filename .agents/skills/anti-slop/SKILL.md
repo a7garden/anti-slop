@@ -2,7 +2,7 @@
 name: anti-slop
 description: "Draft, audit, or revise prose and product interfaces for clarity, truth, useful structure, and visual fit. Covers sentences, UI copy, layout, typography, style, color, and interaction while preserving the author's voice and product identity."
 metadata:
-  version: "2.1.2"
+  version: "2.2.0"
   short-description: "Writing and interface quality framework"
 ---
 
@@ -18,6 +18,8 @@ Use one entrypoint with task-specific modules. A sentence edit needs no app audi
 
 Chat operations: `audit` inspects; `browser-audit` operates a web UI; `revise` applies authorized edits; `draft` creates the requested artifact. The terminal executable only installs the skill.
 
+`visual-audit` (alias `audit --visual`) selects audit with the focused visual method below. A request to fix the visual issues remains `revise` with that method; it does not add another approval step.
+
 ## Load the relevant modules
 
 | Work | Guidance |
@@ -25,6 +27,7 @@ Chat operations: `audit` inspects; `browser-audit` operates a web UI; `revise` a
 | Prose or interface wording | [Editorial method](references/editorial-method.md); [Korean](references/writing-profile.md) or [English](references/english-profile.md) profile when relevant. Other languages use shared principles with language-specific uncertainty disclosed. |
 | Layout, hierarchy, components, or app design | [Interface composition](references/design-profile.md), including its visual-language module. |
 | Style, palette, type, surfaces, or decoration | [Visual style and color](references/visual-style.md), even when no image asset is involved. |
+| Focused rendered layout/color verification or `visual-audit` | [Visual audit](references/visual-audit.md): capture/context, targeted measurements, evidence-linked judgment, and matched rechecks. Reuses the existing design/style criteria. |
 | Designing or redesigning a visual language | [Authoring and redesign](references/design-profile.md#authoring-and-redesign), with concrete starting recipes. |
 | App-level audit | [Domain and UX preparation](references/domain-research.md) before findings. Bounded edits stay bounded. |
 | Requested interactive walkthrough | [Browser audit](references/browser-audit.md); static inspection cannot complete an interactive target's walkthrough. |
@@ -34,4 +37,4 @@ Use [before/after examples](references/before-after.md) and [regression cases](t
 
 ## Maintenance
 
-Read [comparison notes](references/skill-comparison.md). Run `npm test` in the repository, or `python3 tests/validate_package.py` from a portable skill copy. These validate structure and fixtures, not agent judgment. Use [behavior evaluation](tests/behavior-evaluation.md) and [browser evaluation](tests/browser-evaluation.md) for observed executions. The [OMP extension](extensions/README.md) is optional and inactive.
+Read [comparison notes](references/skill-comparison.md). Run `npm test` in the repository, or `python3 tests/validate_package.py` from a portable skill copy. These validate structure and fixtures, not agent judgment. Use [behavior evaluation](tests/behavior-evaluation.md), [visual audit evaluation](tests/visual-audit-evaluation.md), and [browser evaluation](tests/browser-evaluation.md) for observed executions. The [OMP extension](extensions/README.md) is optional and inactive.

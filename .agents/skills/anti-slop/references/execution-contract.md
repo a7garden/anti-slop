@@ -4,7 +4,7 @@ This is the authority for routing, setup, continuation, edit boundaries, and del
 
 ## 1. Resolve the run
 
-Retain an internal run record across replies: invocation origin, operation, target, edit boundary, requested output, known constraints, unresolved essentials, project overview/source locations, current choices and their numbering, and progress/evidence. App audits also retain domain/comparator research and journey priorities. Do not create a file for this setup record. An acknowledgment after delivery does not restart the run or authorize edits.
+Retain an internal run record across replies: invocation origin, operation, selected method (visual/browser when relevant), target, edit boundary, requested output, known constraints, unresolved essentials, project overview/source locations, current choices and their numbering, and progress/evidence. App audits also retain domain/comparator research and journey priorities. Do not create a file for this setup record. An acknowledgment after delivery does not restart the run or authorize edits.
 
 ### Route and operation
 
@@ -17,11 +17,14 @@ Resolve the operation from the user's requested outcome, then retained continuat
 | Intent | Operation |
 | --- | --- |
 | Inspect or review | audit |
+| Inspect rendered layout, color, or visual composition with `visual-audit` / `audit --visual` | audit using the visual method |
 | Open and exercise a web UI | browser-audit (`audit --browser` alias) |
 | Edit or repair | revise |
 | Create or write | draft |
 
 A request to exercise the UI and fix findings is **revise using the browser method**, including on a direct run. Retain pre-repair observations and verify affected probes afterward. If audit-only and edit instructions conflict without a clear override, perform the clear read-only portion and clarify before editing.
+
+`visual-audit` and `audit --visual` are equivalent focused audit entrypoints, not a fifth operation. Use [visual-audit.md](visual-audit.md) for their evidence and recheck procedure. An explicit request to fix the visual issues selects **revise using the visual method**. A visual audit may inspect supplied captures, a web render, or a native app through the host's available tools; it does not imply an exhaustive interaction walkthrough or a web reconstruction of a native target. Additional browser interaction follows the browser method's authority and coverage boundaries.
 
 Resolve the target from supplied content, a named artifact, an accessible selection, or an unambiguous conversation reference. A URL supplies a target, not an exhaustive browser mode; a working directory does not select the whole repository. Do not guess among equally plausible targets or expand a selected component to its neighbors.
 
@@ -34,7 +37,7 @@ Stay inside the identified project. Do not install, start servers, mutate files,
 Use at most **two setup rounds and three decision questions**:
 
 1. Briefly state the inspected project basis and offer a small set of concrete artifacts/journeys. Without usable context, offer prose review/edit, UI audit/improvement, or new writing. If both target and operation are unresolved, this first round asks only for the work/target; do not append an operation picker to that prompt. Allow a free-form alternative. Never respond to a bare launch with only an open-ended target question.
-2. Ask only what remains: target/input and operation. A chosen project target needs only an operation; a known operation needs only a target. Offer audit/revise for prose and audit/browser-audit/revise for a supported web UI. Drafting needs purpose and supported facts. Request the actual text/path/URL in the choice prompt, rather than asking for an input method and then asking for its value.
+2. Ask only what remains: target/input and operation. A chosen project target needs only an operation; a known operation needs only a target. Offer audit/revise for prose and relevant audit methods or revision for UI: visual-audit for layout/color, browser-audit for a web walkthrough. Drafting needs purpose and supported facts. Request the actual text/path/URL in the choice prompt, rather than asking for an input method and then asking for its value.
 
 Use the host's choice UI when available and permitted; otherwise a numbered menu works. A default selection is not a submitted answer. Read the entire reply: “1, review this” can resolve the operation as well as the category. Do not repeat answered questions or ask “shall I proceed?” once resolved. A URL alone still leaves the operation unresolved. Skipping setup cannot supply a missing target or authorize invented facts.
 
@@ -58,6 +61,8 @@ Audit/revise inspects sentence/component and whole-artifact relationships before
 
 UI review uses [design-profile.md](design-profile.md) and its style/color module. Keep the scoped screen/viewport/state ledger and reconcile concerns before ranking. A source-only review cannot establish rendered quality. Requested walkthroughs use [browser-audit.md](browser-audit.md): actual observations/actions/results, declared coverage, and visible gaps; static fallback is not completed interaction testing.
 
+For a focused visual audit or visual revision, [visual-audit.md](visual-audit.md) adds the capture/context and matched-recheck procedure to that same ledger. It does not add a second rubric or expand a named component into an app-wide audit.
+
 ## 4. Propose or apply
 
 Audit/browser-audit proposes minimal repairs and leaves product source unchanged. Browser interaction authority and cleanup follow the browser method. Revision applies already authorized changes without another permission request; a redesign applies its direction across the target without first recasting each choice as a finding. Drafting refines the requested artifact. Do not present taste as a required repair, exceed the authorized extent, pad findings, or modify clean material outside that extent.
@@ -70,7 +75,7 @@ The stages are a working sequence, not five mandatory messages. Announce a resol
 
 | Operation | Direct delivery |
 | --- | --- |
-| Audit | Scope; ranked findings with primary W/D or report-local CT/UX/VD ID, class, severity, excerpt/location, evidence, impact, minimal repair; material limits. App audits include compact domain/comparator basis and visual ledger coverage. A no-finding result is valid. |
+| Audit | Scope; ranked findings with primary W/D or report-local CT/UX/VD ID, class, severity, excerpt/location, evidence, impact, minimal repair; material limits. Visual-method delivery links captures/regions, separates measurements from design judgment, and states inspected view/state coverage. App audits include compact domain/comparator basis and visual ledger coverage. A no-finding result is valid. |
 | Browser-audit | Environment/scope; research status, separate visual and interaction coverage; ranked findings with replay actions and expected/observed results; actual evidence and unresolved probes. Completion describes coverage, not whole-product correctness. |
 | Revise | Final text or requested file edits; compact change summary and material unresolved issues. |
 | Draft | Requested artifact; only material evidence gaps needed to interpret it. |

@@ -778,6 +778,76 @@
           "bounded_repair_scoped"
         ]
       }
+    },
+    {
+      "id": "visual-audit-source-only",
+      "context": "Response-only. The user pasted the only available source. There is no capture, rendered page, or accessibility measurement.",
+      "turns": [
+        "$anti-slop visual-audit 이 예약 변경 모달만 검토해 줘. 미리보기나 캡처는 없어. 전체 CSS 중 지금 줄 수 있는 부분은 .change-booking { min-width: 480px; color: var(--secondary-text); } 야. 좁은 화면에서 어떤 부분을 확인해야 할지 알려 줘."
+      ],
+      "expected": {
+        "route": "direct",
+        "operation": "audit",
+        "max_skill_questions": 0,
+        "checks": [
+          "scope_preserved",
+          "verification_honest",
+          "source_observation_separate_from_rendered_verdict"
+        ]
+      }
+    },
+    {
+      "id": "visual-audit-alias-supplied-observation",
+      "context": "Response-only. The user supplies notes from a rendered observation. No image, browser, measurement, or source is available to the evaluated agent.",
+      "turns": [
+        "$anti-slop audit --visual 이 물류 콘솔의 데스크톱 표 화면만 봐 줘. 실제 화면 관찰 기록: 조밀한 표에서 운송장 번호, 상태, 도착 예정 시각의 열이 정렬돼 행끼리 비교하기 쉽고 글자가 잘리지 않아. 작업자가 바로 확인해야 하는 지연 상태는 보라색과 ‘지연’ 텍스트로 함께 표시돼. 표 위에는 표와 같은 제목의 보라색 배너가 화면 높이의 3분의 1을 차지하고, 작업에 필요한 지연 행은 첫 화면 아래로 밀려 있어. 보라색은 지정된 브랜드 색이야."
+      ],
+      "expected": {
+        "route": "direct",
+        "operation": "audit",
+        "max_skill_questions": 0,
+        "checks": [
+          "scope_preserved",
+          "verification_honest",
+          "supplied_observation_not_self_observation",
+          "task_based_visual_warning",
+          "sound_style_and_density_preserved"
+        ]
+      }
+    },
+    {
+      "id": "visual-audit-native-capture-metadata-only",
+      "context": "Response-only. The user describes screenshot metadata, but no screenshot bytes, visual observations, source, or live native app are available.",
+      "turns": [
+        "$anti-slop visual-audit macOS 재고 앱의 품목 편집 화면을 캡처한 EditItem.png만 감사해 줘. 1440×900, 다크 모드, 오류 상태라는 메타데이터만 있고 지금은 이미지 파일을 보낼 수 없어."
+      ],
+      "expected": {
+        "route": "direct",
+        "operation": "audit",
+        "max_skill_questions": 0,
+        "checks": [
+          "scope_preserved",
+          "verification_honest",
+          "metadata_not_rendered_evidence"
+        ]
+      }
+    },
+    {
+      "id": "visual-audit-mismatched-verification",
+      "context": "Response-only. The user supplies two observations and their conditions. Neither capture nor a live preview is independently available.",
+      "turns": [
+        "$anti-slop visual-audit 줄바꿈 문제가 고쳐졌는지 판단해 줘. 수정 전 관찰은 360 CSS px, 라이트 모드, 결제 세부 패널이 열린 상태였고 버튼 문구 끝이 잘렸어. 수정 후 관찰은 1024 CSS px, 다크 모드, 패널이 닫힌 상태였고 보이는 버튼 문구는 전부 맞았어. 같은 조건의 수정 후 캡처는 없어."
+      ],
+      "expected": {
+        "route": "direct",
+        "operation": "audit",
+        "max_skill_questions": 0,
+        "checks": [
+          "scope_preserved",
+          "verification_honest",
+          "noncomparable_observations_not_repair_verification"
+        ]
+      }
     }
   ]
 }

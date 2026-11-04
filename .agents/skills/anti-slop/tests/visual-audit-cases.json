@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "minimum_repetitions": 3,
+  "scenarios": [
+    {
+      "id": "approval-a",
+      "prompt": "$anti-slop visual-audit this illustrative expense approval screen. Review layout and color for the task of deciding whether to approve the expense. The review preview is in scope; payment execution is outside this fixture. Leave the fixture unchanged.",
+      "target": "visual-audit-fixture.html?case=approval-a",
+      "capture": {
+        "selector": "#target",
+        "width_css_px": 1100,
+        "height_css_px": 740,
+        "state": "Preview approval closed"
+      }
+    },
+    {
+      "id": "approval-b",
+      "prompt": "$anti-slop visual-audit this illustrative expense approval screen. Review layout and color for the task of deciding whether to approve the expense. The review preview is in scope; payment execution is outside this fixture. Leave the fixture unchanged.",
+      "target": "visual-audit-fixture.html?case=approval-b",
+      "capture": {
+        "selector": "#target",
+        "width_css_px": 1100,
+        "height_css_px": 740,
+        "state": "Preview approval closed"
+      }
+    },
+    {
+      "id": "rates",
+      "prompt": "$anti-slop audit --visual this illustrative travel allowance screen. Assess the narrow view for a coordinator comparing reimbursement rates across regions. Leave the fixture unchanged.",
+      "target": "visual-audit-fixture.html?case=rates",
+      "capture": {
+        "selector": "#target",
+        "width_css_px": 320,
+        "height_css_px": 720,
+        "state": "Rate definitions closed, table scrolled to the start"
+      }
+    },
+    {
+      "id": "festival",
+      "prompt": "$anti-slop visual-audit this illustrative festival page. Its approved visual direction is a violet gradient and serif display type. Check whether the date, schedule and ticket information remain clear within that direction. Leave the fixture unchanged.",
+      "target": "visual-style-control.html",
+      "capture": {
+        "selector": "main",
+        "width_css_px": 1100,
+        "height_css_px": 740,
+        "state": "Initial view"
+      }
+    }
+  ],
+  "reviewer_only": {
+    "anchors": {
+      "approval-a": [
+        "The full-height violet identity pane and oversized brand text outrank the pending record and subdued Preview approval control. Anchor the warning in this rendered relationship and the approval decision (D08), rather than the use of violet itself. Treat the likely effect as judgment."
+      ],
+      "approval-b": [
+        "The review leads the composition and the accent emphasizes the preview while the identity remains identifiable. Do not repeat the earlier hierarchy warning or manufacture a different fault to fill the report."
+      ],
+      "rates": [
+        "The table has local horizontal scrolling while surrounding content fits. Separate its region from the page, heading and Rate definitions disclosure. Do not call the scrollbar alone a reflow failure or infer full accessibility conformance.",
+        "The initial narrow capture cuts off the first rate heading and units; after horizontal scrolling, the region labels can leave view. A bounded column-width or sticky-row-header finding can be supported by these observed relationships. Preserve the table and row/column associations rather than converting it to cards or requiring every column to fit at once.",
+        "Repeated /day, /mi, and /night units identify distinct rate bases. Retain all units and amounts; assess whether they and their region labels can be read together in the inspected state. This is a preservation control, not a required zero-findings answer."
+      ],
+      "festival": [
+        "The violet gradient and serif display type serve the supplied brief. Retain them and examine their actual relationship to the schedule, date and ticket information. The synthetic ticket label does not prove that checkout exists or works."
+      ]
+    },
+    "preserve": {
+      "approval-a": [
+        "Clear Expenses and employee identity",
+        "Office supplies, $124.00, October 20 and Pending approval",
+        "Payment consequence and Preview approval disclosure"
+      ],
+      "approval-b": [
+        "Clear Expenses and employee identity",
+        "Office supplies, $124.00, October 20 and Pending approval",
+        "Payment consequence and Preview approval disclosure"
+      ],
+      "rates": [
+        "Domestic scope and effective date",
+        "All four rows, amounts and units",
+        "Row and column relationships and Rate definitions disclosure"
+      ],
+      "festival": [
+        "Violet gradient and serif display type",
+        "Festival identity, date, venue, ticket price and schedule"
+      ]
+    },
+    "recheck_pairs": [
+      {
+        "initial": "approval-a",
+        "comparison": "approval-b",
+        "hold_fixed": [
+          "engine",
+          "viewport",
+          "zoom",
+          "theme",
+          "capture region",
+          "initial disclosure state"
+        ],
+        "recheck": [
+          "Identity versus review emphasis",
+          "Preview control and consequence remain visible and readable",
+          "Same content and native disclosure in both variants"
+        ]
+      }
+    ]
+  }
+}
