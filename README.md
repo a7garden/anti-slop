@@ -10,6 +10,7 @@ It is not an AI detector. A word, punctuation mark, palette, card, or gradient i
 - Avoid unnecessary secondary labels and explanatory text. Let layout carry grouping and hierarchy; preserve meaningful labels, conditions, accessible names, units, and recovery.
 - Check style and color against the actual brief, content, emphasis, and state. Do not replace every identity with a neutral theme or ban a color/font by default.
 - A requested redesign may choose a coherent palette, type, and layout without first proving the old arrangement defective. Declared identity, names, features, facts, and accessibility stay protected; starter defaults alone do not establish brand constraints.
+- When authoring without a set direction, design minimally: hierarchy from type and space before chrome, and purpose-built components where stock ones distort the content, on familiar accessible interaction. Interfaces for AI agents center the run, its footprint, and the pending decision rather than the chat log. Neither is an audit criterion.
 - Preserve facts, uncertainty, attribution, conditions, voice, and protected literals. Never invent proof, features, experiences, causes, or commitments.
 - Separate demonstrated errors, contextual warnings, optional taste, and unverified gaps. Class and severity are independent.
 - Distinguish confirmed empty results from unavailable data and field validation from service failures. Preserve useful error summaries and the scoped reflow exceptions for tables and maps.
@@ -59,7 +60,8 @@ One entrypoint routes to relevant references instead of loading every checklist 
 | [Shared quality framework](.agents/skills/anti-slop/references/quality-framework.md) | Scope, precedence, economy, truth, voice, and stopping discipline across media. |
 | [Execution contract](.agents/skills/anti-slop/references/execution-contract.md) | Routing, short setup, continuation, five-stage progression, edit boundaries, and delivery. |
 | [Editorial method](.agents/skills/anti-slop/references/editorial-method.md) | Drafting, source/brief separation, sentence/document review, translation, and final meaning check; [Korean](.agents/skills/anti-slop/references/writing-profile.md) and [English](.agents/skills/anti-slop/references/english-profile.md) profiles supply language cautions. |
-| [Interface composition](.agents/skills/anti-slop/references/design-profile.md) | Screen/region/component relationships and a ledger for priority, association, redundancy, style/color, and fit/craft. |
+| [Interface composition](.agents/skills/anti-slop/references/design-profile.md) | Authoring stance and starting values; screen/region/component relationships and a ledger for priority, association, redundancy, style/color, and fit/craft. |
+| [Agent experience](.agents/skills/anti-slop/references/agent-experience.md) | Delegation surfaces for AI agents: scope, plan, run status, risk-proportional checkpoints, interrupt, footprint-first results, recovery, and return, bounded by actual capability. |
 | [Visual style and color](.agents/skills/anti-slop/references/visual-style.md) | Palette roles, accents, typography, surfaces, identity, state/theme behavior, and bounded styling repairs. |
 | [Focused visual audit](.agents/skills/anti-slop/references/visual-audit.md) | Dedicated visual entrypoints, capture context, targeted measurements, evidence-linked judgments, and matched checks after authorized repairs; reuses the design/style criteria. |
 | [Domain and UX preparation](.agents/skills/anti-slop/references/domain-research.md) | Grounded jobs/journeys and inspected comparable-app evidence before app-level audits; bounded work stays bounded. |
@@ -88,7 +90,7 @@ cd .agents/skills/anti-slop
 python3 tests/validate_package.py
 ```
 
-Use [behavior evaluation](.agents/skills/anti-slop/tests/behavior-evaluation.md) for repeated observed executions: at least three fresh runs per scenario, frozen inputs/revision/settings, preserved evidence, and review for unsupported findings as well as omissions. The complete behavior suite requires 129 runs. The optional [recorded execution harness](.agents/skills/anti-slop/tests/run_behavior.py) uses real ephemeral Codex threads, keeps continuation turns in the same thread, and preserves protocol traces; it does not grade itself. Focused exercises are reported separately and cannot establish a full-suite pass.
+Use [behavior evaluation](.agents/skills/anti-slop/tests/behavior-evaluation.md) for repeated observed executions: at least three fresh runs per scenario, frozen inputs/revision/settings, preserved evidence, and review for unsupported findings as well as omissions. The complete behavior suite requires 135 runs. The optional [recorded execution harness](.agents/skills/anti-slop/tests/run_behavior.py) uses real ephemeral Codex threads, keeps continuation turns in the same thread, and preserves protocol traces; it does not grade itself. Focused exercises are reported separately and cannot establish a full-suite pass.
 
 The [2026-10-23 evaluation report](tests/behavior-results-2026-10-23.md) records actual settings, revision digests, observed failures and corrections, repeated results, and the separate actual-image follow-up.
 

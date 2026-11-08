@@ -73,6 +73,20 @@ The current [Anthropic frontend-design](https://github.com/anthropics/skills/blo
 
 The narrow update lives in the existing design profile, browser checks, and D11/D12 rather than adding a separate skill or more canonical IDs. Its focused behavior cases pair real state/reflow problems with confirmed-empty, useful-summary, and intact-table controls. Fixture additions and structural checks alone do not establish that agents distinguish them; record actual executions separately.
 
+## Authoring stance and agent experience (2026-11-08)
+
+The owner asked that design work follow a minimalist, current-practice stance, design purpose-built components instead of defaulting to stock ones, and fit the experience of directing AI agents. The following sources were read on 2026-11-08 as practitioner input, not usability standards or measured outcomes. No text, images, or code were copied.
+
+| Source | Applied decision | Not adopted |
+| --- | --- | --- |
+| [Agentic UX framework](https://agentic-ux.com/framework) (updated 2026-10-24) | Delegation lifecycle (before, while, after a run); supervision sized by ambiguity, duration, reversibility, and stakes; *waiting on you* as a distinct state; a return briefing. Applied in agent-experience phases and sizing. | Eleven named patterns as a checklist; Generative UI as a default; brand-named product mappings. |
+| [Setproduct: 16 AI agent UI design patterns](https://www.setproduct.com/blog/ai-agent-ui-design-patterns) (2026-09-21) | Actions versus reasoning; tiered and batched checkpoints with a distinct destructive form; pause that keeps completed work; footprint-first results with verified/assumed/not-done status; no fake percentages. Applied in the phase table and truth boundary. | Fixed tier colors, a question cap of three, mandatory cost estimates, a 2×2 quadrant mandate, per-action undo as a requirement where unsupported. |
+| [Microsoft Guidelines for Human-AI Interaction](https://www.microsoft.com/en-us/research/wp-content/uploads/2019/01/HAI.Guidelines.CHI2019.v10.share_.pdf) and [Google PAIR Guidebook](https://pair.withgoogle.com/guidebook/) (referenced through the framework above) | Calibrated trust: show what the system can do, support efficient correction and dismissal, and scope services when uncertain. Reinforces the truth boundary and interrupt rows. | Their full guideline sets as review rules. |
+
+The stance lives in the design profile's authoring section and the agent guidance in its own module, so ordinary audits are unchanged: departing from the stance or lacking an agent surface is not a finding without an observed task consequence. "Current practice" is expressed as concrete choices (hierarchy from type and space, one accent, content-shaped components on familiar interaction, quiet motion), because a trend label cannot decide between two options. Two behavior cases pair an agent run-surface draft with a small reversible agent feature that must not receive the full pattern set; fixture additions alone do not establish agent behavior.
+
+Exploratory, non-independent smoke runs on 2026-11-08 used omp task agents with the installed skill and the owner's global instructions, which already named the stance. The small-feature control produced no forced findings and stated its observation limits. The first run-surface draft covered scope, distinct run states, inline risk-proportional approval, and a footprint-first result, but added an unsupported "Add to allowlist and run" control and a run history; the truth boundary now names checkpoint shortcuts and run history. A rerun after that change omitted both. These are single executions, not a suite pass.
+
 ## Local result and re-evaluation
 
 The new editorial reference covers drafting, voice, brief boundaries, document consistency, and conditional text hygiene. Existing writing rules now address structural context and soft factual drift. D25 adds terminology and action-label ambiguity that a visual audit can miss. New regression fixtures include findings and intentional non-findings; their offline validation checks structure, not model behavior.

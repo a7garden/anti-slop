@@ -20,7 +20,8 @@ from evaluate_behavior import skill_digest
 RUNTIME_REFERENCES = (
     'quality-framework.md', 'execution-contract.md', 'editorial-method.md',
     'writing-profile.md', 'english-profile.md', 'design-profile.md',
-    'visual-style.md', 'domain-research.md', 'visual-audit.md', 'browser-audit.md',
+    'agent-experience.md', 'visual-style.md', 'domain-research.md',
+    'visual-audit.md', 'browser-audit.md',
     'finding-evidence.md', 'rules.md',
 )
 CONFIG = {

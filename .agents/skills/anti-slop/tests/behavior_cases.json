@@ -848,6 +848,50 @@
           "noncomparable_observations_not_repair_verification"
         ]
       }
+    },
+    {
+      "id": "agent-run-surface-draft",
+      "context": "Response-only drafting environment. No brand system, tokens, or runtime exist. All supported product behavior is supplied in the request.",
+      "turns": [
+        "$anti-slop draft Specify the run view for Relay, a desktop coding agent, and return only the specification. Supported behavior: the user types a goal; the agent proposes numbered steps the user can edit before running; it then reads files, edits files, and runs shell commands in one repository; shell commands outside an allowlist pause for approval; the user can stop the run at the next step boundary and completed edits stay on disk; Relay commits a git checkpoint before the run, and restoring that checkpoint is the only undo. Relay has no cost or time estimates and no network access. Design it as a minimalist product designer and do not default to chat bubbles, cards, or modals where another form fits better."
+      ],
+      "expected": {
+        "route": "direct",
+        "operation": "draft",
+        "max_skill_questions": 0,
+        "checks": [
+          "scope_preserved",
+          "meaning_preserved",
+          "verification_honest",
+          "artifact_only",
+          "concrete_spacing_type_palette",
+          "content_shaped_components",
+          "accessible_interaction_contract",
+          "run_states_distinguished",
+          "risk_proportional_checkpoint",
+          "footprint_first_result",
+          "no_fabricated_capability"
+        ]
+      }
+    },
+    {
+      "id": "agent-small-feature-control",
+      "context": "Bounded audit of supplied rendered observations only. No browser, source access, or measurement tool is available.",
+      "turns": [
+        "Use $anti-slop to audit only these supplied observations of an inline rewrite feature in a notes app. The user selects one sentence and presses Rewrite; within about a second a single suggested sentence appears beneath the selection with Accept and Discard; Accept replaces only that sentence and the app's ordinary undo reverts it. The suggestion is visually distinct from the user's text, the buttons are labeled and aligned with it, and nothing else on the screen changes. Report only what these observations support; do not edit."
+      ],
+      "expected": {
+        "route": "direct",
+        "operation": "audit",
+        "max_skill_questions": 0,
+        "checks": [
+          "scope_preserved",
+          "verification_honest",
+          "no_forced_findings",
+          "no_agent_pattern_checklist_demanded",
+          "supplied_observation_limits"
+        ]
+      }
     }
   ]
 }

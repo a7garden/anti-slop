@@ -1,6 +1,6 @@
 {
   "name": "@a7garden/anti-slop",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Modular quality framework for prose, UI copy, layout, visual style, color, and interaction — evidence-grounded review, not a detector.",
   "bin": {
     "anti-slop": "bin/install.mjs"

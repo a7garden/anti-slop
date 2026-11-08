@@ -1,8 +1,8 @@
 ---
 name: anti-slop
-description: "Draft, audit, or revise prose and product interfaces for clarity, truth, useful structure, and visual fit. Covers sentences, UI copy, layout, typography, style, color, and interaction while preserving the author's voice and product identity."
+description: "Draft, audit, or revise prose and product interfaces for clarity, truth, useful structure, and visual fit. Covers sentences, UI copy, layout, components, typography, style, color, interaction, and interfaces for delegating to AI agents, while preserving the author's voice and product identity."
 metadata:
-  version: "2.2.0"
+  version: "2.3.0"
   short-description: "Writing and interface quality framework"
 ---
 
@@ -28,7 +28,8 @@ Chat operations: `audit` inspects; `browser-audit` operates a web UI; `revise` a
 | Layout, hierarchy, components, or app design | [Interface composition](references/design-profile.md), including its visual-language module. |
 | Style, palette, type, surfaces, or decoration | [Visual style and color](references/visual-style.md), even when no image asset is involved. |
 | Focused rendered layout/color verification or `visual-audit` | [Visual audit](references/visual-audit.md): capture/context, targeted measurements, evidence-linked judgment, and matched rechecks. Reuses the existing design/style criteria. |
-| Designing or redesigning a visual language | [Authoring and redesign](references/design-profile.md#authoring-and-redesign), with concrete starting recipes. |
+| Designing or redesigning UI or a visual language | [Authoring and redesign](references/design-profile.md#authoring-and-redesign): minimalist, content-shaped [authoring stance](references/design-profile.md#authoring-stance) and concrete starting values. |
+| Interfaces where people delegate to, supervise, or review AI agents | [Agent experience](references/agent-experience.md), with the authoring stance. |
 | App-level audit | [Domain and UX preparation](references/domain-research.md) before findings. Bounded edits stay bounded. |
 | Requested interactive walkthrough | [Browser audit](references/browser-audit.md); static inspection cannot complete an interactive target's walkthrough. |
 | Reporting a finding | [Finding and evidence policy](references/finding-evidence.md), then relevant [canonical rules](references/rules.md). Draft from the brief, not the rule catalog. |

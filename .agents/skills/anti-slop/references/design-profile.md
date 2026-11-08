@@ -10,11 +10,25 @@ For a focused `visual-audit` or visual revision, [visual-audit.md](visual-audit.
 
 ## Authoring and redesign
 
-The [execution contract](execution-contract.md#2-establish-the-brief) sets the extent. Before substantial UI drafting or redesign, derive a short working brief from the request, product, and existing screens: the product and the user's job; a few character words specific enough to decide between two options; declared constraints and identity to keep; the content or result the screen should emphasize; and, only if it helps, one recurring detail or metaphor taken from the product. Omit what context does not support. It is a working note, not a form, report, or approval checkpoint. Settings, admin, and business tools are often best served by familiar patterns; novelty and a distinctive flourish are optional.
+The [execution contract](execution-contract.md#2-establish-the-brief) sets the extent. Before substantial UI drafting or redesign, derive a short working brief from the request, product, and existing screens: the product and the user's job; a few character words specific enough to decide between two options; declared constraints and identity to keep; the content or result the screen should emphasize; and, only if it helps, one recurring detail or metaphor taken from the product. Omit what context does not support. It is a working note, not a form, report, or approval checkpoint.
 
 **Choosing is not finding.** While authoring, commit to concrete values and check them at rendered size; each is a hypothesis the content can overturn. In a review, a value differing from these recipes is not a defect; it needs the evidence in [finding-evidence.md](finding-evidence.md).
 
 **Separate presentation from capability.** A visual redesign authorizes layout, type, and color choices; claims about existing actions, calculations, and functional states still need supplied or inspected support. Generic safeguards to preserve supported behavior retain whatever is actually present; they do not establish that a particular capability exists. If the proposed composition relies on a specific unknown behavior, make that dependency explicitly conditional on support or omit it; ask only if the missing fact blocks the requested work. A conditional cannot override a supplied exclusion. Grouping or emphasizing supplied records is a presentation choice, not evidence of additional product behavior.
+
+### Authoring stance
+
+Unless the brief, a declared identity, or an existing design system sets another direction, author as a minimalist product designer in current practice: restrained chrome, precise type and spacing, and components shaped by the content rather than picked from a catalog. This is an authoring default; in a review, departing from it is not a defect.
+
+- **Minimal by subtraction.** Start from the content and the user's decision, then add only what separates, orders, or acts. Let type scale, weight, spacing, and alignment carry hierarchy before reaching for boxes, borders, shadows, dividers, badges, or icons; each container must separate something the reader needs separated. Keep one accent for action, selection, or the key figure and let neutrals do the rest. Minimal is not sparse or hidden: required labels, states, and conditions stay visible under the [shared framework](quality-framework.md), and dense data can be minimal when nothing competes with it.
+- **Shape components to the content.** Before reaching for a card grid, modal, tab bar, stepper, toast, spinner, chat bubble, or row of metric tiles, name the structure the content has (sequence, comparison, hierarchy, timeline, part-to-whole, state over time) and the decision the user makes with it. When a stock component distorts that structure, design a purpose-built one: a ledger with one line of progress and outcome per step, an inline consequence mark instead of a confirmation modal, a scope strip instead of a trip to settings, a diff-first result instead of a success toast. Do not wrap everything in cards because cards are available.
+- **Novel form, familiar contract.** A new component keeps the interaction users already know: build it on native elements or an established ARIA pattern, with keyboard operation, visible focus, accessible names, and every state it can reach (empty, loading, partial, error, disabled, selected). Define it once, name it in code, and reuse it; a one-off ornament per screen is not a component.
+- **Novelty earns its place.** Choose a new form when it makes the decision clearer, faster, or more truthful than the familiar one; difference alone is not quality. Settings, authentication, plain forms, and admin tables are usually best served by familiar patterns. Fashionable treatments such as glass layers, glow, gradient meshes, or oversized display type are choices that need a role, not defaults.
+- **Quiet motion.** Animate to show a real change of state, place, or cause; keep it short and interruptible, and respect reduced-motion settings.
+
+For interfaces where people delegate to, supervise, or review AI agents, also use [agent-experience.md](agent-experience.md).
+
+### Starting values and passes
 
 Where no authoritative design system exists, these starting recipes are useful. Adjust them to language, platform, density, and content:
 

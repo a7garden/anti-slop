@@ -4,7 +4,7 @@ Package validation checks data integrity. This evaluation checks **observed agen
 
 ## Run protocol
 
-Use [behavior_cases.json](behavior_cases.json): 43 scenarios, at least three fresh executions each (129 runs). Keep model, harness, skill revision, and available tools constant within a comparison. Record actual settings rather than assuming defaults. These cases cover all four operations and supplement the 66 broader [execution scenarios](execution_cases.json); they do not prove all scenarios pass.
+Use [behavior_cases.json](behavior_cases.json): 45 scenarios, at least three fresh executions each (135 runs). Keep model, harness, skill revision, and available tools constant within a comparison. Record actual settings rather than assuming defaults. These cases cover all four operations and supplement the 66 broader [execution scenarios](execution_cases.json); they do not prove all scenarios pass.
 
 Prepare evaluator inputs without answers:
 
@@ -52,6 +52,8 @@ For each case's semantic checks, record a boolean, reason, and exact evidence re
 - `no_fabricated_capability`: supplied/observed facts bind claims about existing functions, editing actions, calculations, and functional states; an unsupported assertion of existing behavior fails even when presented as a preservation dependency. Generic safeguards retain whatever supported behavior is actually present, without establishing that any particular capability exists. A proposed composition that relies on a specific unknown behavior needs an explicit support condition or must omit that dependency. Presentational grouping or emphasis derived from supplied data is allowed. A conditional does not override an explicitly excluded capability. Incidental cosmetic choices need not be supplied.
 
 New framework cases also check redundant prose/UI scaffolding against preserved labels and conditions, styling and color within the brief, intact supplied metrics despite inaccessible records, content fallback categories, one-primary-rule deduplication, class/severity calibration, and awaiting-input continuation after the setup cap. Design authoring cases additionally check that an authorized redesign or fresh draft supplies concrete palette, type, and spacing roles without inventing findings, demanding another approval, or claiming unrun verification.
+
+Agent experience cases check that a drafted agent run surface makes scope, run state (including *waiting on you*), risk-proportional checkpoints, and a footprint-first result concrete with purpose-built components on accessible interaction, without drawing unsupported capabilities such as per-action undo or estimates; and that an audit of a small reversible agent feature does not demand the full delegation pattern set.
 
 Semantic review requires judgment; an exact word match cannot establish it. Require trace evidence and a reason even for passes. Negative conclusions about actions not performed need the complete tool transcript/artifact comparison, with a cited relevant span and the completeness basis in the reason.
 
